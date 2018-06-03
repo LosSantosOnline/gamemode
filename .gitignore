@@ -6,3 +6,6 @@ server.exe
 /plugins
 /idea
 /.idea
+/node_modules
+conf.json
+/client_packages/.listcache
