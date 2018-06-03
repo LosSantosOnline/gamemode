@@ -1,1 +1,2 @@
-require("./Login//Login.js");
+require("./Util/Logger");
+require("./Login/Login");
