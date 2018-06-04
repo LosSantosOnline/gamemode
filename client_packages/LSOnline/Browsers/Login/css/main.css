@@ -7,22 +7,22 @@
 
 @font-face {
   font-family: Poppins-Regular;
-  src: url('../fonts/poppins/Poppins-Regular.ttf'); 
+  src: url('../fonts/open-sans/OpenSans-Light.ttf');
 }
 
 @font-face {
   font-family: Poppins-Medium;
-  src: url('../fonts/poppins/Poppins-Medium.ttf'); 
+  src: url('../fonts/open-sans/OpenSans-Regular.ttf');
 }
 
 @font-face {
   font-family: Poppins-Bold;
-  src: url('../fonts/poppins/Poppins-Bold.ttf'); 
+  src: url('../fonts/open-sans/OpenSans-Bold.ttf');
 }
 
 @font-face {
   font-family: Poppins-SemiBold;
-  src: url('../fonts/poppins/Poppins-SemiBold.ttf'); 
+  src: url('../fonts/open-sans/OpenSans-SemiBold.ttf');
 }
 
 /*//////////////////////////////////////////////////////////////////
@@ -37,6 +37,7 @@
 body, html {
 	height: 100%;
 	font-family: Poppins-Regular, sans-serif;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 /*---------------------------------------------*/
@@ -469,8 +470,6 @@ iframe {
 }
 
 .alert-validate::after {
-  content: "\f06a";
-  font-family: FontAwesome;
   display: block;
   position: absolute;
   color: #c80000;
@@ -497,8 +496,6 @@ iframe {
 }
 
 .true-validate::after {
-  content: "\f26b";
-  font-family: Material-Design-Iconic-Font;
   font-size: 22px;
   color: #00ad5f;
   display: -webkit-box;

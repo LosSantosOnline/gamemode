@@ -32,11 +32,11 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="login100-more" style="background-image: url('images/bg-01.jpg');">
-				<div class="container"  style="float:left;margin-top: 50px;font-size: 20px;margin-left: 10px;">
-					<h1>Witaj na serwerze Los Santos Online!</h1><br/>
-					Skorzystaj z panelu do logowania po prawej stronie aby się zalogować na konto, które utworzyłeś na naszym
-					forum. Jeśli jeszcze go nie masz, udaj się na naszą stronę ls-o.pl aby założyć nowe konto i stwórz tam swoją
-					pierwsza postać.
+				<div class="container"  style="float:left;margin-top: 50px;font-size: 20px;padding:80px;min-width:100%;background-color: rgba(0,0,0,0.5)">
+                    <h1>Witaj na serwerze <b>Los Santos Online</b>!</h1><br/>
+                    Skorzystaj z panelu do logowania po prawej stronie aby się zalogować na konto, które utworzyłeś na naszym
+                    forum. Jeśli nie posiadasz konta na naszym forum to wejdź na nie korzystając z adresu <i>lsonline.pl</i>
+                    a następnie zarejestruj się oraz jako nowy użytkownik dodaj swoją pierwszą postać.
 				</div>
 			</div>
 
@@ -54,28 +54,26 @@
 
 					<div class="wrap-input100 validate-input" data-validate = "Password is required">
 						<span class="label-input100">Password</span>
-						<input class="input100" type="text" name="pass" placeholder="*************">
+						<input class="input100" type="password" id="pass" name="pass" placeholder="*************">
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
-							<button class="login100-form-btn">
+							<button class="login100-form-btn" id="login">
 								Zaloguj się
 							</button>
 						</div>
 
 						<a href="#" class="dis-block txt3 hov1 p-r-30 p-t-10 p-b-10 p-l-30">
 							Wyjdź z gry
-							<i class="fa fa-long-arrow-right m-l-5"></i>
 						</a>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-	
 <!--===============================================================================================-->
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
@@ -92,6 +90,13 @@
 	<script src="vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
+
+
+	<script type="text/javascript">
+		$("#login").click(function () {
+            mp.trigger('loginButtonClicked', $("#pass").val());
+		});
+	</script>
 
 </body>
 </html>
