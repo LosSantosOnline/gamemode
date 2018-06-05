@@ -18,7 +18,7 @@ function destroyBrowser()
 
 function hideNotification() {
     browser.inject(`hideNotification();`);
-    setTimeout(destroyBrowser, 10000);
+    setTimeout(destroyBrowser, 1500);
 }
 
 function notify(title, content, timeout = 5000) {
