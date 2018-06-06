@@ -9,3 +9,11 @@ mp.events.addCommand("weapon", (player, fullText, weapon, ammo) => {
         "Dałeś testową broń twojej postaci. Pamiętaj o tym, że nie jest to przedmiot i aby korzystać z tej komendy do testów."
     ]);
 });
+
+mp.events.addCommand("vehicle", (player, fullText, vehicle = "turismor", plate = "ADMIN") => {
+    mp.vehicles.new(mp.joaat(vehicle), player.position,
+        {
+            numberPlate: plate,
+            color: [[0, 0, 0],[0, 0, 0]]
+        });
+});
