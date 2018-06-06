@@ -17,3 +17,11 @@ mp.events.addCommand("vehicle", (player, fullText, vehicle = "turismor", plate =
             color: [[0, 0, 0],[0, 0, 0]]
         });
 });
+
+mp.events.addCommand("tp", (player, fullText, x, y, z) => {
+   player.position = new mp.Vector3(x, y, z);
+    player.call("actionDone", [
+        "Komendy administracyjne",
+        "Gdy teleportujesz się pamiętaj o ustawieniu dobrych koordynatów. Przy złych ustawieniach możesz się zabić."
+    ]);
+});
