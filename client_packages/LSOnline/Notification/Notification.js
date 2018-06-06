@@ -8,6 +8,7 @@ function showNotification(title, content) {
     browser.open("package://LSOnline/Browsers/Notification/index.html");
     browser.inject(`showNotification("${title}", "${content}");`);
     notification = true;
+    mp.game.audio.playSoundFrontend(-1, "CHALLENGE_UNLOCKED", "HUD_AWARDS", true);
 }
 
 function destroyBrowser()
