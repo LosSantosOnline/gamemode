@@ -1,6 +1,7 @@
 bt.dat
 node.dll
 server.exe
+serverLogs.log
 
 /bridge
 /plugins
