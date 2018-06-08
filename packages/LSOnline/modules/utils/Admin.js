@@ -12,10 +12,10 @@ mp.events.addCommand("weapon", (player, fullText, weapon, ammo) => {
 
 mp.events.addCommand("vehicle", (player, fullText, vehicle = "turismor", plate = "ADMIN") => {
     mp.vehicles.new(mp.joaat(vehicle), player.position,
-        {
-            numberPlate: plate,
-            color: [[0, 0, 0],[0, 0, 0]]
-        });
+    {
+        numberPlate: plate,
+        color: [[0, 0, 0],[0, 0, 0]]
+    });
 });
 
 mp.events.addCommand("tp", (player, fullText, x, y, z) => {
