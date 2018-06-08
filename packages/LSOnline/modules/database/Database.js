@@ -36,7 +36,7 @@ db.character = require('../../models/Character')(sequelize, Sequelize)
 
 // Only for test purposes, log at the console
 db.character.findOne().then(character => {
-  Logger.info('[Database] findOne(): ' + character.get('name'))
+  Logger.info(`[Database] findOne(): ${character.get('name')}`)
 })
 
 // Export module

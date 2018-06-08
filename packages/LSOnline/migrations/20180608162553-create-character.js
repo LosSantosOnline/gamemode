@@ -30,7 +30,5 @@ module.exports = {
       }
     });
   },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Characters');
-  }
+  down: (queryInterface, Sequelize) => queryInterface.dropTable('Characters')
 };
