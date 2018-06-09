@@ -10,7 +10,7 @@ mp.events.addCommand("me", (player, message) => {
 // Action (do) command
 mp.events.addCommand("do", (player, message) => {
     message
-        ? mp.players.broadcastInRange(player.position, 25, `!{#9b91ec} ** ${player.name} ${message}`)
+        ? mp.players.broadcastInRange(player.position, 25, `!{#9b91ec} ** ${message} (( ${player.name} ))`)
         : player.outputChatBox(`!{#dddddd} Użycie: /do [Opis stanu, otoczenia, sytuacji]`)
 });
 

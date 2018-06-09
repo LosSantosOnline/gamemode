@@ -7,7 +7,7 @@ mp.events.addCommand("pos", (player, message) => {
 
 // Dice command (returning random number from 1-3)
 mp.events.addCommand("kostka", (player) => {
-    mp.players.broadcastInRange(player.position, 25, `!{#dca2f4} ** ${player.name} rzucił kostką i wylosował liczbę ${randomInt(1, 6)}.`)
+    mp.players.broadcastInRange(player.position, 25, `!{#dca2f4} * ${player.name} rzuca kostką i wyrzuca oczko ${randomInt(1, 6)}.`)
 });
 
 /**
