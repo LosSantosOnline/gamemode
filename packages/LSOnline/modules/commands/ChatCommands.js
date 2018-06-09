@@ -1,3 +1,5 @@
+"use strict";
+
 // Action (me) command
 mp.events.addCommand("me", (player, message) => {
     message

@@ -5,6 +5,7 @@ const Notification = require("./LSOnline/Notification/Notification")
 const Login = require("./LSOnline/Login/Login")
 const Teleport = require("./LSOnline/Util/Teleport")
 const Misc = require("./LSOnline/Util/Misc")
+const Location = require("./LSOnline/Game/Location")
 
 // Addons
 require('nativeui');
@@ -17,7 +18,7 @@ require("MapEditor/Natives.js");
 
 // Two events after player connect to the server
 mp.events.add({
-    'clientLaunched': () => Misc.preparePlayerClient(),
+    'clientLaunched': () => Misc.prepareClientView(),
     'render': () => mp.game.player.setHealthRechargeMultiplier(0.0)
 });
 

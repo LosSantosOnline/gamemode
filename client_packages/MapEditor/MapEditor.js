@@ -1267,7 +1267,7 @@ function DisableControlActions(array)
 /**
  * Disable HUD elements from array
  * 
- * @param array array 
+ * @param array array
  */
 function HideHudElements(array)
 {

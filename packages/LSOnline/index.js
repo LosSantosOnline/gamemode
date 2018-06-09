@@ -1,12 +1,13 @@
 // --- LSOnline 2018 --- //
 
 // Basic (database, server utils)
-require("./modules/utils/Logger");
-require("./modules/database/Database");
+const Logger = require("./modules/utils/Logger");
+const Database = require("./modules/database/Database");
 
 // Commands
-require("./modules/utils/Admin");
-require("./modules/commands/ChatCommands");
+const AdminCommands = require("./modules/commands/AdminCommands");
+const ChatCommands = require("./modules/commands/ChatCommands");
+const MiscCommands = require("./modules/commands/MiscCommands");
 
 // Authorization
-require("./modules/auth/Login");
+const Login = require("./modules/auth/Login");
