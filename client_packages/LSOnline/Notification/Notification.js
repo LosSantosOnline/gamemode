@@ -36,8 +36,3 @@ mp.events.add({
         notify(title, content, timeout);
     }
 });
-
-mp.keys.bind(0x4C, false, function () {
-    notify("Testowa notyfikacja", "To jest testowa notyfikacja. Nie ma zbyt wiele sensu. Za zadanie ma głównie " +
-        "pokazać możliwości libki do wyświetlania notyfikacji.");
-});

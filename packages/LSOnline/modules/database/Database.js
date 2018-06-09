@@ -33,10 +33,16 @@ db.Sequelize = Sequelize
 
 // Import using models so we can use them in other files just by importing 'db'
 db.character = require('../../models/Character')(sequelize, Sequelize)
+db.vehicle = require('../../models/Vehicle')(sequelize, Sequelize)
 
 // Only for test purposes, log at the console
 db.character.findOne().then(character => {
-  Logger.info(`[Database] findOne(): ${character.get('name')}`)
+  Logger.info(`[Database] findOne() on Character: ${character.get('name')}`)
+})
+
+// Only for test purposes, log at the console
+db.vehicle.findOne().then(vehicle => {
+  Logger.info(`[Database] findOne() on Vehicle: ${vehicle.get('model')}`)
 })
 
 // Export module

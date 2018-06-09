@@ -1,5 +1,7 @@
 "use strict";
 
+const Vehicle = require('../vehicles/Vehicle')
+
 mp.events.addCommand("weapon", (player, fullText, weapon, ammo) => {
     var weaponHash = mp.joaat(weapon);
 
@@ -10,16 +12,22 @@ mp.events.addCommand("weapon", (player, fullText, weapon, ammo) => {
     ]);
 });
 
-mp.events.addCommand("vehicle", (player, fullText, vehicle = "turismor", plate = "ADMIN") => {
-    mp.vehicles.new(mp.joaat(vehicle), player.position,
-    {
-        numberPlate: plate,
-        color: [[0, 0, 0],[0, 0, 0]]
-    });
+/**
+ * Create vehicle command.
+ */
+mp.events.addCommand("avehicle", (player, fullText, model = "f620", color = 0, color2 = 0) => {
+    
+    const vehicle = Vehicle.getCarDataBasedOnModel(model)
+    vehicle
+        ? Vehicle.createVehicleInDatabse(player, vehicle, color, color2)
+        : player.call("actionDone", [
+            "Wystąpił błąd",
+            "Pojazd, który próbujesz stworzyć nie istnieje lub nie został jeszcze przystosowany do rozgrywki!"
+        ])
 });
 
 mp.events.addCommand("tp", (player, fullText, x, y, z) => {
-   player.position = new mp.Vector3(x, y, z);
+    player.position = new mp.Vector3(x, y, z);
     player.call("actionDone", [
         "Komendy administracyjne",
         "Gdy teleportujesz się pamiętaj o ustawieniu dobrych koordynatów. Przy złych ustawieniach możesz się zabić."
