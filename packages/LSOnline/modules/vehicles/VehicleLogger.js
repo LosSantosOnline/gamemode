@@ -7,3 +7,9 @@ function info(message, ...args) {
 }
 
 exports.info = info;
+
+function error(message, ...args) {
+    Logger.error("[Vehicle] " + message, args);
+}
+
+exports.error = error;

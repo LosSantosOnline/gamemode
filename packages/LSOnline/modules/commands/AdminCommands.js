@@ -1,5 +1,7 @@
 "use strict";
 
+const VehicleManager = require("../vehicles/VehicleManager");
+
 mp.events.addCommand("weapon", (player, fullText, weapon, ammo) => {
     let weaponHash = mp.joaat(weapon);
 
@@ -10,12 +12,8 @@ mp.events.addCommand("weapon", (player, fullText, weapon, ammo) => {
     ]);
 });
 
-mp.events.addCommand("vehicle", (player, fullText, vehicle = "turismor", plate = "ADMIN") => {
-    mp.vehicles.new(mp.joaat(vehicle), player.position,
-        {
-            numberPlate: plate,
-            color: [[0, 0, 0], [0, 0, 0]]
-        });
+mp.events.addCommand("vehicle", (player, fullText, modelName = "turismor", plate = "ADMIN") => {
+    VehicleManager.create(player, modelName, [0, 0, 0], [0, 0, 0]);
 });
 
 mp.events.addCommand("tp", (player, fullText, x, y, z) => {
