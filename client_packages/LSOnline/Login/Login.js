@@ -20,6 +20,7 @@ mp.events.add({
     },
     'loginButtonClicked': (password) => {
         destroyPanel();
+        mp.players.local.setInvincible(true);
         mp.events.callRemote("loginPlayer", password);
     }
 });
