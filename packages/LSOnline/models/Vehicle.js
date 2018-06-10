@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var Vehicle = sequelize.define('Vehicle', {
+    let Vehicle = sequelize.define('Vehicle', {
     model: DataTypes.STRING,
     fuel: DataTypes.FLOAT,
     fuelType: DataTypes.INTEGER,
