@@ -9,9 +9,12 @@ This repository contains source files of server gamemode.
 2. Node.js installed on machine
 
 ## Server setup
-First of all, you should download all of necessary dependencies. Run command
-described below to download them.
+First of all, you should download all of necessary dependencies. Run command described below to download them.
 
-```
-    npm install
+```bash
+# With npm
+npm install
+
+# With Yarn
+yarn install
 ```

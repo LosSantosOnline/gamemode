@@ -1,8 +1,8 @@
 bt.dat
 node.dll
 server.exe
-serverLogs.log
 
+/logs
 /bridge
 /plugins
 /idea
@@ -10,3 +10,4 @@ serverLogs.log
 /node_modules
 conf.json
 /client_packages/.listcache
+/packages/LSOnline/config

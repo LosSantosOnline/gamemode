@@ -4,8 +4,11 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "faker": "^4.1.0",
+    "lodash": "^4.17.10",
     "log4js": "^2.5.3",
-    "lodash": "^4.17.10"
+    "mysql2": "^1.5.3",
+    "sequelize": "^4.37.10"
   },
   "devDependencies": {},
   "scripts": {

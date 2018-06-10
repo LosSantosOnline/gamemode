@@ -42,17 +42,17 @@ function close() {
 exports.close = close;
 
 mp.events.add(
-    {
-        "browserElementInjected" : (execute) => {
-            console.log(execute);
-            inject(execute);
-        },
+{
+    "browserElementInjected" : (execute) => {
+        console.log(execute);
+        inject(execute);
+    },
 
-        "browserClosed" : () => {
-            close();
-        },
+    "browserClosed" : () => {
+        close();
+    },
 
-        "browserCreated": (createdBrowser) => {
-            console.log(`browser ${createdBrowser} has been created`);
-        }
-    });
+    "browserCreated": (createdBrowser) => {
+        console.log(`browser ${createdBrowser} has been created`);
+    }
+});
