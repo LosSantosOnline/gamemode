@@ -10,4 +10,4 @@ server.exe
 /node_modules
 conf.json
 /client_packages/.listcache
-/packages/LSOnline/config
+/maps

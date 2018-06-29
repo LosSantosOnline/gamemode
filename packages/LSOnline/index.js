@@ -11,10 +11,9 @@ if (result.error) {
 const Logger = require("./modules/utils/Logger");
 const Database = require("./modules/database/Database");
 
-// Commands
-const AdminCommands = require("./modules/commands/AdminCommands");
-const ChatCommands = require("./modules/commands/ChatCommands");
-const MiscCommands = require("./modules/commands/MiscCommands");
+// Game
+const GameBootstrap = require("./modules/game/GameBootstrap");
+const GameEvents = require("./modules/game/GameEvents");
 
 // Authorization
 const Login = require("./modules/auth/Login");
@@ -23,4 +22,11 @@ const Login = require("./modules/auth/Login");
 const VehicleManager = require("./modules/vehicles/VehicleManager");
 const VehicleData = require("./modules/vehicles/VehicleData");
 
-const GameBootstrap = require("./modules/game/GameBootstrap");
+// Player
+const PlayerMisc = require("./modules/player/PlayerMisc");
+
+// Commands
+const AdminCommands = require("./modules/commands/AdminCommands");
+const ChatCommands = require("./modules/commands/ChatCommands");
+const VehicleCommands = require("./modules/commands/VehicleCommands");
+const MiscCommands = require("./modules/commands/MiscCommands");

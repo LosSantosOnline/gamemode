@@ -1,6 +1,5 @@
 "use strict";
 
-// Prepare player client to game
 function prepareClientView()
 {
     // Disable radio for player
@@ -16,15 +15,10 @@ function prepareClientView()
     mp.nametags.enabled = false;
 
     // Update discord status
-    mp.discord.update("LSOnline.pl", "In-Game");
+    mp.discord.update("RolePlay", "In-Game");
 }
 exports.prepareClientView = prepareClientView;
 
-/**
- * Disable HUD elements from array
- * 
- * @param array array
- */
 function hideHudElements(array) {
     for (let element of array) {
         mp.game.ui.hideHudComponentThisFrame(element);
@@ -32,11 +26,6 @@ function hideHudElements(array) {
 }
 exports.hideHudElements = hideHudElements;
 
-/**
- * Disable control actions from array
- * 
- * @param array array 
- */
 function disableControlActions(array) {
     for (let control of array) {
         mp.game.controls.disableControlAction(0, control, true);
@@ -44,16 +33,6 @@ function disableControlActions(array) {
 }
 exports.disableControlActions = disableControlActions;
 
-/**
- * Draw 3D text.
- * 
- * @param {*} text 
- * @param {*} drawXY 
- * @param {*} font 
- * @param {*} color 
- * @param {*} scale 
- * @param {*} alignRight 
- */
 function draw3dText(text, drawXY, font, color, scale, alignRight = false) {
     mp.game.ui.setTextEntry("STRING");
     mp.game.ui.addTextComponentSubstringPlayerName(text);

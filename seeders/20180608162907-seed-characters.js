@@ -13,7 +13,5 @@ module.exports = {
       }], {});
   },
 
-  down: (queryInterface, Sequelize) => {
-      return queryInterface.bulkDelete('Characters', null, {});
-  }
+  down: (queryInterface, Sequelize) => queryInterface.bulkDelete('Characters', null, {})
 };

@@ -1,15 +1,13 @@
 // --- LSOnline 2018 --- //
-const Browser = require("./LSOnline/Util/Browser")
-const Camera = require("./LSOnline/Util/Camera")
-const Notification = require("./LSOnline/Notification/Notification")
-const Login = require("./LSOnline/Login/Login")
-const Teleport = require("./LSOnline/Util/Teleport")
-const Misc = require("./LSOnline/Util/Misc")
-const Location = require("./LSOnline/Game/Location")
-
-// Addons
-require('nativeui');
-require('charcreator');
+const Browser = require("./LSOnline/Util/Browser");
+const Camera = require("./LSOnline/Util/Camera");
+const Notification = require("./LSOnline/Notification/Notification");
+const Login = require("./LSOnline/Login/Login");
+const Teleport = require("./LSOnline/Util/Teleport");
+const Misc = require("./LSOnline/Util/Misc");
+const Location = require("./LSOnline/Game/Location");
+const Vehicle = require("./LSOnline/Vehicle/Vehicle");
+const VehicleEvents = require("./LSOnline/Vehicle/VehicleEvents");
 
 // MapEditor
 require("MapEditor/MapEditor.js");

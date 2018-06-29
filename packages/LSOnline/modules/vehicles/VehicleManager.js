@@ -1,22 +1,22 @@
 "use strict";
 
-const Logger = require('../vehicles/VehicleLogger');
-const Database = require('../database/Database');
-const VehicleData = require('../vehicles/VehicleData');
-const Randomize = require('../utils/Randomize');
+const logger = require('../vehicles/VehicleLogger');
+const database = require('../database/Database');
+const vehicleData = require('../vehicles/VehicleData');
+const helpers = require('../utils/Helpers');
 
 async function create(player, vehicle, color, color2) {
     if (!color || !color2)
-        color = [Randomize.int(0, 255), Randomize.int(0, 255), Randomize.int(0, 255)];
-    color2 = [Randomize.int(0, 255), Randomize.int(0, 255), Randomize.int(0, 255)];
+        color = [helpers.randomInt(0, 255), helpers.randomInt(0, 255), helpers.randomInt(0, 255)];
+        color2 = [helpers.randomInt(0, 255), helpers.randomInt(0, 255), helpers.randomInt(0, 255)];
 
-    Database.vehicle
+    database.vehicle
         .create({
             model: vehicle,
-            fuelType: VehicleData.fuelTypes[0].type,
+            fuelType: vehicleData.fuelTypes[0].type,
             fuelRatio: 1,
             tankCapacity: 40.0,
-            owner: '1',
+            owner: 1,
             primaryColor: JSON.stringify(color),
             secondaryColor: JSON.stringify(color2),
             plate: 'LSO',
@@ -24,34 +24,34 @@ async function create(player, vehicle, color, color2) {
             position: JSON.stringify(player.position)
         })
         .then(vehicle => {
-            Logger.info(`Saved vehicle "${vehicle}" in database.`);
+            logger.info(`Saved vehicle "${vehicle.model}" in database.`);
             spawn(vehicle);
         })
 }
 
-module.exports.create = create;
+exports.create = create;
 
 async function load(vehicleId) {
-    Database.vehicle.findById(vehicleId).then(vehicle => {
+    database.vehicle.findById(vehicleId).then(vehicle => {
         spawn(vehicle).finally();
     });
 }
 
-module.exports.load = load;
+exports.load = load;
 
 async function loadAll() {
-    Database.vehicle.findAll().then(vehicles => {
+    database.vehicle.findAll().then(vehicles => {
         for (let i = 0; i < vehicles.length; i++) {
             spawn(vehicles[i]);
         }
     });
 }
 
-module.exports.loadAll = loadAll;
+exports.loadAll = loadAll;
 
 async function spawn(vehicle) {
     if (vehicle.position === null) {
-        Logger.error(`Vehicle position is null (vehicleId: ${vehicle.id})`);
+        logger.error(`Vehicle position is null (vehicleId: ${vehicle.id})`);
         return;
     }
 
@@ -61,7 +61,7 @@ async function spawn(vehicle) {
             dimension: vehicle.dimension
         });
 
-    Logger.info(`Spawned "${vehicle.model}" on world.`);
+    logger.info(`Spawned "${vehicle.model}" on world.`);
     configureVehicle(createdVehicle, vehicle);
 }
 
@@ -72,21 +72,36 @@ function configureVehicle(createdVehicle, vehicleData) {
 
         createdVehicle.setColorRGB(primaryColor[0], primaryColor[1], primaryColor[2], secondaryColor[0], secondaryColor[1], secondaryColor[2]);
         createdVehicle.numberPlate = vehicleData.plate;
+        createdVehicle.informations = {
+            id: vehicleData.id,
+            model: vehicleData.model,
+            fuel: vehicleData.fuel,
+            fuelType: vehicleData.fuelType,
+            fuelRatio: vehicleData.fuelRatio,
+            tankCapacity: vehicleData.tankCapacity,
+            dirtLevel: vehicleData.dirtLevel,
+        };
 
-        Logger.info(`Changed color and plate of vehicle "${vehicleData.model}".`)
+        logger.info(`Changed color and plate of vehicle "${vehicleData.model}" (ID: ${vehicleData.id})`);
     }
     catch (e) {
-        Logger.error(`Error occurred when configuring vehicle. (Message: ${e})`)
+        logger.error(`Error occurred when configuring vehicle. (Message: ${e})`);
     }
 }
 
+function toggleVehicleEngine(vehicle) {
+    vehicle.engine = !vehicle.engine;
+}
+
+exports.toggleVehicleEngine = toggleVehicleEngine;
+
 function getCarData(model) {
-    for (let i = 0; i < VehicleData.carsData.length; i++) {
-        if (model !== VehicleData.carsData[i].model) continue;
-        return VehicleData.carsData[i];
+    for (let i = 0; i < vehicleData.carsData.length; i++) {
+        if (model !== vehicleData.carsData[i].model) continue;
+        return vehicleData.carsData[i];
     }
 
     return false;
 }
 
-module.exports.getCarData = getCarData;
+exports.getCarData = getCarData;
