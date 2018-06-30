@@ -9,6 +9,14 @@ function preparePanel(url) {
     browser.open(url);
 }
 
+function changePanel(url) {
+    browser.close();
+    setTimeout(function () {
+        browser.prepareScreen();
+        browser.open(url);
+    }, 1000);
+}
+
 function destroyPanel() {
     camera.destroyCamera();
     browser.close();
@@ -19,6 +27,11 @@ mp.events.add({
         preparePanel(url);
     },
     'loginButtonClicked': (password) => {
+        changePanel("package://LSOnline/Browsers/CharacterSelect/index.html");
+        mp.players.local.setInvincible(true);
+        // mp.events.callRemote("loginPlayer", password);
+    },
+    'characterSelected': (characterId) => {
         destroyPanel();
         mp.players.local.setInvincible(true);
         mp.events.callRemote("loginPlayer", password);

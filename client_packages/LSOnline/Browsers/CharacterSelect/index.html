@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+</head>
+<body>
+<div class="selectBox" id="notification">
+    <div class="selectTitle"><i class="fas fa-users"></i> Wybierz postać</div>
+    <table class="characterTable">
+        <tr>
+            <td width="30%">
+                <i class="far fa-user fa-4x"></i>
+            </td>
+            <td width="40%">
+                <b>Clayton Burret</b><br/>5h 20m
+            </td>
+            <td class="centered" width="30%">
+                <a id="select" class="selectButton">Wybierz <i class="fas fa-chevron-right"
+                                                               style="font-size: 17px;"></i></a>
+            </td>
+        </tr>
+        <tr>
+            <td width="30%">
+                <i class="far fa-user fa-4x"></i>
+            </td>
+            <td width="40%">
+                <b>Clayton Burret</b><br/>5h 20m
+            </td>
+            <td class="centered" width="30%">
+                <a class="selectButton">Wybierz <i class="fas fa-chevron-right" style="font-size: 17px;"></i></a>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+
+<script src="../js/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+    function showNotification(title, content, timeout = 1000) {
+        $("#title").html(title);
+        $("#content").html(content);
+        $("#notification").fadeIn(timeout);
+    }
+
+    function hideNotification(timeout = 1000) {
+        $("#notification").fadeOut(timeout);
+    }
+
+    $("#select").click(function () {
+        mp.trigger('characterSelected', 1);
+    });
+</script>
+</html>

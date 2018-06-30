@@ -18,3 +18,13 @@ npm install
 # With Yarn
 yarn install
 ```
+
+## Environment setup
+Setup .env file with variables described below to set environment (for example connection to database).
+
+```dotenv
+DATABASE_HOST=localhost
+DATABASE_NAME=db
+DATABASE_USER=user
+DATABASE_PASSWORD=pass
+```

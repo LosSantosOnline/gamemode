@@ -14,6 +14,7 @@ module.exports = async () => {
         const VehicleCommands = require("../modules/commands/VehicleCommands");
         const MiscCommands = require("../modules/commands/MiscCommands");
         const PlayerMisc = require("../modules/player/PlayerMisc");
+        const CharacterManager = require("../modules/characters/CharacterManager")
     }
     catch (err) {
         return console.log('\x1b[31m%s\x1b[0m', '[Server] Error while loading modules: ' + err.message + "\n" + err.stack);
