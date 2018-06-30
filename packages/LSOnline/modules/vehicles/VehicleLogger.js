@@ -2,14 +2,14 @@
 
 const Logger = require('../utils/Logger');
 
-function info(message, ...args) {
-    Logger.info("[Vehicle] " + message, args);
+function info(message) {
+    Logger.info("[Vehicle] " + message);
 }
 
 exports.info = info;
 
-function error(message, ...args) {
-    Logger.error("[Vehicle] " + message, args);
+function error(message) {
+    Logger.error("[Vehicle] " + message);
 }
 
 exports.error = error;

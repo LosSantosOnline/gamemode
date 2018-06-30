@@ -1,4 +1,4 @@
-// Load connection
+// Libs
 const Sequelize = require('sequelize');
 const Logger = require('../utils/Logger');
 const db = {};
@@ -8,6 +8,8 @@ const connection = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE
     host: process.env.DATABASE_HOST,
     dialect: 'mysql',
     operatorsAliases: false,
+    
+    //logging: false,
 
     pool: {
         max: 5,
@@ -31,18 +33,9 @@ connection
 db.connection = connection;
 db.Sequelize = Sequelize;
 
+// Models
 db.character = require('../../models/Character')(connection, Sequelize);
 db.vehicle = require('../../models/Vehicle')(connection, Sequelize);
-//
-// Only for test purposes, log at the console
-db.character.findOne().then(character => {
-    Logger.info(`[Database] findOne() on Character: ${character.get('name')}`)
-});
-//
-// Only for test purposes, log at the console
-db.vehicle.findOne().then(vehicle => {
-    Logger.info(`[Database] findOne() on Vehicle: ${vehicle.get('model')}`)
-});
 
 // Export module
 module.exports = db;

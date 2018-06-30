@@ -1,57 +1,65 @@
 "use strict";
 
-const Logger = require('../vehicles/VehicleLogger');
-const Database = require('../database/Database');
-const VehicleData = require('../vehicles/VehicleData');
-const Randomize = require('../utils/Randomize');
+const logger = require('../vehicles/VehicleLogger');
+const database = require('../database/Database');
+const vehicleData = require('../vehicles/VehicleData');
+const helpers = require('../utils/Helpers');
 
-async function create(player, vehicle, color, color2) {
-    if (!color || !color2)
-        color = [Randomize.int(0, 255), Randomize.int(0, 255), Randomize.int(0, 255)];
-    color2 = [Randomize.int(0, 255), Randomize.int(0, 255), Randomize.int(0, 255)];
+async function create(player, model) {
+    const primaryColor = [helpers.randomInt(0, 255), helpers.randomInt(0, 255), helpers.randomInt(0, 255)];
+    const secondaryColor = [helpers.randomInt(0, 255), helpers.randomInt(0, 255), helpers.randomInt(0, 255)];
+    
 
-    Database.vehicle
+    database.vehicle
         .create({
-            model: vehicle,
-            fuelType: VehicleData.fuelTypes[0].type,
+            name: model,
+            model: model,
+            fuelType: vehicleData.fuelTypes[0].type,
             fuelRatio: 1,
             tankCapacity: 40.0,
-            owner: '1',
-            primaryColor: JSON.stringify(color),
-            secondaryColor: JSON.stringify(color2),
+            owner: 1,
+            primaryColor: JSON.stringify(primaryColor),
+            secondaryColor: JSON.stringify(secondaryColor),
             plate: 'LSO',
             dimension: player.dimension,
             position: JSON.stringify(player.position)
         })
         .then(vehicle => {
-            Logger.info(`Saved vehicle "${vehicle}" in database.`);
+            logger.info(`Saved vehicle "${vehicle.name}" (Model: ${vehicle.model}) in database.`);
             spawn(vehicle);
         })
 }
 
-module.exports.create = create;
+exports.create = create;
 
 async function load(vehicleId) {
-    Database.vehicle.findById(vehicleId).then(vehicle => {
-        spawn(vehicle).finally();
+    database.vehicle.findById(vehicleId).then(vehicle => {
+        spawn(vehicle);
     });
 }
 
-module.exports.load = load;
+exports.load = load;
 
 async function loadAll() {
-    Database.vehicle.findAll().then(vehicles => {
+    database.vehicle.findAll().then(vehicles => {
         for (let i = 0; i < vehicles.length; i++) {
             spawn(vehicles[i]);
         }
     });
 }
 
-module.exports.loadAll = loadAll;
+exports.loadAll = loadAll;
+
+async function unspawn(vehicle) {
+    if(vehicle)
+        vehicle.destroy();
+}
+
+exports.unspawn = unspawn;
 
 async function spawn(vehicle) {
     if (vehicle.position === null) {
-        Logger.error(`Vehicle position is null (vehicleId: ${vehicle.id})`);
+        logger.error(`Vehicle position is null (vehicleId: ${vehicle.id})!`);
         return;
     }
 
@@ -61,32 +69,96 @@ async function spawn(vehicle) {
             dimension: vehicle.dimension
         });
 
-    Logger.info(`Spawned "${vehicle.model}" on world.`);
-    configureVehicle(createdVehicle, vehicle);
+    logger.info(`Spawned vehicle "${vehicle.name}" (GameID: ${createdVehicle.id} / ID: ${vehicle.id} / Model: ${vehicle.model}) on world.`);
+    configureCreated(createdVehicle, vehicle);
 }
 
-function configureVehicle(createdVehicle, vehicleData) {
+function configureCreated(createdVehicle, vehicleData) {
     try {
         let primaryColor = JSON.parse(vehicleData.primaryColor);
         let secondaryColor = JSON.parse(vehicleData.secondaryColor);
 
         createdVehicle.setColorRGB(primaryColor[0], primaryColor[1], primaryColor[2], secondaryColor[0], secondaryColor[1], secondaryColor[2]);
         createdVehicle.numberPlate = vehicleData.plate;
+        createdVehicle.informations = {
+            id: vehicleData.id,
+            gameId: createdVehicle.id,
+            name: vehicleData.name,
+            model: vehicleData.model,
+            fuel: vehicleData.fuel,
+            fuelType: vehicleData.fuelType,
+            fuelRatio: vehicleData.fuelRatio,
+            tankCapacity: vehicleData.tankCapacity,
+            dirtLevel: vehicleData.dirtLevel,
+        };
 
-        Logger.info(`Changed color and plate of vehicle "${vehicleData.model}".`)
+        logger.info(`Configured newly spawned vehicle "${vehicleData.name}" (GameID: ${createdVehicle.informations.gameId} / ID: ${vehicleData.id} / Model: ${vehicleData.model}).`);
     }
     catch (e) {
-        Logger.error(`Error occurred when configuring vehicle. (Message: ${e})`)
+        logger.error(`Error occurred when configuring vehicle "${vehicleData.name}" (ID: ${vehicleData.id} / Model: ${vehicleData.model}). (Message: ${e})`);
     }
 }
 
+async function refuel(vehicleId, fuel) {
+    database.vehicle.findById(vehicleId).then(vehicle => {
+        vehicle
+            .update({fuel: database.Sequelize.literal(`fuel + ${fuel}`)})
+            .then((vehicle) => {
+                logger.info(`Refueled vehicle "${vehicle.name}" (Model: ${vehicle.model} / ID: ${vehicle.id}).`);
+            })
+            .catch((err) => {
+                logger.error(`Error occurred when refueling vehicle "${vehicle.name}" (Model: ${vehicle.model} / ID: ${vehicle.id}). (Message: ${err})`);
+            });
+    });
+}
+
+exports.refuel = refuel;
+
+async function updateName(vehicleId, name) {
+    database.vehicle.findById(vehicleId).then(vehicle => {
+        vehicle
+            .update({name: name})
+            .then((vehicle) => {
+                logger.info(`Changed vehicle "${vehicle.name}" name (Model: ${vehicle.model} / ID: ${vehicle.id}).`);
+            })
+            .catch((err) => {
+                logger.error(`Error occurred when changing vehicle "${vehicle.name}" name (Model: ${vehicle.model} / ID: ${vehicle.id}). (Message: ${err})`);
+            });
+    });
+}
+
+exports.updateName = updateName;
+
+function toggleVehicleEngine(vehicle) {
+    vehicle.engine = !vehicle.engine;
+}
+
+exports.toggleVehicleEngine = toggleVehicleEngine;
+
 function getCarData(model) {
-    for (let i = 0; i < VehicleData.carsData.length; i++) {
-        if (model !== VehicleData.carsData[i].model) continue;
-        return VehicleData.carsData[i];
+    for (let i = 0; i < vehicleData.carsData.length; i++) {
+        if (model !== vehicleData.carsData[i].model) continue;
+        return vehicleData.carsData[i];
     }
 
     return false;
 }
 
-module.exports.getCarData = getCarData;
+exports.getCarData = getCarData;
+
+function checkIfVehicleModelExists(model) {
+    if(model in vehicleData.vehicleHashes) {
+        return true;
+    }
+    
+    return false;
+}
+
+exports.checkIfVehicleModelExists = checkIfVehicleModelExists;
+
+function respawnAll() {
+    mp.vehicles.forEach((vehicle) => vehicle.destroy());
+    loadAll();
+}
+
+exports.respawnAll = respawnAll;

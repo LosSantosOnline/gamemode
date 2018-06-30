@@ -8,6 +8,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       model: {
         type: Sequelize.STRING
       },
@@ -62,7 +66,5 @@ module.exports = {
       }
     });
   },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Vehicles');
-  }
+  down: (queryInterface, Sequelize) => queryInterface.dropTable('Vehicles')
 };

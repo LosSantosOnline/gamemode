@@ -1,26 +1,18 @@
-// --- LSOnline 2018 --- //
+"use strict";
 
+// --- Libs --- //
 const dotenv = require('dotenv');
 const result = dotenv.config();
 
-if (result.error) {
-    throw result.error;
-}
+// --- Load server gamemode async --- //
+(async () => {
+    
+    // Loading globals
+    await require('./loaders/GlobalsLoader.js')();
 
-// Basic (database, server utils)
-const Logger = require("./modules/utils/Logger");
-const Database = require("./modules/database/Database");
+    // Loading modules
+    await require('./loaders/ModulesLoader.js')();
 
-// Commands
-const AdminCommands = require("./modules/commands/AdminCommands");
-const ChatCommands = require("./modules/commands/ChatCommands");
-const MiscCommands = require("./modules/commands/MiscCommands");
-
-// Authorization
-const Login = require("./modules/auth/Login");
-
-// Vehicles
-const VehicleManager = require("./modules/vehicles/VehicleManager");
-const VehicleData = require("./modules/vehicles/VehicleData");
-
-const GameBootstrap = require("./modules/game/GameBootstrap");
+    // Loading complete
+    console.log('\x1b[36m%s\x1b[0m', '[Server] Loading complete.. Server ready!');
+})();
