@@ -1,4 +1,4 @@
-// Load connection
+// Libs
 const Sequelize = require('sequelize');
 const Logger = require('../utils/Logger');
 const db = {};
@@ -8,6 +8,8 @@ const connection = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE
     host: process.env.DATABASE_HOST,
     dialect: 'mysql',
     operatorsAliases: false,
+    
+    //logging: false,
 
     pool: {
         max: 5,

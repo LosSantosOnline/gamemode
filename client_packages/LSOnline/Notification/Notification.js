@@ -22,7 +22,7 @@ function hideNotification() {
     setTimeout(destroyBrowser, 1500);
 }
 
-function notify(title, content, timeout = 3000) {
+function notify(title, content, timeout = 3500) {
     if (!notification) {
         showNotification(title, content);
         setTimeout(hideNotification, timeout);
@@ -32,7 +32,7 @@ function notify(title, content, timeout = 3000) {
 exports.notify = notify;
 
 mp.events.add({
-    'actionDone': (title, content, timeout = 3000) => {
+    'actionDone': (title, content, timeout = 3500) => {
         notify(title, content, timeout);
     }
 });

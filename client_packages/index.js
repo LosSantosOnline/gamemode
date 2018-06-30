@@ -6,13 +6,8 @@ const Login = require("./LSOnline/Login/Login");
 const Teleport = require("./LSOnline/Util/Teleport");
 const Misc = require("./LSOnline/Util/Misc");
 const Location = require("./LSOnline/Game/Location");
-const Vehicle = require("./LSOnline/Vehicle/Vehicle");
+const VehicleRender = require("./LSOnline/Vehicle/VehicleRender");
 const VehicleEvents = require("./LSOnline/Vehicle/VehicleEvents");
-
-// MapEditor
-require("MapEditor/MapEditor.js");
-require("MapEditor/object_data.js");
-require("MapEditor/Natives.js");
 
 // Two events after player connect to the server
 mp.events.add({

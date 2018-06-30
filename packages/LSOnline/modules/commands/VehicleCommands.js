@@ -8,7 +8,7 @@ mp.events.addCommand("silnik", (player) => {
     if(playerMisc.isVehicleDriver(player)) {
         const actionType = player.vehicle.engine ? 'gasi' : 'odpala';
 
-        mp.players.broadcastInRange(player.position, 25, `!{#dca2f4} * ${player.name} ${actionType} silnik pojazdu ${helpers.upperString(player.vehicle.informations.model)}.`);
+        mp.players.broadcastInRange(player.position, 25, `!{#dca2f4} * ${player.name} ${actionType} silnik pojazdu ${helpers.upperString(player.vehicle.informations.name)}.`);
         setTimeout(() => vehicleManager.toggleVehicleEngine(player.vehicle), player.vehicle.engine ? 0 : 1500);
     }
     else {

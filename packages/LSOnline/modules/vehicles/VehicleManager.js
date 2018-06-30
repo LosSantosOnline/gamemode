@@ -5,26 +5,27 @@ const database = require('../database/Database');
 const vehicleData = require('../vehicles/VehicleData');
 const helpers = require('../utils/Helpers');
 
-async function create(player, vehicle, color, color2) {
-    if (!color || !color2)
-        color = [helpers.randomInt(0, 255), helpers.randomInt(0, 255), helpers.randomInt(0, 255)];
-        color2 = [helpers.randomInt(0, 255), helpers.randomInt(0, 255), helpers.randomInt(0, 255)];
+async function create(player, model) {
+    const primaryColor = [helpers.randomInt(0, 255), helpers.randomInt(0, 255), helpers.randomInt(0, 255)];
+    const secondaryColor = [helpers.randomInt(0, 255), helpers.randomInt(0, 255), helpers.randomInt(0, 255)];
+    
 
     database.vehicle
         .create({
-            model: vehicle,
+            name: model,
+            model: model,
             fuelType: vehicleData.fuelTypes[0].type,
             fuelRatio: 1,
             tankCapacity: 40.0,
             owner: 1,
-            primaryColor: JSON.stringify(color),
-            secondaryColor: JSON.stringify(color2),
+            primaryColor: JSON.stringify(primaryColor),
+            secondaryColor: JSON.stringify(secondaryColor),
             plate: 'LSO',
             dimension: player.dimension,
             position: JSON.stringify(player.position)
         })
         .then(vehicle => {
-            logger.info(`Saved vehicle "${vehicle.model}" in database.`);
+            logger.info(`Saved vehicle "${vehicle.name}" (Model: ${vehicle.model}) in database.`);
             spawn(vehicle);
         })
 }
@@ -33,7 +34,7 @@ exports.create = create;
 
 async function load(vehicleId) {
     database.vehicle.findById(vehicleId).then(vehicle => {
-        spawn(vehicle).finally();
+        spawn(vehicle);
     });
 }
 
@@ -49,9 +50,16 @@ async function loadAll() {
 
 exports.loadAll = loadAll;
 
+async function unspawn(vehicle) {
+    if(vehicle)
+        vehicle.destroy();
+}
+
+exports.unspawn = unspawn;
+
 async function spawn(vehicle) {
     if (vehicle.position === null) {
-        logger.error(`Vehicle position is null (vehicleId: ${vehicle.id})`);
+        logger.error(`Vehicle position is null (vehicleId: ${vehicle.id})!`);
         return;
     }
 
@@ -61,11 +69,11 @@ async function spawn(vehicle) {
             dimension: vehicle.dimension
         });
 
-    logger.info(`Spawned "${vehicle.model}" on world.`);
-    configureVehicle(createdVehicle, vehicle);
+    logger.info(`Spawned vehicle "${vehicle.name}" (GameID: ${createdVehicle.id} / ID: ${vehicle.id} / Model: ${vehicle.model}) on world.`);
+    configureCreated(createdVehicle, vehicle);
 }
 
-function configureVehicle(createdVehicle, vehicleData) {
+function configureCreated(createdVehicle, vehicleData) {
     try {
         let primaryColor = JSON.parse(vehicleData.primaryColor);
         let secondaryColor = JSON.parse(vehicleData.secondaryColor);
@@ -74,6 +82,8 @@ function configureVehicle(createdVehicle, vehicleData) {
         createdVehicle.numberPlate = vehicleData.plate;
         createdVehicle.informations = {
             id: vehicleData.id,
+            gameId: createdVehicle.id,
+            name: vehicleData.name,
             model: vehicleData.model,
             fuel: vehicleData.fuel,
             fuelType: vehicleData.fuelType,
@@ -82,12 +92,42 @@ function configureVehicle(createdVehicle, vehicleData) {
             dirtLevel: vehicleData.dirtLevel,
         };
 
-        logger.info(`Changed color and plate of vehicle "${vehicleData.model}" (ID: ${vehicleData.id})`);
+        logger.info(`Configured newly spawned vehicle "${vehicleData.name}" (GameID: ${createdVehicle.informations.gameId} / ID: ${vehicleData.id} / Model: ${vehicleData.model}).`);
     }
     catch (e) {
-        logger.error(`Error occurred when configuring vehicle. (Message: ${e})`);
+        logger.error(`Error occurred when configuring vehicle "${vehicleData.name}" (ID: ${vehicleData.id} / Model: ${vehicleData.model}). (Message: ${e})`);
     }
 }
+
+async function refuel(vehicleId, fuel) {
+    database.vehicle.findById(vehicleId).then(vehicle => {
+        vehicle
+            .update({fuel: database.Sequelize.literal(`fuel + ${fuel}`)})
+            .then((vehicle) => {
+                logger.info(`Refueled vehicle "${vehicle.name}" (Model: ${vehicle.model} / ID: ${vehicle.id}).`);
+            })
+            .catch((err) => {
+                logger.error(`Error occurred when refueling vehicle "${vehicle.name}" (Model: ${vehicle.model} / ID: ${vehicle.id}). (Message: ${err})`);
+            });
+    });
+}
+
+exports.refuel = refuel;
+
+async function updateName(vehicleId, name) {
+    database.vehicle.findById(vehicleId).then(vehicle => {
+        vehicle
+            .update({name: name})
+            .then((vehicle) => {
+                logger.info(`Changed vehicle "${vehicle.name}" name (Model: ${vehicle.model} / ID: ${vehicle.id}).`);
+            })
+            .catch((err) => {
+                logger.error(`Error occurred when changing vehicle "${vehicle.name}" name (Model: ${vehicle.model} / ID: ${vehicle.id}). (Message: ${err})`);
+            });
+    });
+}
+
+exports.updateName = updateName;
 
 function toggleVehicleEngine(vehicle) {
     vehicle.engine = !vehicle.engine;
@@ -105,3 +145,20 @@ function getCarData(model) {
 }
 
 exports.getCarData = getCarData;
+
+function checkIfVehicleModelExists(model) {
+    if(model in vehicleData.vehicleHashes) {
+        return true;
+    }
+    
+    return false;
+}
+
+exports.checkIfVehicleModelExists = checkIfVehicleModelExists;
+
+function respawnAll() {
+    mp.vehicles.forEach((vehicle) => vehicle.destroy());
+    loadAll();
+}
+
+exports.respawnAll = respawnAll;

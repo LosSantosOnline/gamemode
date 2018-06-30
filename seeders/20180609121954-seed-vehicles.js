@@ -5,6 +5,7 @@ const faker = require('faker')
 module.exports = {
   up: (queryInterface, Sequelize) => {
       return queryInterface.bulkInsert('Vehicles', [{
+        name: faker.commerce.productName(),
         model: 'f620',
         fuel: 30,
         fuelType: 1,
