@@ -48,7 +48,7 @@
 
 					<div class="wrap-input100 validate-input" data-validate="Username is required">
 						<span class="label-input100">Username</span>
-						<input class="input100" type="text" name="username" placeholder="Username...">
+                        <input class="input100" type="text" id="username" name="username" placeholder="Username...">
 						<span class="focus-input100"></span>
 					</div>
 
@@ -94,7 +94,7 @@
 
 	<script type="text/javascript">
 		$("#login").click(function () {
-            mp.trigger('loginButtonClicked', $("#pass").val());
+            mp.trigger('loginButtonClicked', $("#username").val(), $("#pass").val());
 		});
 	</script>
 

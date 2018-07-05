@@ -26,14 +26,15 @@ mp.events.add({
     'loginPanelAppeared': (url) => {
         preparePanel(url);
     },
-    'loginButtonClicked': (password) => {
+    'loginButtonClicked': (login, password) => {
+        mp.events.callRemote("authorizePlayer", login, password);
+    },
+    'userAuthorized': () => {
         changePanel("package://LSOnline/Browsers/CharacterSelect/index.html");
-        mp.players.local.setInvincible(true);
-        // mp.events.callRemote("loginPlayer", password);
     },
     'characterSelected': (characterId) => {
         destroyPanel();
         mp.players.local.setInvincible(true);
-        mp.events.callRemote("loginPlayer", password);
+        mp.events.callRemote("loginPlayer");
     }
 });
