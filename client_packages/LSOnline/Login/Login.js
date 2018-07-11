@@ -9,11 +9,12 @@ function preparePanel(url) {
     browser.open(url);
 }
 
-function changePanel(url) {
+function changePanel(url, characters) {
     browser.close();
     setTimeout(function () {
         browser.prepareScreen();
         browser.open(url);
+        browser.inject(`showCharacters('${characters}',3000)`);
     }, 1000);
 }
 
@@ -29,12 +30,12 @@ mp.events.add({
     'loginButtonClicked': (login, password) => {
         mp.events.callRemote("authorizePlayer", login, password);
     },
-    'userAuthorized': () => {
-        changePanel("package://LSOnline/Browsers/CharacterSelect/index.html");
+    'userAuthorized': async (characters) => {
+        changePanel("package://LSOnline/Browsers/CharacterSelect/index.html", characters);
     },
     'characterSelected': (characterId) => {
         destroyPanel();
         mp.players.local.setInvincible(true);
-        mp.events.callRemote("loginPlayer");
+        mp.events.callRemote("loginPlayer", characterId);
     }
 });

@@ -1,4 +1,6 @@
 "use strict";
+const characterManager = require('../characters/CharacterManager');
+
 
 function showLoginPanel(player) {
     player.call(`loginPanelAppeared`, ["package://LSOnline/Browsers/Login/index.html"]);
@@ -12,11 +14,13 @@ mp.events.add({
     "playerReady": async (player) => {
         showLoginPanel(player);
     },
-    "loginPlayer": async (player, password) => {
+    "loginPlayer": async (player, characterId) => {
+        player.character = characterManager.loadById(characterId);
         player.call(`actionDone`, [
             `Witaj na serwerze!`,
             "Zalogowałeś się po raz pierwszy na naszym serwerze. Wciśnij przycisk <b>Home</b>, " +
             "aby wyświetlić dashboard konta wraz z panelem pomocy."
         ]);
+        console.log(player.character.name);
     }
 });

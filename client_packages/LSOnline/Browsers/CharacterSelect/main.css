@@ -34,7 +34,7 @@ html {
     -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
     width: 1200px;
-    /*display: none;*/
+    display: none;
     padding: 10px;
     border-radius: 3px;
     margin: 100px auto auto;

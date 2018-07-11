@@ -22,14 +22,16 @@ async function ipbAuth(login, password) {
         login
     )).spread((results, metadata) => {
             const passHash = results[0].members_pass_hash;
-            if (bcrypt.compareSync(password, passHash)) {
-                logger.info(`User with login ${login} has been authorized.`);
-                return true;
-            }
-            logger.info(`User with login ${login} authorization failed.`);
-            return false;
+            return authorize(login, bcrypt.compareSync(password, passHash));
         }
     );
+}
+
+function authorize(login, authorizeCondition = function () {
+}) {
+    if (!authorizeCondition) throw `User with login ${login} authorization failed.`;
+
+    logger.info(`User with login ${login} has been authorized.`);
 }
 
 exports.ipbAuth = ipbAuth;

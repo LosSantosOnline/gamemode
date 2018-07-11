@@ -7,50 +7,44 @@
           integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 </head>
 <body>
-<div class="selectBox" id="notification">
+<div class="selectBox" id="characters">
     <div class="selectTitle"><i class="fas fa-users"></i> Wybierz postać</div>
-    <table class="characterTable">
-        <tr>
-            <td width="30%">
-                <i class="far fa-user fa-4x"></i>
-            </td>
-            <td width="40%">
-                <b>Clayton Burret</b><br/>5h 20m
-            </td>
-            <td class="centered" width="30%">
-                <a id="select" class="selectButton">Wybierz <i class="fas fa-chevron-right"
-                                                               style="font-size: 17px;"></i></a>
-            </td>
-        </tr>
-        <tr>
-            <td width="30%">
-                <i class="far fa-user fa-4x"></i>
-            </td>
-            <td width="40%">
-                <b>Clayton Burret</b><br/>5h 20m
-            </td>
-            <td class="centered" width="30%">
-                <a class="selectButton">Wybierz <i class="fas fa-chevron-right" style="font-size: 17px;"></i></a>
-            </td>
-        </tr>
+    <table class="characterTable" id="charTable">
+        <tbody>
+        <tbody>
     </table>
 </div>
 </body>
 
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-    function showNotification(title, content, timeout = 1000) {
-        $("#title").html(title);
-        $("#content").html(content);
-        $("#notification").fadeIn(timeout);
+
+    function showCharacters(characters, timeout = 1000) {
+        characters = JSON.parse(characters);
+
+        characters.forEach(function (character, index) {
+            $('#charTable > tbody:last-child').append('<tr>character.dataValues.' +
+                '           <td width="30%">character.dataValues.' +
+                '                <i class="far fa-user fa-4x"></i>character.dataValues.' +
+                '            </td>character.dataValues.' +
+                '            <td width="40%">character.dataValues.' +
+                '                <b id="charName">' + character.name + '</b><br/>' + 1 + 'h ' + 25 + 'mcharacter.dataValues.' +
+                '            </td>character.dataValues.' +
+                '            <td class="centered" width="30%">character.dataValues.' +
+                '                <a id="select" data-charId="' + character.id + '" class="selectButton">Wybierz <i class="fas fa-chevron-right"character.dataValues.' +
+                '                                                                                style="font-size: 17px;"></i></a>character.dataValues.' +
+                '            </td>character.dataValues.' +
+                '        </tr>');
+        });
+        $("#characters").fadeIn(timeout);
     }
 
-    function hideNotification(timeout = 1000) {
-        $("#notification").fadeOut(timeout);
+    function hideCharacters(timeout = 1000) {
+        $("#characters").fadeOut(timeout);
     }
 
-    $("#select").click(function () {
-        mp.trigger('characterSelected', 1);
+    $('a[id^="select"]').click(function () {
+        mp.trigger('characterSelected', this.dataset.charid);
     });
 </script>
 </html>
