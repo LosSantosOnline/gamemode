@@ -1,7 +1,7 @@
 "use strict";
 
 const logger = require('../utils/Logger');
-const meta = require('../characters/CharacterModuleMeta');
+const meta = require('../account/AccountModuleMeta');
 
 function info(message) {
     logger.info("[" + meta.MODULE_NAME + "] " + message);

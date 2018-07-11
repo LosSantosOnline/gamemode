@@ -1,7 +1,7 @@
 "use strict";
 
 const database = require('../database/Database');
-const logger = require('../vehicles/VehicleLogger');
+const logger = require('../characters/CharacterLogger');
 
 function loadByName(player, characterName) {
     database.character.findOne({
@@ -13,3 +13,7 @@ function loadByName(player, characterName) {
 }
 
 exports.loadByName = loadByName;
+
+function loadAll(player) {
+
+}

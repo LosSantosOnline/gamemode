@@ -12,6 +12,8 @@ const result = dotenv.config();
 
     await require('./loaders/CommandsLoader')();
 
+    await require('./loaders/AccountLoader')();
+
     await require('./loaders/AuthorizationLoader')();
 
     // Loading modules
