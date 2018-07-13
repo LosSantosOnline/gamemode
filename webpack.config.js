@@ -1,4 +1,5 @@
 const path = require("path");
+const fs = require("fs");
 const webpack = require("webpack");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
 const glob = require("glob");
@@ -8,10 +9,13 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const HtmlWebpackHarddiskPlugin = require("html-webpack-harddisk-plugin");
 const FileManagerPlugin = require("filemanager-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const directoryExist = fs.existsSync(
+  "./client_packages/LSOnline/Browsers/dist/"
+);
 const env =
   process.argv[2] === "--mode=production" ? "production" : "development";
 
-console.log(process.argv);
 module.exports = {
   mode: env,
   stats: "errors-only",
@@ -29,8 +33,8 @@ module.exports = {
     ),
   output: {
     path: path.resolve("./client_packages/LSOnline/Browsers/dist/"),
-    filename: "[name]/bundle.js",
-    publicPath: "../"
+    filename: "[name]/[name].min.js",
+    publicPath: ".."
   },
   module: {
     rules: [
@@ -52,7 +56,8 @@ module.exports = {
           {
             loader: "file-loader",
             options: {
-              outputPath: "static/"
+              name: "[name].[ext]",
+              outputPath: "/assets/static"
             }
           }
         ]
@@ -70,19 +75,35 @@ module.exports = {
     ]
   },
   optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true
+      })
+    ],
     splitChunks: {
       cacheGroups: {
         commons: {
-          chunks: "initial",
+          chunks: "all",
           minChunks: 2,
-          maxInitialRequests: 5, // The default limit is too small to showcase the effect
-          minSize: 0 // This is example is too small to create commons chunks
+          maxInitialRequests: 5,
+          minSize: 0
         },
         vendor: {
           test: /node_modules/,
           chunks: "initial",
           name: "vendor",
           priority: 10,
+          enforce: true
+        },
+        styles: {
+          name: "assets/styles",
+          test: module =>
+            module.nameForCondition &&
+            /\.(s?css|vue)$/.test(module.nameForCondition()) &&
+            !/^javascript/.test(module.type),
+          chunks: "all",
+          minChunks: 1,
           enforce: true
         }
       }
@@ -116,19 +137,21 @@ module.exports = {
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackHarddiskPlugin(),
-    new webpack.DefinePlugin({
-      mp: {
-        trigger: () => {}
-      }
+    new MiniCssExtractPlugin({
+      filename: "[name].css"
+    }),
+    new OptimizeCssAssetsPlugin({
+      assetNameRegExp: /\.css$/g,
+      cssProcessor: require("cssnano"),
+      cssProcessorOptions: { discardComments: { removeAll: true } },
+      canPrint: true
     }),
     new FileManagerPlugin({
       onStart: {
-        delete: ["./client_packages/LSOnline/Browsers/dist/"]
+        delete: [
+          directoryExist ? "./client_packages/LSOnline/Browsers/dist/" : ""
+        ]
       }
-    }),
-    new MiniCssExtractPlugin({
-      filename: "[name]/style.css",
-      chunkFilename: "[id].css"
     })
   ]
 };
@@ -142,14 +165,23 @@ if (env == "development") {
     index: ""
   };
   module.exports.devtool = "cheap-eval-source-map";
+  module.exports.plugins.push(
+    new FileManagerPlugin({
+      onEnd: {
+        copy: [
+          {
+            source: "./client_packages/LSOnline/Browsers/src/assets/images/*",
+            destination:
+              "./client_packages/LSOnline/Browsers/dist/assets/static"
+          }
+        ]
+      }
+    })
+  );
 }
 if (env == "production") {
   module.exports.stats = true;
   module.exports.plugins.push(
-    new UglifyJsPlugin({
-      cache: true,
-      parallel: true
-    }),
     new FileManagerPlugin({
       onEnd: {
         delete: [
@@ -161,7 +193,6 @@ if (env == "production") {
     })
   );
 }
-
 glob
   .sync("./client_packages/LSOnline/Browsers/src/pages/*/*.js")
   .forEach(element => {
@@ -171,7 +202,7 @@ glob
         title: name,
         filename: `${name}/index.html`,
         alwaysWriteToDisk: true,
-        chunks: ["vendor", "commons", name],
+        chunks: ["vendor", "commons", "styles", name],
         template: "./client_packages/LSOnline/Browsers/src/pages/template.html",
         meta: {
           viewport: "width=device-width, initial-scale=1"
