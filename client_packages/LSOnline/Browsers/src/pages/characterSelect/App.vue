@@ -44,7 +44,6 @@
                 $("#characters").fadeOut(timeout);
             },
             selectChar(characterId) {
-                console.log(characterId);
                 mp.trigger('characterSelected', characterId);
             }
         },

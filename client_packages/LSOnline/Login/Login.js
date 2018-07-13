@@ -9,13 +9,18 @@ function preparePanel(url) {
     browser.open(url);
 }
 
-function changePanel(url, characters) {
+function changePanel(url) {
     browser.close();
     setTimeout(function () {
         browser.prepareScreen();
         browser.open(url);
-        browser.inject(`showCharacters('${characters}',3000)`);
     }, 1000);
+}
+
+function showCharacter(characters) {
+    setTimeout(function () {
+        browser.inject(`showCharacters('${characters}',3000)`);
+    }, 4000);
 }
 
 function destroyPanel() {
@@ -31,8 +36,8 @@ mp.events.add({
         mp.events.callRemote("authorizePlayer", login, password);
     },
     'userAuthorized': async (characters) => {
-        destroyPanel();
-        changePanel("package://LSOnline/Browsers/dist/characterSelect/index.html", characters);
+        changePanel("package://LSOnline/Browsers/dist/characterSelect/index.html");
+        showCharacter(characters);
     },
     'characterSelected': (characterId) => {
         destroyPanel();

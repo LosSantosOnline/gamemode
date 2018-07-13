@@ -7,7 +7,7 @@ module.exports = async () => {
         const GameBootstrap = require("../modules/game/GameBootstrap");
         const VehicleManager = require("../modules/vehicles/VehicleManager");
         const VehicleData = require("../modules/vehicles/VehicleData");
-        const Login = require("../modules/auth/Login");
+        const LoginEventsHandler = require("../modules/auth/LoginEventsHandler");
         const GameEvents = require("../modules/game/GameEvents");
         const AdminCommands = require("../modules/commands/AdminCommands");
         const ChatCommands = require("../modules/commands/ChatCommands");

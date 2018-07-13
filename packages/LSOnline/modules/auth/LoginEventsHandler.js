@@ -17,12 +17,12 @@ mp.events.add({
         showLoginPanel(player);
     },
     "loginPlayer": async (player, characterId) => {
-        player.character = characterManager.loadById(characterId);
+        await characterManager.loadById(player, characterId);
+
         player.call(`actionDone`, [
             `Witaj na serwerze!`,
             "Zalogowałeś się po raz pierwszy na naszym serwerze. Wciśnij przycisk <b>Home</b>, " +
             "aby wyświetlić dashboard konta wraz z panelem pomocy."
         ]);
-        console.log(player.character.name);
     }
 });
