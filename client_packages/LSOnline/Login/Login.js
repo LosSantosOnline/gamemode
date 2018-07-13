@@ -31,7 +31,8 @@ mp.events.add({
         mp.events.callRemote("authorizePlayer", login, password);
     },
     'userAuthorized': async (characters) => {
-        changePanel("package://LSOnline/Browsers/CharacterSelect/index.html", characters);
+        destroyPanel();
+        changePanel("package://LSOnline/Browsers/dist/characterSelect/index.html", characters);
     },
     'characterSelected': (characterId) => {
         destroyPanel();
