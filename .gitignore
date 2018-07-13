@@ -10,5 +10,6 @@ server.exe
 /node_modules
 conf.json
 /client_packages/.listcache
+/client_packages/LSOnline/Browsers/dist
 /maps
 .env

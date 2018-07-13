@@ -2,8 +2,10 @@
 const characterManager = require('../characters/CharacterManager');
 
 
-function showLoginPanel(player) {
-    player.call(`loginPanelAppeared`, ["package://LSOnline/Browsers/Login/index.html"]);
+function showLoginPanel (player) {
+  player.call(`loginPanelAppeared`, [
+    'package://LSOnline/Browsers/dist/login/index.html'
+  ])
 }
 
 mp.events.add({
