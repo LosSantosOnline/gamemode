@@ -11,7 +11,7 @@
           <el-input v-model="form.username"></el-input>
         </el-form-item>
         <el-form-item label="Hasło" prop="password">
-          <el-input v-model="form.password"></el-input>
+          <el-input type="password" v-model="form.password"></el-input>
         </el-form-item>
         <el-form-item>
           <el-checkbox v-model="form.remember">Zapamiętaj mnie</el-checkbox>
@@ -43,7 +43,13 @@ export default {
           {
             required: true,
             message: "Nazwa użytkownika nie może być pusta",
-            trigger: "blur"
+            trigger: "blur",
+          },
+          {
+            min: 3,
+            max: 26,
+            message: 'Nazwa użytkownika jest za długa lub za krótka',
+            trigger: 'blur'
           }
         ],
         password: [
@@ -51,6 +57,11 @@ export default {
             required: true,
             message: "Hasło nie może być puste",
             trigger: "blur"
+          },
+          {
+            min: 8,
+            message: 'Hasło jest za krótkie',
+            trigger: 'blur'
           }
         ]
       }
@@ -58,11 +69,7 @@ export default {
   },
   methods: {
     signIn() {
-<<<<<<< HEAD
       mp.trigger("loginButtonClicked", this.form.username, this.form.password);
-=======
-        mp.trigger('loginButtonClicked', this.username, this.password);
->>>>>>> master
     },
     submitForm(e) {
       this.loading = true;
@@ -73,7 +80,6 @@ export default {
             localStorage.setItem("pass", this.form.password);
             localStorage.setItem("remember", this.form.remember.toString());
           } else {
-            console.log("e");
             localStorage.clear();
           }
           return this.signIn();
