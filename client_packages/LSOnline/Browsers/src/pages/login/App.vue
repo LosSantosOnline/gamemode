@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     signIn() {
-      mp.trigger('loginButtonClicked', this.password);
+        mp.trigger('loginButtonClicked', this.username, this.password);
     },
     submitForm(e) {
       if(!this.username) this.errors.username = true;
