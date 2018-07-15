@@ -1,7 +1,10 @@
 <template>
     <transition name="fade">
         <div class="selectBox" id="characters" v-if="show">
-            <div class="selectTitle"><i class="fas fa-users"></i> Wybierz postać</div>
+            <div class="selectTitle">
+                <font-awesome-icon icon="users"></font-awesome-icon>
+                Wybierz postać
+            </div>
             <table class="characterTable" id="charTable">
                 <tbody>
                 <tr v-for="character in characterRows">
@@ -12,9 +15,9 @@
                         <b>{{ character.name }}</b><br/>{{character.hours}}h {{character.minutes}}m
                     </td>
                     <td class="centered" width="30%">
-                        <a id="select" @click="selectChar(character.id)" class="selectButton">Wybierz <i
-                                class="fas fa-chevron-right"
-                                style="font-size: 17px;"></i></a>
+                        <a id="select" @click="selectChar(character.id)" class="selectButton">Wybierz
+                            <font-awesome-icon icon="chevron-right"></font-awesome-icon>
+                        </a>
                     </td>
                 </tr>
                 </tbody>
@@ -35,13 +38,13 @@
             }
         },
         methods: {
-            showCharacters(characters, timeout = 1000) {
+            showCharacters(characters) {
                 characters = JSON.parse(characters);
                 this.characterRows = characters;
                 this.show = true;
             },
-            hideCharacters(timeout = 1000) {
-                $("#characters").fadeOut(timeout);
+            hideCharacters() {
+                this.show = false;
             },
             selectChar(characterId) {
                 mp.trigger('characterSelected', characterId);
@@ -60,9 +63,9 @@
         font-family: OpenSans-Light, sans-serif;
         color: #ffffff;
         background-color: rgba(0, 0, 0, 0.5);
-        -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
-        -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
-        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+        -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
         width: 1200px;
         padding: 10px;
         border-radius: 3px;
