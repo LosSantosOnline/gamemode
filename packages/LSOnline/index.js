@@ -10,6 +10,12 @@ const result = dotenv.config();
     // Loading globals
     await require('./loaders/GlobalsLoader.js')();
 
+    await require('./loaders/CommandsLoader')();
+
+    await require('./loaders/AccountLoader')();
+
+    await require('./loaders/AuthorizationLoader')();
+
     // Loading modules
     await require('./loaders/ModulesLoader.js')();
 

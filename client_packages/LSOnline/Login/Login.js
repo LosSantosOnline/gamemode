@@ -9,6 +9,20 @@ function preparePanel(url) {
   browser.open(url);
 }
 
+function changePanel(url) {
+  browser.close();
+  setTimeout(function() {
+    browser.prepareScreen();
+    browser.open(url);
+  }, 1000);
+}
+
+function showCharacter(characters) {
+  setTimeout(function() {
+    browser.inject(`showCharacters('${characters}',3000)`);
+  }, 4000);
+}
+
 function destroyPanel() {
   camera.destroyCamera();
   browser.close();
@@ -26,8 +40,19 @@ mp.events.add({
       );
     }, 5000);
   },
-  loginButtonClicked: password => {
+  loginPanelAppeared: url => {
+    preparePanel(url);
+  },
+  loginButtonClicked: (login, password) => {
+    mp.events.callRemote("authorizePlayer", login, password);
+  },
+  userAuthorized: async characters => {
+    changePanel("package://LSOnline/Browsers/dist/characterSelect/index.html");
+    showCharacter(characters);
+  },
+  characterSelected: characterId => {
+    destroyPanel();
     mp.players.local.setInvincible(true);
-    mp.events.callRemote("loginPlayer", password);
+    mp.events.callRemote("loginPlayer", characterId);
   }
 });

@@ -58,7 +58,11 @@ export default {
   },
   methods: {
     signIn() {
+<<<<<<< HEAD
       mp.trigger("loginButtonClicked", this.form.username, this.form.password);
+=======
+        mp.trigger('loginButtonClicked', this.username, this.password);
+>>>>>>> master
     },
     submitForm(e) {
       this.loading = true;
