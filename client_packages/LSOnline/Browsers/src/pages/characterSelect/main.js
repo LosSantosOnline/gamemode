@@ -3,13 +3,9 @@
 import Vue from "vue";
 import App from "./App.vue";
 import {library} from "@fortawesome/fontawesome-svg-core";
-import {faUser} from "@fortawesome/free-solid-svg-icons/faUser";
-import {faUsers} from "@fortawesome/free-solid-svg-icons/faUsers";
-import {faChevronRight} from "@fortawesome/free-solid-svg-icons/faChevronRight";
+import {faUser, faUsers, faChevronRight} from "@fortawesome/free-solid-svg-icons"
 
-library.add(faUser);
-library.add(faUsers);
-library.add(faChevronRight);
+library.add(faUser, faUsers, faChevronRight);
 
 const vm = new Vue({
     el: "#app",
