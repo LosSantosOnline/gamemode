@@ -51,13 +51,24 @@ module.exports = {
         }
       },
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpg|jpeg|gif)$/,
         use: [
           {
             loader: "file-loader",
             options: {
               name: "[name].[ext]",
               outputPath: "/assets/static"
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/,
+        use: [
+          {
+            loader: "url-loader",
+            options: {
+              limit: 10000
             }
           }
         ]
@@ -158,7 +169,10 @@ if (env == "development") {
     hot: true,
     open: true,
     publicPath: "/dist/",
-    index: ""
+    index: "",
+    watchOptions: {
+      poll: 1000
+    }
   };
   module.exports.devtool = "cheap-eval-source-map";
   module.exports.plugins.push(
@@ -179,6 +193,11 @@ if (env == "production") {
   module.exports.stats = true;
   module.exports.plugins.push(
     new FileManagerPlugin({
+      onStart: {
+        delete: [
+          directoryExist ? "./client_packages/LSOnline/Browsers/dist/" : ""
+        ]
+      },
       onEnd: {
         delete: [
           "./client_packages/LSOnline/Browsers/src/*",
