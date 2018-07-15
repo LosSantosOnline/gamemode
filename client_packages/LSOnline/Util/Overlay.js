@@ -15,27 +15,31 @@ class Overlay {
     if (instance) {
       return instance;
     }
-    instance = this.browser = mp.browsers.new(
+    instance = this;
+    this.browser = mp.browsers.new(
       "package://LSOnline/Browsers/dist/overlay/index.html"
     );
-    this.timeout = 3500;
   }
 
   /**
-   * Passes the data to Notification component and notifies the player.
+   *
+   *
    * @param {string} title
    * @param {string} content
-   * @param {string} [type="info"]
+   * @param {('info')} [type="info"]
+   * @param {3500} [timeout=3500]
    * @memberof Overlay
    */
-  notify(title, content, type = "info") {
+  notify(title, content, type = "info", timeout = 3500) {
     mp.game.audio.playSoundFrontend(
       -1,
       "CHALLENGE_UNLOCKED",
       "HUD_AWARDS",
       true
     );
-    browser.inject(`notify(${title}, ${content}, ${type}, ${this.timeout}`);
+    this.browser.execute(
+      `showNotification("${title}", "${content}", "${type}", ${timeout});`
+    );
   }
 }
 
