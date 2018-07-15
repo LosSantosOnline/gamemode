@@ -1,7 +1,7 @@
 // --- LSOnline 2018 --- //
 const Browser = require("./LSOnline/Util/Browser");
 const Camera = require("./LSOnline/Util/Camera");
-const Overlay = require("./LSOnline/Notification/Notification");
+const Overlay = require("./LSOnline/Util/Overlay");
 const Login = require("./LSOnline/Login/Login");
 const Teleport = require("./LSOnline/Util/Teleport");
 const Misc = require("./LSOnline/Util/Misc");

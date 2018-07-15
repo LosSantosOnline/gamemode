@@ -29,8 +29,7 @@ export default {
   },
   methods: {
     showNotification(title, content, type, timeout) {
-      let id = this.notifications.length * Math.random() * 1000;
-      console.log(id);
+      let id = this.notifications.length * Math.random() * 100; // this should generate random key to track for v-key directive. Unfourtanely, v-key don't work as expected if provided array's index
       this.notifications.unshift({
         id,
         title,

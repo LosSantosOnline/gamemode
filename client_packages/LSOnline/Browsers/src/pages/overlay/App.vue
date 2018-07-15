@@ -1,28 +1,14 @@
 <template>
-  <notification class="notification"></notification>
+  <notification ref="notifications" class="notification"></notification>
 </template>
 
 <script>
 import Notification from "./components/Notification.vue";
 
 export default {
-  name: "notificationParent",
+  name: "overlayParent",
   data() {
-    return {
-      notification: true,
-      title: "",
-      content: ""
-    };
-  },
-  methods: {
-    showNotification(title, content, timeout = 1000) {
-      this.title = title;
-      this.content = content;
-      this.notification = true;
-    },
-    hideNotification() {
-      this.notification = false;
-    }
+    return {};
   },
   components: {
     Notification
@@ -40,6 +26,7 @@ body {
 .notification {
   position: absolute;
   right: 0px;
+  top: 0px;
   width: 30%;
 }
 </style>
