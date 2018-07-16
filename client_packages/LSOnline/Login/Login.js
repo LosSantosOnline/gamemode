@@ -40,9 +40,6 @@ mp.events.add({
       );
     }, 5000);
   },
-  loginPanelAppeared: url => {
-    preparePanel(url);
-  },
   loginButtonClicked: (login, password) => {
     mp.events.callRemote("authorizePlayer", login, password);
   },
