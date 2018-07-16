@@ -5,17 +5,21 @@
     </header>
     <main class="login-wrapper">
       <el-form status-icon v-loading="loading" ref="form" :rules="rules" :model="form">
+        <!--
         <h1 class="heading" v-if="firstTime">Zaloguj się</h1>
         <h1 class="heading" v-else>Witaj ponownie!</h1>
+        -->
         <el-form-item label="Nazwa użytkownika" prop="username">
           <el-input v-model="form.username"></el-input>
         </el-form-item>
         <el-form-item label="Hasło" prop="password">
           <el-input type="password" v-model="form.password"></el-input>
         </el-form-item>
+        <!--
         <el-form-item>
           <el-checkbox v-model="form.remember">Zapamiętaj mnie</el-checkbox>
         </el-form-item>
+        -->
         <el-form-item>
           <el-button type="primary" :disabled="!form.username || !form.password" @click="submitForm('form')">Wejdź do gry</el-button>
         </el-form-item>
@@ -34,22 +38,22 @@ export default {
       loading: false,
       firstTime: true,
       form: {
-        username: localStorage.getItem("user") || "",
-        password: localStorage.getItem("pass") || "",
-        remember: new Boolean(localStorage.getItem("remember")).valueOf()
+        username: "",
+        password: "",
+        remember: false
       },
       rules: {
         username: [
           {
             required: true,
             message: "Nazwa użytkownika nie może być pusta",
-            trigger: "blur",
+            trigger: "blur"
           },
           {
             min: 3,
             max: 26,
-            message: 'Nazwa użytkownika jest za długa lub za krótka',
-            trigger: 'blur'
+            message: "Nazwa użytkownika jest za długa lub za krótka",
+            trigger: "blur"
           }
         ],
         password: [
@@ -60,8 +64,8 @@ export default {
           },
           {
             min: 8,
-            message: 'Hasło jest za krótkie',
-            trigger: 'blur'
+            message: "Hasło jest za krótkie",
+            trigger: "blur"
           }
         ]
       }
@@ -75,13 +79,6 @@ export default {
       this.loading = true;
       this.$refs[e].validate(valid => {
         if (valid) {
-          if (this.form.remember) {
-            localStorage.setItem("user", this.form.username);
-            localStorage.setItem("pass", this.form.password);
-            localStorage.setItem("remember", this.form.remember.toString());
-          } else {
-            localStorage.clear();
-          }
           return this.signIn();
         }
         this.loading = false;
@@ -90,7 +87,7 @@ export default {
     }
   },
   mounted() {
-    this.form.remember ? this.firstTime = false : this.firstTime = true;
+    this.form.remember ? (this.firstTime = false) : (this.firstTime = true);
   },
   components: {
     FontAwesomeIcon
