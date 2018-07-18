@@ -9,17 +9,16 @@
         <h1 class="heading" v-if="firstTime">Zaloguj się</h1>
         <h1 class="heading" v-else>Witaj ponownie!</h1>
         -->
+        <h1 class="heading">Zaloguj się</h1>
         <el-form-item label="Nazwa użytkownika" prop="username">
           <el-input v-model="form.username"></el-input>
         </el-form-item>
         <el-form-item label="Hasło" prop="password">
           <el-input type="password" v-model="form.password"></el-input>
         </el-form-item>
-        <!--
         <el-form-item>
           <el-checkbox v-model="form.remember">Zapamiętaj mnie</el-checkbox>
         </el-form-item>
-        -->
         <el-form-item>
           <el-button type="primary" :disabled="!form.username || !form.password" @click="submitForm('form')">Wejdź do gry</el-button>
         </el-form-item>
@@ -87,7 +86,10 @@ export default {
     }
   },
   mounted() {
-    this.form.remember ? (this.firstTime = false) : (this.firstTime = true);
+    this.form.remember ? this.firstTime = false : this.firstTime = true;
+    setTimeout(() => {
+      mp.trigger("remindAccount");
+    }, 6000);
   },
   components: {
     FontAwesomeIcon

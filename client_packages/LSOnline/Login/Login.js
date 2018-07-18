@@ -31,17 +31,17 @@ function destroyPanel() {
 mp.events.add({
   loginPanelAppeared: url => {
     preparePanel(url);
-    setTimeout(() => {
-      Overlay.notify(
-        "Nie posiadasz konta?",
-        "Wejdź na lsonline.pl i załóż je już teraz",
-        "info",
-        5000
-      );
-    }, 5000);
   },
   loginButtonClicked: (login, password) => {
     mp.events.callRemote("authorizePlayer", login, password);
+  },
+  remindAccount: () => {
+    Overlay.notify(
+      "Nie posiadasz konta?",
+      "Wejdź na lsonline.pl i załóż je już teraz",
+      "info",
+      5000
+    );
   },
   userAuthorized: async characters => {
     changePanel("package://LSOnline/Browsers/dist/characterSelect/index.html");
