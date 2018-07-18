@@ -159,4 +159,7 @@ body {
 .el-message {
   background-color: $background-color !important;
 }
+.el-checkbox {
+  font-weight: 400!important;
+}
 </style>
