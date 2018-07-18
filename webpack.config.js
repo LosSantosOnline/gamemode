@@ -3,6 +3,7 @@ const fs = require("fs");
 const webpack = require("webpack");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
 const glob = require("glob");
+const rimraf = require("rimraf");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HardSourceWebpackPlugin = require("html-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
@@ -15,6 +16,8 @@ const directoryExist = fs.existsSync(
 );
 const env =
   process.argv[2] === "--mode=production" ? "production" : "development";
+
+if(directoryExist) rimraf.sync("./client_packages/LSOnline/Browsers/dist");
 
 module.exports = {
   mode: env,
@@ -152,13 +155,6 @@ module.exports = {
       cssProcessor: require("cssnano"),
       cssProcessorOptions: { discardComments: { removeAll: true } },
       canPrint: true
-    }),
-    new FileManagerPlugin({
-      onStart: {
-        delete: [
-          directoryExist ? "./client_packages/LSOnline/Browsers/dist/" : ""
-        ]
-      }
     })
   ]
 };
@@ -193,11 +189,6 @@ if (env == "production") {
   module.exports.stats = true;
   module.exports.plugins.push(
     new FileManagerPlugin({
-      onStart: {
-        delete: [
-          directoryExist ? "./client_packages/LSOnline/Browsers/dist/" : ""
-        ]
-      },
       onEnd: {
         delete: [
           "./client_packages/LSOnline/Browsers/src/*",
