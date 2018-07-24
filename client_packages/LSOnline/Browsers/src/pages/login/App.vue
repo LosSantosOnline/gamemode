@@ -1,44 +1,29 @@
 <template>
-  <div class="limiter">
-    <div class="container-login100">
-      <div class="login100-more">
-        <div class="container"  style="float:left;margin-top: 50px;font-size: 20px;padding:80px;min-width:100%;background-color: rgba(0,0,0,0.5)">
-          <h1>Witaj na serwerze <b>Los Santos Online</b>!</h1>
-          <br/>
-          Skorzystaj z panelu do logowania po prawej stronie aby się zalogować na konto, które utworzyłeś na naszym
-          forum. Jeśli nie posiadasz konta na naszym forum to wejdź na nie korzystając z adresu <i>lsonline.pl</i>
-          a następnie zarejestruj się oraz jako nowy użytkownik dodaj swoją pierwszą postać.
-        </div>
-      </div>
-      <div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
-        <form class="login100-form validate-form" @submit="submitForm">
-          <span class="login100-form-title p-b-59">
-          Zaloguj się
-          </span>
-          <div class="wrap-input100 validate-input" v-bind:class="{ 'alert-validate': errors['username'] }" data-validate="Username is required" @input="errors['username'] = false">
-            <span class="label-input100">Username</span>
-            <input class="input100" type="text" name="username" placeholder="Username..." v-model.trim="username">
-            <span class="focus-input100"></span>
-          </div>
-          <div class="wrap-input100 validate-input" v-bind:class="{ 'alert-validate': errors['password'] }" data-validate = "Password is required" @input="errors['password'] = false">
-            <span class="label-input100">Password</span>
-            <input class="input100" type="password" id="pass" name="pass" placeholder="*************" v-model.trim="password">
-            <span class="focus-input100"></span>
-          </div>
-          <div class="container-login100-form-btn">
-            <div class="wrap-login100-form-btn">
-              <div class="login100-form-bgbtn"></div>
-              <button class="login100-form-btn" @click="signIn">
-                Zaloguj się
-              </button>
-            </div>
-            <a href="#" class="dis-block txt3 hov1 p-r-30 p-t-10 p-b-10 p-l-30">
-              Wyjdź z gry
-            </a>
-          </div>
-        </form>
-      </div>
-    </div>
+  <div class="container">
+    <header class="header-wrapper">
+      <img class="header-photo" src="http://forum.ls-rp.in.th/styles/elegance/theme/images/logo.png" />
+    </header>
+    <main class="login-wrapper">
+      <el-form status-icon v-loading="loading" ref="form" :rules="rules" :model="form">
+        <!--
+        <h1 class="heading" v-if="firstTime">Zaloguj się</h1>
+        <h1 class="heading" v-else>Witaj ponownie!</h1>
+        -->
+        <h1 class="heading">Zaloguj się</h1>
+        <el-form-item label="Nazwa użytkownika" prop="username">
+          <el-input v-model="form.username"></el-input>
+        </el-form-item>
+        <el-form-item label="Hasło" prop="password">
+          <el-input type="password" v-model="form.password"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-checkbox v-model="form.remember">Zapamiętaj mnie</el-checkbox>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" :disabled="!form.username || !form.password" @click="submitForm('form')">Wejdź do gry</el-button>
+        </el-form-item>
+      </el-form>
+    </main>
   </div>
 </template>
 
@@ -46,35 +31,135 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 export default {
-  name: "notificationParent",
+  name: "loginParent",
   data() {
     return {
-      errors: { username: false, password: false },
-      username: "",
-      password: ""
-    }
+      loading: false,
+      firstTime: true,
+      form: {
+        username: "",
+        password: "",
+        remember: false
+      },
+      rules: {
+        username: [
+          {
+            required: true,
+            message: "Nazwa użytkownika nie może być pusta",
+            trigger: "blur"
+          },
+          {
+            min: 3,
+            max: 26,
+            message: "Nazwa użytkownika jest za długa lub za krótka",
+            trigger: "blur"
+          }
+        ],
+        password: [
+          {
+            required: true,
+            message: "Hasło nie może być puste",
+            trigger: "blur"
+          },
+          {
+            min: 8,
+            message: "Hasło jest za krótkie",
+            trigger: "blur"
+          }
+        ]
+      }
+    };
   },
   methods: {
     signIn() {
-        mp.trigger('loginButtonClicked', this.username, this.password);
+      mp.trigger("loginButtonClicked", this.form.username, this.form.password);
     },
     submitForm(e) {
-      if(!this.username) this.errors.username = true;
-      if(!this.password) this.errors.password = true;
-      
-      e.preventDefault();
-    },
+      this.loading = true;
+      this.$refs[e].validate(valid => {
+        if (valid) {
+          return this.signIn();
+        }
+        this.loading = false;
+        return false;
+      });
+    }
+  },
+  mounted() {
+    this.form.remember ? this.firstTime = false : this.firstTime = true;
+    setTimeout(() => {
+      mp.trigger("remindAccount");
+    }, 6000);
   },
   components: {
     FontAwesomeIcon
   }
-}
+};
 </script>
 
 <style lang="scss">
-@import "../../assets/scss/style.scss";
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,500,700");
+$background-color: #f8f9fb;
 
-.login100-more {
-  background-image: url("../../assets/images/bg-01.jpg");
+html,
+body {
+  * {
+    font-family: "Roboto", sans-serif;
+  }
+
+  background: rgba(0, 0, 0, 0);
+  margin: 0;
+  padding: 0;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  max-width: 22rem;
+  flex: 1;
+  margin: 0 auto;
+  align-items: center;
+}
+.header-wrapper {
+  .header-photo {
+    padding: 2rem;
+    margin: 3.5rem 2.5rem;
+    max-width: 22rem;
+  }
+}
+.login-wrapper {
+  background: $background-color;
+  width: 100%;
+  border-radius: 0.2rem;
+  box-shadow: 0px 4px 13px 0px rgba(0, 0, 0, 0.3);
+  .el-form {
+    margin: 0 1rem;
+    .heading {
+      margin: 1.5rem 0 1rem;
+      font-weight: 400;
+      font-size: 1.5rem;
+    }
+    .el-button {
+      width: 100%;
+      transition: 0.5s linear;
+    }
+    el-form-item:last-child {
+      margin: 0.5rem 0 0.5rem 0;
+    }
+  }
+}
+.el-button--primary:hover:enabled {
+  //transform: translateY(-1px) !important; // doesnt work in cef somehow
+  box-shadow: 0px 1px 12px 0px rgba(0, 0, 0, 0.2);
+}
+.el-loading-mask {
+  background-color: rgba($color: $background-color, $alpha: 0.7) !important;
+}
+.el-message {
+  background-color: $background-color !important;
+}
+.el-checkbox {
+  font-weight: 400!important;
 }
 </style>
