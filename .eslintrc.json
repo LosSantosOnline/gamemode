@@ -1,0 +1,17 @@
+{
+  "extends": "standard",
+  "parserOptions": {
+    "ecmaVersion": 9,
+    "sourceType": "script",
+    "impliedStrict": true
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true
+  },
+  "globals": {
+    "window": false,
+    "mp": false
+  }
+}
