@@ -13,5 +13,8 @@
   "globals": {
     "window": false,
     "mp": false
+  },
+  "rules": {
+    "semi": ["error", "always"]
   }
 }
