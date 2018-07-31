@@ -21,7 +21,7 @@ This repository contains source files of server gamemode.
     - Switch into your server directory
     - `npm install`
     - Configure your environment variables in `.env` file
-    - Setup database `./node_modules/.bin/sequelize db:create` & `./node_modules/.bin/sequelize db:create`
+    - Setup database `./node_modules/.bin/sequelize db:create` & `./node_modules/.bin/sequelize db:migrate`
     - Build client files `npm run dev` or `npm run production`
 4.  Run the server
 
