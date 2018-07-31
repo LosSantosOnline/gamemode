@@ -16,8 +16,11 @@ mp.events.add({
     showLoginPanel(player)
   },
   playerSelected: async (player, characterId) => {
-    await characterManager.loadByIdWithData(player, characterId)
-
+    try {
+      await characterManager.loadByIdWithData(player, characterId)
+    } catch (e) {
+      console.log(e)
+    }
     player.setVariable('nickname', player.character.name)
 
     if (player.character.Outfits.length > 0) {
