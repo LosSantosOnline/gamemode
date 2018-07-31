@@ -51,6 +51,11 @@ module.exports = {
         type: Sequelize.STRING,
         defaultValue: 'disconnect'
       },
+      dimension: {
+        allowNull: false,
+        defaultValue: 0,
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
