@@ -12,7 +12,8 @@
   },
   "globals": {
     "window": false,
-    "mp": false
+    "mp": false,
+    "rp": true
   },
   "rules": {
     "semi": ["error", "always"]
