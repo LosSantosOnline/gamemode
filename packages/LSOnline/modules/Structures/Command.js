@@ -5,7 +5,9 @@ class Command {
    * @param {string} [options.name] - The name of the command.
    * @param {string} [options.tooltip] - Info text when args is missing
    * @param {array} [options.perms=[]] - Perms
-   * @param {boolean} [options.muted="false"] - Should be command not avaible when muted? -> example: bw
+   * @param {boolean} [options.restriction="false"] - Should be command not avaible when muted? -> example: bw
+   * @param {array} [options.args=[]] - Required arguments for command to work
+   * @param {boolean} [options.hasSubcommands - Does command have subcommans? Example: /veh, /veh name
    * @memberof Command
    */
   constructor (file, options = {}) {
