@@ -18,12 +18,9 @@
   },
   "rules": {
     "semi": ["error", "always"],
-    "indent": "off",
     "quotes": "off",
-    "no-undef": "off",
     "no-console": "off",
     "no-unused-vars": "off",
-    "no-unneeded-ternary": "off",
-    "no-trailing-spaces": "off"
+    "no-unneeded-ternary": "off"
   }
 }
