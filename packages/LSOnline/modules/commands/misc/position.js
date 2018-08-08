@@ -4,12 +4,11 @@ class Position extends Command {
   constructor (...args) {
     super(...args, {
       name: 'pos',
-      aliases: ['position'],
-      args: ['Tekst']
+      aliases: ['position']
     });
   }
 
-  async run (player, command, args) { // eslint-disable-line no-unused-vars
+  async run (player, command, args) {
     player.outputChatBox(`!{#dddddd} Pozycja: X: ${player.position.x}, Y: ${player.position.y}, Z: ${player.position.z}`);
   }
 }

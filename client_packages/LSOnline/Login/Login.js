@@ -1,29 +1,30 @@
 "use strict";
 
-const browser = require("/LSOnline/Util/Browser");
 const camera = require("/LSOnline/Util/Camera");
+const browser = require("/LSOnline/Util/Browser");
 const Overlay = require("/LSOnline/Util/Overlay");
-function preparePanel(url) {
+
+function preparePanel (url) {
   browser.prepareScreen(1000);
   camera.createCamera(3223, 5349, 14, 0, 0, 218, 20);
   browser.open(url);
 }
 
-function changePanel(url) {
+function changePanel (url) {
   browser.close();
-  setTimeout(function() {
+  setTimeout(function () {
     browser.prepareScreen();
     browser.open(url);
   }, 1000);
 }
 
-function showCharacter(characters) {
-  setTimeout(function() {
+function showCharacter (characters) {
+  setTimeout(function () {
     browser.inject(`showCharacters('${characters}',3000)`);
   }, 4000);
 }
 
-function destroyPanel() {
+function destroyPanel () {
   camera.destroyCamera();
   browser.close();
 }

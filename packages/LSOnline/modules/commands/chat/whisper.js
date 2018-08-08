@@ -9,7 +9,7 @@ class Me extends Command {
     });
   }
 
-  async run (player, command, args) { // eslint-disable-line no-unused-vars
+  async run (player, command, args) {
     mp.players.broadcastInRange(player.position, 10, player.dimension, `!{#E0E0E0} ${player.name} szepcze: ${command.fullText}`);
   }
 }

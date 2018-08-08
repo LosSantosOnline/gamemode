@@ -1,6 +1,7 @@
 "use strict";
 
 const vehicleHashes = {
+    apc: 0x2189D250,
     adder: 0xB779A091,
     airbus: 0x4C80EB0E,
     airtug: 0x5D0AAC8F,
@@ -30,8 +31,11 @@ const vehicleHashes = {
     bati: 0xF9300CC5,
     benson: 0x7A61B330,
     besra: 0x6CBD1D6D,
+    bestiagts: 0x4BFCF28B,
     bfinjection: 0x432AA566,
     biff: 0x32B91AE8,
+    halftrack: 0xFE141DA6,
+    trailersmall2: 0x8FD54EBB,
     bifta: 0xEB298297,
     bison2: 0x7B8297C5,
     bison3: 0x67B3F020,
@@ -242,6 +246,7 @@ const vehicleHashes = {
     neon: 0x91CA96EE,
     ninef2: 0xA8E38B01,
     ninef: 0x3D8FA25C,
+    nightshade: 0x8C2BD0DC,
     oppressor: 0x34B82784,
     oracle2: 0xE18195B2,
     oracle: 0x506434F6,
@@ -411,6 +416,7 @@ const vehicleHashes = {
     tribike3: 0xE823FB48,
     tribike: 0x4339CD69,
     tropic: 0x1149422F,
+    tropos: 0x707E63A4,
     turismor: 0x185484E1,
     tvtrailer: 0x967620BE,
     utillitruck2: 0x34E6BF6B,
@@ -420,8 +426,13 @@ const vehicleHashes = {
     vader: 0xF79A00F7,
     valkyrie: 0xA09E15FD,
     velum2: 0x403820E8,
+    verlierer2: 0x41B77FA4,
     velum: 0x9C429B6A,
     vestra: 0x4FF77E37,
+    vortex: 0xDBA9DBFC,
+    wolfsbane: 0xDB20A373,
+    zombiea: 0xC3D7C72B,
+    zombieb: 0xDE05FB87,
     vigero: 0xCEC6B9B7,
     vindicator: 0xAF599F01,
     virgo: 0xE2504942,
@@ -432,6 +443,7 @@ const vehicleHashes = {
     warrener: 0x51D83328,
     washington: 0x69F06B57,
     windsor: 0x5E4327C8,
+    windsor2: 0x8CF5CAE1,
     xls2: 0xE6401328,
     xls: 0x47BBCF2E,
     yosemite: 0x6F946279,
@@ -440,18 +452,53 @@ const vehicleHashes = {
     zentorno: 0xAC5DF515,
     zion2: 0xB8E2AE18,
     zion: 0xBD1B39C3,
-    ztype: 0x2D3BD401
+    ztype: 0x2D3BD401,
+    seven70: 0x97398A4B,
+    buccaneer2: 0xC397F748,
+    tornado5: 0x94DA98EF,
+    banshee2: 0x25C5AF13,
+    vagner: 0x7397224C
 };
+
 exports.vehicleHashes = vehicleHashes;
+
+const policeVehicleHashes = {
+    fbi: 0x432EA949,
+    fbi2: 0x9DC66994,
+    police: 0x79FBB0C5,
+    police2: 0x9F05F101,
+    police3: 0x71FA16EA,
+    police4: 0x8A63C7B9,
+    policet: 0x1B38E955,
+    sheriff: 0x9BAA707C,
+    sheriff2: 0x72935408
+};
+
+exports.policeVehicleHashes = policeVehicleHashes;
+
+const vehiclesThatHaveRoofHashes = {
+    rapidgt2: 0x679450AF,
+    windsor2: 0x8CF5CAE1,
+    zion2: 0xB8E2AE18,
+    sentinel2: 0x3412AE2D,
+    felon2: 0xFAAD85EE,
+    ninef2: 0xA8E38B01,
+    surano: 0x16E478C1,
+    tornado5: 0x94DA98EF,
+    issi2: 0xB9CB3B69,
+    carbonizzare: 0x7B8AB45F
+};
+
+exports.vehiclesThatHaveRoofHashes = vehiclesThatHaveRoofHashes;
 
 const carsData = [
     {model: "f620", tankCapacity: 85, fuelType: 1, fuelRatio: 13.7},
     {model: "cyclone", tankCapacity: 40, fuelType: 4, fuelRatio: 3},
     {model: "windsor2", tankCapacity: 80, fuelType: 2, fuelRatio: 5},
-    {model: "frogger", tankCapacity: 3000, fuelType: 3, fuelRatio: 15},
+    {model: "frogger", tankCapacity: 3000, fuelType: 3, fuelRatio: 15}
 ];
-exports.carsData = carsData;
 
+exports.carsData = carsData;
 
 const fuelTypes = [
     {type: 1, name: 'Benzyna'},
@@ -459,4 +506,5 @@ const fuelTypes = [
     {type: 3, name: 'Paliwo lotnicze'},
     {type: 4, name: 'Energia elektryczna'}
 ];
+
 exports.fuelTypes = fuelTypes;

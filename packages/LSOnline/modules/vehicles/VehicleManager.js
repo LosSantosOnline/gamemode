@@ -1,14 +1,13 @@
 "use strict";
 
-const logger = require('../vehicles/VehicleLogger');
-const database = require('../database/Database');
-const vehicleData = require('../vehicles/VehicleData');
 const helpers = require('../utils/Helpers');
+const database = require('../database/Database');
+const logger = require('../vehicles/VehicleLogger');
+const vehicleData = require('../vehicles/VehicleData');
 
-async function create(player, model) {
+async function create (player, model) {
     const primaryColor = [helpers.randomInt(0, 255), helpers.randomInt(0, 255), helpers.randomInt(0, 255)];
     const secondaryColor = [helpers.randomInt(0, 255), helpers.randomInt(0, 255), helpers.randomInt(0, 255)];
-    
 
     database.vehicle
         .create({
@@ -20,66 +19,25 @@ async function create(player, model) {
             owner: 1,
             primaryColor: JSON.stringify(primaryColor),
             secondaryColor: JSON.stringify(secondaryColor),
-            plate: 'LSO',
             dimension: player.dimension,
             position: JSON.stringify(player.position)
         })
         .then(vehicle => {
             logger.info(`Saved vehicle "${vehicle.name}" (Model: ${vehicle.model}) in database.`);
             spawn(vehicle);
-        })
+        });
 }
 
 exports.create = create;
 
-async function load(vehicleId) {
-    database.vehicle.findById(vehicleId).then(vehicle => {
-        spawn(vehicle);
-    });
-}
-
-exports.load = load;
-
-async function loadAll() {
-    database.vehicle.findAll().then(vehicles => {
-        for (let i = 0; i < vehicles.length; i++) {
-            spawn(vehicles[i]);
-        }
-    });
-}
-
-exports.loadAll = loadAll;
-
-async function unspawn(vehicle) {
-    if(vehicle)
-        vehicle.destroy();
-}
-
-exports.unspawn = unspawn;
-
-async function spawn(vehicle) {
-    if (vehicle.position === null) {
-        logger.error(`Vehicle position is null (vehicleId: ${vehicle.id})!`);
-        return;
-    }
-
-    let carPosition = JSON.parse(vehicle.position);
-    const createdVehicle = mp.vehicles.new(mp.joaat(vehicle.model), new mp.Vector3(carPosition.x, carPosition.y, carPosition.z),
-        {
-            dimension: vehicle.dimension
-        });
-
-    logger.info(`Spawned vehicle "${vehicle.name}" (GameID: ${createdVehicle.id} / ID: ${vehicle.id} / Model: ${vehicle.model}) on world.`);
-    configureCreated(createdVehicle, vehicle);
-}
-
-function configureCreated(createdVehicle, vehicleData) {
+function configureCreated (createdVehicle, vehicleData) {
     try {
+        let vehiclePlate = `LS${vehicleData.id}`;
         let primaryColor = JSON.parse(vehicleData.primaryColor);
         let secondaryColor = JSON.parse(vehicleData.secondaryColor);
 
         createdVehicle.setColorRGB(primaryColor[0], primaryColor[1], primaryColor[2], secondaryColor[0], secondaryColor[1], secondaryColor[2]);
-        createdVehicle.numberPlate = vehicleData.plate;
+        createdVehicle.numberPlate = vehiclePlate;
         createdVehicle.informations = {
             id: vehicleData.id,
             gameId: createdVehicle.id,
@@ -89,17 +47,62 @@ function configureCreated(createdVehicle, vehicleData) {
             fuelType: vehicleData.fuelType,
             fuelRatio: vehicleData.fuelRatio,
             tankCapacity: vehicleData.tankCapacity,
-            dirtLevel: vehicleData.dirtLevel,
+            dirtLevel: vehicleData.dirtLevel
         };
-
-        logger.info(`Configured newly spawned vehicle "${vehicleData.name}" (GameID: ${createdVehicle.informations.gameId} / ID: ${vehicleData.id} / Model: ${vehicleData.model}).`);
-    }
-    catch (e) {
+    } catch (e) {
         logger.error(`Error occurred when configuring vehicle "${vehicleData.name}" (ID: ${vehicleData.id} / Model: ${vehicleData.model}). (Message: ${e})`);
     }
 }
 
-async function refuel(vehicleId, fuel) {
+async function load (vehicleId) {
+    database.vehicle.findById(vehicleId).then(vehicle => {
+        spawn(vehicle);
+    });
+}
+
+exports.load = load;
+
+const loadAll = async () => {
+    database.vehicle.findAll().then(vehicles => {
+        for (let i = 0; i < vehicles.length; i++) {
+            spawn(vehicles[i]);
+        }
+    });
+};
+
+exports.loadAll = loadAll;
+
+async function spawn (vehicle) {
+    if (vehicle.position === null) {
+        return logger.error(`Vehicle position is null (vehicleId: ${vehicle.id})!`);
+    }
+
+    let carPosition = JSON.parse(vehicle.position);
+    const createdVehicle = mp.vehicles.new(mp.joaat(vehicle.model), new mp.Vector3(carPosition.x, carPosition.y, carPosition.z),
+        {
+            locked: true,
+            engine: false,
+            dimension: vehicle.dimension
+        });
+        
+    // logger.info(`Spawned vehicle "${vehicle.name}" (GameID: ${createdVehicle.id} / ID: ${vehicle.id} / Model: ${vehicle.model}) on world.`);
+    configureCreated(createdVehicle, vehicle);
+}
+
+const respawnAll = async () => {
+    mp.vehicles.forEach((vehicle) => vehicle.destroy());
+    await loadAll();
+};
+
+exports.respawnAll = respawnAll;
+
+async function unspawn (vehicle) {
+    if (vehicle) vehicle.destroy();
+}
+
+exports.unspawn = unspawn;
+
+async function refuel (vehicleId, fuel) {
     database.vehicle.findById(vehicleId).then(vehicle => {
         vehicle
             .update({fuel: database.Sequelize.literal(`fuel + ${fuel}`)})
@@ -114,7 +117,7 @@ async function refuel(vehicleId, fuel) {
 
 exports.refuel = refuel;
 
-async function updateName(vehicleId, name) {
+async function updateName (vehicleId, name) {
     database.vehicle.findById(vehicleId).then(vehicle => {
         vehicle
             .update({name: name})
@@ -129,36 +132,129 @@ async function updateName(vehicleId, name) {
 
 exports.updateName = updateName;
 
-function toggleVehicleEngine(vehicle) {
+async function remove (vehicleId) {
+    database.vehicle.findById(vehicleId).then(vehicle => {
+        vehicle
+            .destroy()
+            .then(() => {
+                logger.info(`Removed vehicle "${vehicle.name}" (Model: ${vehicle.model} / ID: ${vehicle.id}) from database.`);
+            })
+            .catch((err) => {
+                logger.error(`Error occurred when removing vehicle "${vehicle.name}" (Model: ${vehicle.model} / ID: ${vehicle.id}). (Message: ${err})`);
+            });
+    });
+}
+
+exports.remove = remove;
+
+function getClosestVehicleForPlayer (player, range) {
+    let foundVehicle = null;
+
+    mp.vehicles.forEachInRange(player.position, range, player.dimension,
+        (vehicle) => {
+            foundVehicle = vehicle;
+        }
+    );
+
+    return foundVehicle;
+}
+
+exports.getClosestVehicleForPlayer = getClosestVehicleForPlayer;
+
+function getVehicleById (vehicleId) {
+    let foundVehicle = null;
+
+    mp.vehicles.forEach(
+        (vehicle) => {
+            if (vehicle.informations.id === vehicleId) {
+                foundVehicle = vehicle;
+            }
+        }
+    );
+
+    return foundVehicle;
+}
+
+exports.getVehicleById = getVehicleById;
+
+function toggleVehicleEngine (vehicle) {
     vehicle.engine = !vehicle.engine;
 }
 
 exports.toggleVehicleEngine = toggleVehicleEngine;
 
-function getCarData(model) {
+function toggleVehicleLock (vehicle, player) {
+    const actionType = vehicle.locked ? 'otwiera' : 'zamyka';
+
+    if (vehicle.locked) {
+        vehicle.locked = false;
+    } else {
+        const isVehiclePoliceModel = checkIfVehicleModelIsPolice(vehicle.informations.model);
+        vehicle.locked = true;
+
+        if (isVehiclePoliceModel) {
+            player.call("setDoorsLockedInSpecialVehicle", [vehicle]);
+        }
+    }
+
+    mp.players.broadcastInRange(player.position, 20, player.dimension, `!{#dca2f4} * ${player.name} ${actionType} drzwi pojazdu ${vehicle.informations.name}.`);
+}
+
+exports.toggleVehicleLock = toggleVehicleLock;
+
+function togglePoliceRadar (vehicle, player) {
+    const actionType = vehicle.data.policeRadar ? 'wyłącza' : 'włącza';
+    const isVehiclePoliceModel = checkIfVehicleModelIsPolice(vehicle.informations.model);
+
+    if (isVehiclePoliceModel) {
+        vehicle.data.policeRadar
+            ? vehicle.data.policeRadar = false
+            : vehicle.data.policeRadar = true;
+
+        mp.players.broadcastInRange(player.position, 20, player.dimension, `!{#dca2f4} * ${player.name} ${actionType} radar w pojeździe ${vehicle.informations.name}.`);
+    }
+}
+
+exports.togglePoliceRadar = togglePoliceRadar;
+
+const getCarData = (model) => {
     for (let i = 0; i < vehicleData.carsData.length; i++) {
         if (model !== vehicleData.carsData[i].model) continue;
         return vehicleData.carsData[i];
     }
 
     return false;
-}
+};
 
 exports.getCarData = getCarData;
 
-function checkIfVehicleModelExists(model) {
-    if(model in vehicleData.vehicleHashes) {
+const checkIfVehicleModelExists = (model) => {
+    if (model in vehicleData.vehicleHashes) {
         return true;
     }
-    
+
     return false;
-}
+};
 
 exports.checkIfVehicleModelExists = checkIfVehicleModelExists;
 
-function respawnAll() {
-    mp.vehicles.forEach((vehicle) => vehicle.destroy());
-    loadAll();
-}
+// Temporary cuz getting vehicleClass on client-side or using native not working.
+const checkIfVehicleModelIsPolice = (model) => {
+    if (model in vehicleData.policeVehicleHashes) {
+        return true;
+    }
 
-exports.respawnAll = respawnAll;
+    return false;
+};
+
+exports.checkIfVehicleModelIsPolice = checkIfVehicleModelIsPolice;
+
+const checkIfVehicleIsConvertible = (model) => {
+    if (model in vehicleData.vehiclesThatHaveRoofHashes) {
+        return true;
+    }
+
+    return false;
+};
+
+exports.checkIfVehicleIsConvertible = checkIfVehicleIsConvertible;

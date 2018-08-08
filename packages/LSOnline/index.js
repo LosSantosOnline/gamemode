@@ -1,16 +1,17 @@
 'use strict';
 
-// --- Libs --- //
+// Globals
+global.rp = {};
+
+// Libs
 const dotenv = require('dotenv');
 const result = dotenv.config();
 
-global.rp = {};
-
+// Command collection
 const CommandCollection = require('./modules/structures/CommandCollection');
-
 rp.commands = new CommandCollection();
 
-// --- Load server gamemode async --- //
+// Load server gamemode async
 (async () => {
   await require('./loaders/DatabaseLoader')();
 

@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
     let Character = sequelize.define('Character', {
         name: DataTypes.STRING,
@@ -8,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
         owner: DataTypes.INTEGER,
         sex: DataTypes.INTEGER
     }, {});
-    Character.associate = function (models) {
+    Character.associate = (models) => {
         // associations can be defined here
     };
     return Character;

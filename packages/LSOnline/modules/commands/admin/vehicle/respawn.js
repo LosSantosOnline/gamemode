@@ -1,7 +1,5 @@
-
-const vehicleManager = require('../../../vehicles/VehicleManager');
-
 const Command = require('../../../structures/Command.js');
+const vehicleManager = require('../../../vehicles/VehicleManager');
 
 class Respawn extends Command {
   constructor (...args) {
@@ -11,8 +9,8 @@ class Respawn extends Command {
     });
   }
 
-  async run (player, command, args) { // eslint-disable-line no-unused-vars
-    vehicleManager.respawnAll();
+  async run (player, command, args) {
+    await vehicleManager.respawnAll();
     mp.players.broadcast(`(( Respawn pojazdów! Wszystkie powróciły na swoje miejsca parkingowe. ))`);
   }
 }

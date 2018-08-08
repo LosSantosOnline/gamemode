@@ -11,13 +11,11 @@ const HtmlWebpackHarddiskPlugin = require("html-webpack-harddisk-plugin");
 const FileManagerPlugin = require("filemanager-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const directoryExist = fs.existsSync(
-  "./client_packages/LSOnline/Browsers/dist/"
-);
-const env =
-  process.argv[2] === "--mode=production" ? "production" : "development";
 
-if(directoryExist) rimraf.sync("./client_packages/LSOnline/Browsers/dist");
+const directoryExist = fs.existsSync("./client_packages/LSOnline/Browsers/dist/");
+const env = process.argv[2] === "--mode=production" ? "production" : "development";
+
+if (directoryExist) rimraf.sync("./client_packages/LSOnline/Browsers/dist");
 
 module.exports = {
   mode: env,
@@ -127,7 +125,7 @@ module.exports = {
     new VueLoaderPlugin(),
     new HardSourceWebpackPlugin({
       cacheDirectory: "./node_modules/.cache/hard-source/[confighash]",
-      configHash: function(webpackConfig) {
+      configHash: function (webpackConfig) {
         return require("node-object-hash")({ sort: false }).hash(webpackConfig);
       },
       environmentHash: {
@@ -158,7 +156,8 @@ module.exports = {
     })
   ]
 };
-if (env == "development") {
+
+if (env === "development") {
   module.exports.devServer = {
     contentBase: "./client_packages/LSOnline/Browsers",
     stats: { chunks: false },
@@ -185,7 +184,8 @@ if (env == "development") {
     })
   );
 }
-if (env == "production") {
+
+if (env === "production") {
   module.exports.stats = true;
   module.exports.plugins.push(
     new FileManagerPlugin({
@@ -199,6 +199,7 @@ if (env == "production") {
     })
   );
 }
+
 glob
   .sync("./client_packages/LSOnline/Browsers/src/pages/*/*.js")
   .forEach(element => {

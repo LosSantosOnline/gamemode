@@ -1,10 +1,10 @@
 "use strict";
 
+const sprintf = require("sprintf-js").sprintf;
 const logger = require('../account/AccountLogger');
 const forumDb = require('../database/ForumDatabase');
-const accountMeta = require('../account/AccountModuleMeta');
-const sprintf = require("sprintf-js").sprintf;
 const accountModel = require('../../models/Account');
+const accountMeta = require('../account/AccountModuleMeta');
 
 exports.test = (accountName) => {
     console.log(sprintf(
@@ -15,8 +15,8 @@ exports.test = (accountName) => {
     ));
 };
 
-exports.loadAccountData = async function loadAccountData(player, accountName) {
-    return await forumDb.connection.query(sprintf(
+exports.loadAccountData = async function loadAccountData (player, accountName) {
+    await forumDb.connection.query(sprintf(
         accountMeta.HASH_SELECT_QUERY_PATTERN,
         "member_id, member_group_id",
         accountMeta.IPB_MEMBERS_TABLE,
@@ -32,7 +32,7 @@ exports.loadAccountData = async function loadAccountData(player, accountName) {
     );
 };
 
-function hydrateAccount(account, data) {
+function hydrateAccount (account, data) {
     account.id = data.member_id;
     account.name = data.name;
     account.groupId = data.member_group_id;

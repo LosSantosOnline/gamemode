@@ -1,10 +1,10 @@
 "use strict";
 
-const logger = require('../auth/AuthorizationLogger');
-const forumDb = require('../database/ForumDatabase');
-const sprintf = require("sprintf-js").sprintf;
-const accountMeta = require('../account/AccountModuleMeta');
 const bcrypt = require("bcryptjs");
+const sprintf = require("sprintf-js").sprintf;
+const forumDb = require('../database/ForumDatabase');
+const logger = require('../auth/AuthorizationLogger');
+const accountMeta = require('../account/AccountModuleMeta');
 
 const IPB_PASS_HASH_COLUMN = "members_pass_hash";
 
@@ -14,8 +14,8 @@ const IPB_PASS_HASH_COLUMN = "members_pass_hash";
  * @param password
  * @return boolean
  */
-async function ipbAuth(login, password) {
-    return await forumDb.connection.query(sprintf(
+async function ipbAuth (login, password) {
+    await forumDb.connection.query(sprintf(
         accountMeta.HASH_SELECT_QUERY_PATTERN,
         IPB_PASS_HASH_COLUMN,
         accountMeta.IPB_MEMBERS_TABLE,
@@ -27,9 +27,9 @@ async function ipbAuth(login, password) {
     );
 }
 
-function authorize(login, authorizeCondition = function () {
+function authorize (login, authorizeCondition = function () {
 }) {
-    if (!authorizeCondition) throw `User with login ${login} authorization failed.`;
+    if (!authorizeCondition) throw new Error(`User with login ${login} authorization failed.`);
 
     logger.info(`User with login ${login} has been authorized.`);
 }

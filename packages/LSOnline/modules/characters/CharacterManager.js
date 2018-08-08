@@ -25,5 +25,5 @@ exports.findByAccountId = async (accountId) => {
         where: {owner: accountId}
     }).then(characters => {
         return characters;
-    })
+    });
 };

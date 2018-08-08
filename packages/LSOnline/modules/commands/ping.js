@@ -8,7 +8,7 @@ class Ping extends Command {
     });
   }
 
-  async run (player, command, args) { // eslint-disable-line no-unused-vars
+  async run (player, command, args) {
     player.outputChatBox('Pong!');
   }
 }

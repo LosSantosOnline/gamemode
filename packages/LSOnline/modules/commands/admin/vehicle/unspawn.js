@@ -1,19 +1,17 @@
-
-const vehicleManager = require('../../../vehicles/VehicleManager');
-
 const Command = require('../../../structures/Command.js');
+const vehicleManager = require('../../../vehicles/VehicleManager');
 
 class Unspawn extends Command {
   constructor (...args) {
     super(...args, {
-      name: 'vehicle unspawn',
-      aliases: ['pojazd unspawn', 'v unspawn', 'veh unspawn'],
+      name: 'avehicle unspawn',
+      aliases: ['aveh unspawn', 'av unspawn'],
       perms: true,
       args: ['ID pojazdu z gry']
     });
   }
 
-  async run (player, command, args) { // eslint-disable-line no-unused-vars
+  async run (player, command, args) {
     const vehicleId = args[0];
     const vehicle = mp.vehicles.at(vehicleId);
 

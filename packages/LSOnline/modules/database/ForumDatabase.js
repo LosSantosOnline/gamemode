@@ -1,7 +1,6 @@
-// Libs
+const db = {};
 const Sequelize = require('sequelize');
 const Logger = require('../utils/Logger');
-const db = {};
 
 // Create connection
 const connection = new Sequelize(process.env.DATABASE_FORUM_NAME, process.env.DATABASE_USER, process.env.DATABASE_PASSWORD, {
@@ -9,7 +8,7 @@ const connection = new Sequelize(process.env.DATABASE_FORUM_NAME, process.env.DA
     dialect: 'mysql',
     operatorsAliases: false,
 
-    //logging: false,
+    //  logging: false,
 
     pool: {
         max: 5,

@@ -11,7 +11,7 @@ class Overlay {
    * @param {string} url - Path to file
    * @memberof Overlay
    */
-  constructor() {
+  constructor () {
     if (instance) {
       return instance;
     }
@@ -30,7 +30,7 @@ class Overlay {
    * @param {3500} [timeout=3500]
    * @memberof Overlay
    */
-  notify(title, content, type = "info", timeout = 3500) {
+  notify (title, content, type = "info", timeout = 3500) {
     mp.game.audio.playSoundFrontend(
       -1,
       "CHALLENGE_UNLOCKED",

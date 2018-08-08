@@ -1,7 +1,6 @@
-
 const Command = require('../../structures/Command.js');
 
-class Glob extends Command {
+class Global extends Command {
   constructor (...args) {
     super(...args, {
       name: 'glob',
@@ -10,9 +9,9 @@ class Glob extends Command {
     });
   }
 
-  async run (player, command, args) { // eslint-disable-line no-unused-vars
+  async run (player, command, args) {
     mp.players.broadcast(`(( ${player.name}: ${command.fullText} ))`);
   }
 }
 
-module.exports = Glob;
+module.exports = Global;

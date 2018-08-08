@@ -1,4 +1,3 @@
-
 const Command = require('../../structures/Command.js');
 
 class Weapon extends Command {
@@ -9,7 +8,7 @@ class Weapon extends Command {
     });
   }
 
-  async run (player, command, args) { // eslint-disable-line no-unused-vars
+  async run (player, command, args) {
     let [weapon, ammo] = args;
     const weaponHash = mp.joaat(weapon);
     if (!weapon) weapon = 'weapon_compactrifle';

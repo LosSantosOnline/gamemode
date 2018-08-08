@@ -1,15 +1,15 @@
 "use strict";
 
-const Logger = require('../utils/Logger');
+const logger = require('../utils/Logger');
 
-function info(message) {
-    Logger.info("[Vehicle] " + message);
-}
+const info = (message) => {
+    logger.info("[Vehicle] " + message);
+};
 
 exports.info = info;
 
-function error(message) {
-    Logger.error("[Vehicle] " + message);
-}
+const error = (message) => {
+    logger.error("[Vehicle] " + message);
+};
 
 exports.error = error;

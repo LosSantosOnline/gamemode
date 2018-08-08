@@ -1,14 +1,15 @@
 {
   "extends": "standard",
   "parserOptions": {
-    "ecmaVersion": 9,
-    "sourceType": "script",
+    "ecmaVersion": 6,
+    "sourceType": "module",
     "impliedStrict": true
   },
   "env": {
     "es6": true,
     "browser": true,
-    "node": true
+    "node": true,
+    "amd": true
   },
   "globals": {
     "window": false,
@@ -16,6 +17,13 @@
     "rp": true
   },
   "rules": {
-    "semi": ["error", "always"]
+    "semi": ["error", "always"],
+    "indent": "off",
+    "quotes": "off",
+    "no-undef": "off",
+    "no-console": "off",
+    "no-unused-vars": "off",
+    "no-unneeded-ternary": "off",
+    "no-trailing-spaces": "off"
   }
 }
