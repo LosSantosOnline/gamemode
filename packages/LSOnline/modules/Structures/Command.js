@@ -12,12 +12,12 @@ class Command {
    */
   constructor (file, options = {}) {
     this.name = options.name;
-    this.tooltip = options.tooltip;
     this.aliases = options.aliases || [];
     this.perms = options.perms || [];
     this.restriction = options.false || false;
     this.args = options.args || [];
     this.hasSubcommands = options.hasSubcommands || false;
+    this.tooltip = this.args.toString().replace(new RegExp("[,]*,+", 'g'), ' ') || "";
     this.file = file;
   }
 

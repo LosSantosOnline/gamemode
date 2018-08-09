@@ -1,4 +1,4 @@
-const Command = require('../../structures/Command.js');
+const Command = require('../../structures/Command');
 const helpers = require('../../utils/Helpers');
 
 class Desc extends Command {
@@ -14,10 +14,10 @@ class Desc extends Command {
     const fullText = command.fullText;
 
     if (fullText.length >= 80) {
-        return player.call('actionDone', [
-            'Wystąpił błąd',
-            'Maksymalna liczba znaków opisu wynosi 80! Skoryguj opis i spróbuj ponownie.'
-        ]);
+      return player.call('actionDone', [
+        'Wystąpił błąd',
+        'Maksymalna liczba znaków opisu wynosi 80! Skoryguj opis i spróbuj ponownie.'
+      ]);
     }
 
     player.setVariable('description', fullText);

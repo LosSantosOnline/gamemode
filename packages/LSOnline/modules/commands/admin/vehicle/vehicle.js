@@ -1,5 +1,5 @@
-const Command = require('../../../structures/Command.js');
-const vehicleManager = require('../../../vehicles/VehicleManager');
+const Command = require('../../../structures/Command');
+const vehicleManager = require('../../../vehicles/vehicleManager');
 
 class Vehicle extends Command {
   constructor (...args) {
@@ -14,13 +14,10 @@ class Vehicle extends Command {
 
   async run (player, command, args) {
     const modelName = args[0];
-    console.log(modelName);
-    if (args[0]) {
-      const isVehicleModelExist = vehicleManager.checkIfVehicleModelExists(modelName);
-      isVehicleModelExist
-        ? vehicleManager.create(player, modelName)
-        : player.outputChatBox(`!{#dddddd} Użycie: /${command.name} [Model pojazdu]`);
-    }
+    const isVehicleModelExist = vehicleManager.checkIfVehicleModelExists(modelName);
+    isVehicleModelExist
+      ? vehicleManager.create(player, modelName)
+      : player.call('actionDone', ['Coś poszło nie tak..', `Użycie: /${command.name} ${this.tooltip}`]);
   }
 }
 

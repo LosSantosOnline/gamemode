@@ -1,6 +1,6 @@
 const fs = require('fs-nextra');
 const path = require('path');
-const logger = require('../utils/Logger');
+const logger = require('../utils/logger');
 
 class Collection extends Map {
   constructor (name) {

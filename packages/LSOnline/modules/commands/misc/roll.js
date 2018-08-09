@@ -1,5 +1,5 @@
-const Command = require('../../structures/Command.js');
-const helpers = require('../../utils/Helpers');
+const Command = require('../../structures/Command');
+const helpers = require('../../utils/helpers');
 
 class Roll extends Command {
   constructor (...args) {

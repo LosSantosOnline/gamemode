@@ -1,5 +1,5 @@
-const Command = require('../../../structures/Command.js');
-const vehicleManager = require('../../../vehicles/VehicleManager');
+const Command = require('../../../structures/Command');
+const vehicleManager = require('../../../vehicles/vehicleManager');
 
 class Unspawn extends Command {
   constructor (...args) {
@@ -23,7 +23,7 @@ class Unspawn extends Command {
         'Pojazd ' + vehicle.informations.name + ' (ID: ' + vehicle.informations.id + ') został pomyślnie <strong>odspawnowany</strong>!'
       ]);
     } else {
-      player.outputChatBox(`!{#dddddd} Użycie: /veh-unspawn [ID pojazdu z gry]`);
+      return player.call('actionDone', ['Coś poszło nie tak..', `Użycie: /${command.name} ${this.tooltip}`]);
     }
   }
 }

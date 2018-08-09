@@ -1,6 +1,6 @@
 // Libs
 const Sequelize = require('sequelize');
-const Logger = require('../utils/Logger');
+const Logger = require('../utils/logger');
 const glob = require('glob');
 const path = require('path');
 const db = {};

@@ -1,6 +1,6 @@
-const Command = require('../../structures/Command.js');
-const playerMisc = require('../../player/PlayerMisc');
-const vehicleManager = require('../../vehicles/VehicleManager');
+const Command = require('../../structures/Command');
+const playerMisc = require('../../player/playerMisc');
+const vehicleManager = require('../../vehicles/vehicleManager');
 
 class Engine extends Command {
   constructor (...args) {

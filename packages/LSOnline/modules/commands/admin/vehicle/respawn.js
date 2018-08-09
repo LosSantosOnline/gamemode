@@ -1,5 +1,5 @@
-const Command = require('../../../structures/Command.js');
-const vehicleManager = require('../../../vehicles/VehicleManager');
+const Command = require('../../../structures/Command');
+const vehicleManager = require('../../../vehicles/vehicleManager');
 
 class Respawn extends Command {
   constructor (...args) {

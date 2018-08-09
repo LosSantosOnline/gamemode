@@ -1,11 +1,11 @@
 "use strict";
 
-const logger = require('./VehicleLogger');
-const vehicleManager = require("./VehicleManager");
+const logger = require('./vehicleLogger');
+const vehicleManager = require("./vehicleManager");
 
 const boot = async () => {
-    logger.info("Booting vehicles from database.");
-    vehicleManager.loadAll();
+  logger.info("Booting vehicles from database.");
+  vehicleManager.loadAll();
 };
 
 exports.boot = boot;

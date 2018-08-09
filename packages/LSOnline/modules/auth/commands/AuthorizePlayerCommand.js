@@ -1,9 +1,9 @@
 'use strict';
 
-const logger = require('../../auth/AuthorizationLogger');
-const service = require('../../auth/AuthorizationService');
-const accountManager = require('../../account/AccountManager');
-const characterManager = require('../../characters/CharacterManager');
+const logger = require('../../auth/authorizationLogger');
+const service = require('../../auth/authorizationService');
+const accountManager = require('../../account/accountManager');
+const characterManager = require('../../characters/characterManager');
 
 exports.execute = async (player, login, password) => {
   await service.ipbAuth(login, password).then(() => {

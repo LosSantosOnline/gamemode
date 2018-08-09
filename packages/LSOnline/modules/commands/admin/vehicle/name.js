@@ -1,5 +1,5 @@
-const Command = require('../../../structures/Command.js');
-const vehicleManager = require('../../../vehicles/VehicleManager');
+const Command = require('../../../structures/Command');
+const vehicleManager = require('../../../vehicles/vehicleManager');
 
 class Vehicle extends Command {
   constructor (...args) {
@@ -25,6 +25,7 @@ class Vehicle extends Command {
       ]);
     } else {
       player.outputChatBox(`!{#dddddd} Użycie: /veh-name [ID pojazdu z gry] [Nowa nazwa pojazdu]`);
+      return player.call('actionDone', ['Coś poszło nie tak..', `Użycie: /${command.name} ${this.tooltip}`]);
     }
   }
 }

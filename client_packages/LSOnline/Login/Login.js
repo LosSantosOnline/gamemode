@@ -1,8 +1,8 @@
 "use strict";
 
-const camera = require("/LSOnline/Util/Camera");
-const browser = require("/LSOnline/Util/Browser");
-const Overlay = require("/LSOnline/Util/Overlay");
+const camera = require("/LSOnline/util/camera");
+const browser = require("/LSOnline/util/browser");
+const Overlay = require("/LSOnline/util/Overlay");
 
 function preparePanel (url) {
   browser.prepareScreen(1000);

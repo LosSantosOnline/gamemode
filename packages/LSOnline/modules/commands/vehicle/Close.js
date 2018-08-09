@@ -1,5 +1,5 @@
-const Command = require('../../structures/Command.js');
-const vehicleManager = require('../../vehicles/VehicleManager');
+const Command = require('../../structures/Command');
+const vehicleManager = require('../../vehicles/vehicleManager');
 
 class Close extends Command {
   constructor (...args) {
@@ -13,11 +13,11 @@ class Close extends Command {
     const vehicle = vehicleManager.getClosestVehicleForPlayer(player, 2);
 
     vehicle
-        ? vehicleManager.toggleVehicleLock(vehicle, player)
-        : player.call('actionDone', [
-            'Wystąpił błąd',
-            'Nie znaleziono żadnego pojazdu w pobliżu twojej postaci!'
-    ]);
+      ? vehicleManager.toggleVehicleLock(vehicle, player)
+      : player.call('actionDone', [
+        'Wystąpił błąd',
+        'Nie znaleziono żadnego pojazdu w pobliżu twojej postaci!'
+      ]);
   }
 }
 

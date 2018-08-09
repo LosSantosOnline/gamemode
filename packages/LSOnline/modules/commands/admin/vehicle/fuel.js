@@ -1,5 +1,5 @@
-const Command = require('../../../structures/Command.js');
-const vehicleManager = require('../../../vehicles/VehicleManager');
+const Command = require('../../../structures/Command');
+const vehicleManager = require('../../../vehicles/vehicleManager');
 
 class Fuel extends Command {
   constructor (...args) {
@@ -24,7 +24,7 @@ class Fuel extends Command {
         'Stan paliwa pojazdu ' + vehicle.informations.name + ' (ID: ' + vehicle.informations.id + ') został pomyślnie zaktualizowany!'
       ]);
     } else {
-      player.outputChatBox(`!{#dddddd} Użycie: /veh-fuel [ID pojazdu z gry] [Ilość dodawanego paliwa]`);
+      return player.call('actionDone', ['Coś poszło nie tak..', `Użycie: /${command.name} ${this.tooltip}`]);
     }
   }
 }

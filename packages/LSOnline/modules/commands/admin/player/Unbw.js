@@ -1,5 +1,5 @@
-const Command = require('../../../structures/Command.js');
-const playerManager = require('../../../player/PlayerManager');
+const Command = require('../../../structures/Command');
+const playerManager = require('../../../player/playerManager');
 
 class Unbw extends Command {
   constructor (...args) {
@@ -13,10 +13,13 @@ class Unbw extends Command {
   async run (player, command, args) {
     const playerId = args[0];
     const foundPlayer = mp.players.at(playerId);
-
-    foundPlayer
-        ? playerManager.reviveFromBrutallyWounded(foundPlayer, true)
-        : player.outputChatBox(`!{#dddddd} Użycie: /unbw [ID gracza]`);
+    if (!foundPlayer) {
+      return player.call('actionDone', ['Coś poszło nie tak..', 'Taki gracz nie istnieje.']);
+    }
+    if (!foundPlayer.brutallyWounded) {
+      return player.call('actionDone', ['Coś poszło nie tak..', 'Ten gracz nie posiada BW.']);
+    }
+    playerManager.reviveFromBrutallyWounded(foundPlayer, true);
   }
 }
 
