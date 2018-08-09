@@ -14,35 +14,25 @@ This repository contains source files of server gamemode.
 
 ## Server setup
 
-1.  Download or clone the repository.
-2.  Extract the files to your RAGE-MP server-files folder.
-3.  Using a command prompt window execute steps below.
-    - Run the command prompt as administrator.
-    - Switch into your server directory
-    - `npm install`
-    - Configure your environment variables in `.env` file
-    - Setup database `./node_modules/.bin/sequelize db:create` & `./node_modules/.bin/sequelize db:migrate`
-    - Build client files `npm run dev` or `npm run production`
-4.  Run the server
+1.  Download or clone the repository,
+2.  Extract the files to your RAGE-MP server-files folder,
+3.  Using a command prompt window execute steps below:
+    - Switch into your server directory,
+    - `npm install` or `yarn install`,
+    - Create your environment file `.env` based on `.env.example` file,
+    - Setup database - `./node_modules/.bin/sequelize db:create` & `./node_modules/.bin/sequelize db:migrate`,
+    - Build client files with command `npm run dev` or `npm run production`.
+4.  You are ready to go. Run server :sparkles:
 
-## Environment setup
+## Scripts inside
 
-Setup .env file with variables described below to set environment (for example connection to database).
+- `npm run hot`: runs `webpack-dev-server` with hot reload. Open `localhost:8080/dist/[view_name]/` to access it.
 
-```dotenv
-DATABASE_HOST=localhost
-DATABASE_NAME=db
-DATABASE_USER=user
-DATABASE_PASSWORD=pass
-```
+- `npm run dev`: builds files to `dist/` directory for once with development mode.
 
-## Building client files
+- `npm run prod`: clears `dist/` as well `src/` :exclamation: directories & build files with minification.
 
-- `npm run hot`: runs `webpack-dev-server` with hot reload. Open `localhost:8080/dist/[view_name]/` to access
-
-- `npm run dev`: builds files for once with development mode
-
-- `npm run production`: will clear `dist/` as well `src/` :exclamation: directories & build files with minification
+- `npm run start`: starts server and monitor all changes in files under `client_packages` and `packages` directory.
 
 ## Contributing
 
