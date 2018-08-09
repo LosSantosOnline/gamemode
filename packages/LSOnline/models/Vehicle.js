@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
     let Vehicle = sequelize.define('Vehicle', {
     name: DataTypes.STRING,
@@ -16,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     position: DataTypes.TEXT,
     dimension: DataTypes.STRING
   }, {});
-  Vehicle.associate = function(models) {
+  Vehicle.associate = (models) => {
     // associations can be defined here
   };
   return Vehicle;

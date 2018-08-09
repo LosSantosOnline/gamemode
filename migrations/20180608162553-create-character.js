@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = {
     up: (queryInterface, Sequelize) => {
         return queryInterface.createTable('Characters', {
@@ -17,7 +18,7 @@ module.exports = {
             },
             money: {
                 type: Sequelize.INTEGER,
-                defaultValue: 0,
+                defaultValue: 0
             },
             admin: {
                 type: Sequelize.BOOLEAN,
