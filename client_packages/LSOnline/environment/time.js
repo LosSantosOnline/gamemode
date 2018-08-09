@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 // Update interval = more accurate, at the cost of performance
 const updateInterval = 2000;
