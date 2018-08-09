@@ -1,8 +1,7 @@
 const Command = require('../../structures/Command');
 const playerMisc = require('../../player/playerMisc');
-const helpers = require('../../utils/helpers');
 
-class VDesc extends Command {
+class VehicleDescription extends Command {
   constructor (...args) {
     super(...args, {
       name: 'v opis',
@@ -32,4 +31,4 @@ class VDesc extends Command {
   }
 }
 
-module.exports = VDesc;
+module.exports = VehicleDescription;

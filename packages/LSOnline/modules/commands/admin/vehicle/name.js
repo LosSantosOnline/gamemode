@@ -7,7 +7,7 @@ class Vehicle extends Command {
       name: 'avehicle name',
       aliases: ['aveh name', 'av name'],
       perms: true,
-      args: ['ID pojazdu z gry']
+      args: ['ID pojazdu z gry', 'Nowa nazwa pojazdu']
     });
   }
 
@@ -24,7 +24,6 @@ class Vehicle extends Command {
         'Nazwa pojazdu (ID: ' + vehicle.informations.id + ') została zaktualizowana. Nowa nazwa: ' + vehicle.informations.name + '.'
       ]);
     } else {
-      player.outputChatBox(`!{#dddddd} Użycie: /veh-name [ID pojazdu z gry] [Nowa nazwa pojazdu]`);
       return player.call('actionDone', ['Coś poszło nie tak..', `Użycie: /${command.name} ${this.tooltip}`]);
     }
   }

@@ -1,7 +1,7 @@
 const Command = require('../../structures/Command');
 const helpers = require('../../utils/Helpers');
 
-class Desc extends Command {
+class Description extends Command {
   constructor (...args) {
     super(...args, {
       name: 'opis',
@@ -24,4 +24,4 @@ class Desc extends Command {
   }
 }
 
-module.exports = Desc;
+module.exports = Description;
