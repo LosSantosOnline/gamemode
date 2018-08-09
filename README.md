@@ -19,7 +19,7 @@ This repository contains source files of server gamemode.
 3.  Using a command prompt window execute steps below:
     - Switch into your server directory,
     - `npm install` or `yarn install`,
-    - Create your environment file `.env` based on `.env.example` file (look bottom),
+    - Create your environment file `.env` based on `.env.example` file,
     - Setup database - `./node_modules/.bin/sequelize db:create` & `./node_modules/.bin/sequelize db:migrate`,
     - Build client files with command `npm run dev` or `npm run production`.
 4.  You are ready to go. Run server :sparkles:
