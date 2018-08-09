@@ -1,6 +1,6 @@
 "use strict";
 
-const playerManager = require("../player/PlayerManager");
+const playerManager = require("../player/playerManager");
 
 mp.events.add({
   playerQuit: (player, exitType, reason) => {
@@ -68,7 +68,6 @@ mp.events.add({
       }).toString();
       return player.call('actionDone', ['Coś poszło nie tak!', `Użycie: /${commandName} ${tooltip.replace(',', ' ')}`]);
     }
-    console.log(command);
     result.run(player, command, args);
   },
 
