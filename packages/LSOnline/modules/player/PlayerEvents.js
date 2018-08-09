@@ -54,7 +54,7 @@ mp.events.add({
     }
 
     if (result.args.length > 0 && args.length < result.args.length) {
-      return player.call('actionDone', ['Coś poszło nie tak!', `Użycie: /${commandName} ${result.tooltip}`]);
+      return player.call('actionDone', ['Coś poszło nie tak!', `Użycie: /${commandName} ${result.tooltip.replace(',', ' ')}`]);
     }
 
     result.run(player, {

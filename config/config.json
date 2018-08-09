@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "homestead",
-    "password": "secret",
-    "database": "lsrp_dev",
-    "host": "192.168.10.10",
+    "username": "root",
+    "password": "",
+    "database": "lso",
+    "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
