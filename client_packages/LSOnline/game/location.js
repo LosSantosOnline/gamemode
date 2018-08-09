@@ -2,9 +2,9 @@
 
 // Author of this resource: rootcause
 var Natives = {
-  IS_RADAR_HIDDEN: "0x2918f48a30d03841",
-  IS_RADAR_ENABLED: "0xf4d0c6c7b9c7bd4a",
-  SET_TEXT_OUTLINE: "0x39a6925dba332248"
+  IS_RADAR_HIDDEN: "0x7382a6b79bd5f585",
+  IS_RADAR_ENABLED: "0x8056602005161037",
+  SET_TEXT_OUTLINE: "0x918f022e4c3a47c2"
 };
 
 // Misc
