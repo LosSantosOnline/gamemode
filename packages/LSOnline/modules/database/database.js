@@ -1,9 +1,8 @@
-// Libs
-const Sequelize = require('sequelize');
-const Logger = require('../utils/logger');
+const db = {};
 const glob = require('glob');
 const path = require('path');
-const db = {};
+const Sequelize = require('sequelize');
+const logger = require('../utils/logger');
 
 // Create connection
 const connection = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USER, process.env.DATABASE_PASSWORD, {
@@ -25,13 +24,13 @@ const connection = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE
 connection
   .authenticate()
   .then(() => {
-    Logger.info(`[Database] Connection has been established successfully. Connected to '${process.env.DATABASE_HOST}' database.`);
+    logger('server', `Connection to game database has been established successfully (IP: '${process.env.DATABASE_HOST}').`, 'info');
   })
   .catch(err => {
-    Logger.fatal(`[Database] Unable to connect to the database! (Error: ${err})`);
+    logger('server', `Unable to connect to the game database! (Error: ${err})`, 'error');
   });
 
-// Models
+// Load models
 glob.sync('./packages/LSOnline/models/*.js').forEach((file) => {
   file = path.parse(file);
   if (file.name !== 'Account') {

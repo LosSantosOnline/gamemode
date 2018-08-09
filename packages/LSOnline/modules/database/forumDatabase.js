@@ -1,6 +1,6 @@
 const db = {};
 const Sequelize = require('sequelize');
-const Logger = require('../utils/logger');
+const logger = require('../utils/logger');
 
 // Create connection
 const connection = new Sequelize(process.env.DATABASE_FORUM_NAME, process.env.DATABASE_USER, process.env.DATABASE_PASSWORD, {
@@ -22,10 +22,10 @@ const connection = new Sequelize(process.env.DATABASE_FORUM_NAME, process.env.DA
 connection
   .authenticate()
   .then(() => {
-    Logger.info(`[ForumDatabase] Connection has been established successfully. Connected to '${process.env.DATABASE_HOST}' database.`);
+    logger('server', `Connection to forum database has been established successfully (IP: '${process.env.DATABASE_HOST}').`, 'info');
   })
   .catch(err => {
-    Logger.fatal(`[ForumDatabase] Unable to connect to the database! (Error: ${err})`);
+    logger('server', `Unable to connect to the forum database! (Error: ${err})`, 'error');
   });
 
 // Assign connection to 'db'

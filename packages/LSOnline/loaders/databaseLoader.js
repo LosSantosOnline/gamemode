@@ -1,13 +1,13 @@
 'use strict';
 
+const logger = require('../modules/utils/logger');
+
 module.exports = async () => {
-  console.log('\x1b[36m%s\x1b[0m', '[Server] Loading server database...');
-
   try {
-    require('../modules/database/Database');
+    require('../modules/database/database');
 
-    console.log('\x1b[36m%s\x1b[0m', '[Server] Loaded server database!');
+    logger('server', `Loaded successfully database config!`, 'info');
   } catch (err) {
-    console.log('\x1b[31m%s\x1b[0m', '[Server] Error while loading database: ' + err.message + '\n' + err.stack);
+    logger('server', `Error while loading database config (Error: ${err.message} / ${err.stack})!`, 'error');
   }
 };

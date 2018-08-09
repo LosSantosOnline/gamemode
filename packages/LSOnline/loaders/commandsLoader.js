@@ -1,9 +1,13 @@
 'use strict';
 
+const logger = require('../modules/utils/logger');
+
 module.exports = async () => {
-  console.log('\x1b[36m%s\x1b[0m', '[Server] Loading commands...');
+  try {
+    const commands = await rp.commands.loadFiles();
 
-  const commands = await rp.commands.loadFiles();
-
-  console.log('\x1b[36m%s\x1b[0m', `[Server] Loaded ${commands.size} (${commands.size} files) commands!`);
+    logger('server', `Loaded successfully ${commands.size} (${commands.size} files) commands!`, 'info');
+  } catch (err) {
+    logger('server', `Error while loading commands (Error: ${err.message} / ${err.stack})!`, 'error');
+  }
 };

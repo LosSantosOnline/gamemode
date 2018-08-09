@@ -1,8 +1,8 @@
 "use strict";
 
+const logger = require('../utils/logger');
 const helpers = require('../utils/helpers');
 const database = require('../database/database');
-const logger = require('../vehicles/vehicleLogger');
 const vehicleData = require('../vehicles/vehicleData');
 
 async function create (player, model) {
@@ -23,7 +23,7 @@ async function create (player, model) {
       position: JSON.stringify(player.position)
     })
     .then(vehicle => {
-      logger.info(`Saved vehicle "${vehicle.name}" (Model: ${vehicle.model}) in database.`);
+      logger('vehicle', `Saved vehicle "${vehicle.name}" (Model: ${vehicle.model}) in database.`, 'info');
       spawn(vehicle);
     });
 }
@@ -50,7 +50,7 @@ function configureCreated (createdVehicle, vehicleData) {
       dirtLevel: vehicleData.dirtLevel
     };
   } catch (e) {
-    logger.error(`Error occurred when configuring vehicle "${vehicleData.name}" (ID: ${vehicleData.id} / Model: ${vehicleData.model}). (Message: ${e})`);
+    logger('vehicle', `Error occurred when configuring vehicle "${vehicleData.name}" (ID: ${vehicleData.id} / Model: ${vehicleData.model}). (Message: ${e})`, 'error');
   }
 }
 
@@ -74,7 +74,7 @@ exports.loadAll = loadAll;
 
 async function spawn (vehicle) {
   if (vehicle.position === null) {
-    return logger.error(`Vehicle position is null (vehicleId: ${vehicle.id})!`);
+    return logger('vehicle', `Vehicle position is null (vehicleId: ${vehicle.id})!`, 'error');
   }
 
   let carPosition = JSON.parse(vehicle.position);
@@ -85,7 +85,7 @@ async function spawn (vehicle) {
       dimension: vehicle.dimension
     });
 
-  // logger.info(`Spawned vehicle "${vehicle.name}" (GameID: ${createdVehicle.id} / ID: ${vehicle.id} / Model: ${vehicle.model}) on world.`);
+  // logger('vehicle', `Spawned vehicle "${vehicle.name}" (GameID: ${createdVehicle.id} / ID: ${vehicle.id} / Model: ${vehicle.model}) on world.`, 'info');
   configureCreated(createdVehicle, vehicle);
 }
 
@@ -107,10 +107,10 @@ async function refuel (vehicleId, fuel) {
     vehicle
       .update({fuel: database.Sequelize.literal(`fuel + ${fuel}`)})
       .then((vehicle) => {
-        logger.info(`Refueled vehicle "${vehicle.name}" (Model: ${vehicle.model} / ID: ${vehicle.id}).`);
+        logger('vehicle', `Refueled vehicle "${vehicle.name}" (Model: ${vehicle.model} / ID: ${vehicle.id}).`, 'info');
       })
       .catch((err) => {
-        logger.error(`Error occurred when refueling vehicle "${vehicle.name}" (Model: ${vehicle.model} / ID: ${vehicle.id}). (Message: ${err})`);
+        logger('vehicle', `Error occurred when refueling vehicle "${vehicle.name}" (Model: ${vehicle.model} / ID: ${vehicle.id}). (Message: ${err})`, 'error');
       });
   });
 }
@@ -122,10 +122,10 @@ async function updateName (vehicleId, name) {
     vehicle
       .update({name: name})
       .then((vehicle) => {
-        logger.info(`Changed vehicle "${vehicle.name}" name (Model: ${vehicle.model} / ID: ${vehicle.id}).`);
+        logger('vehicle', `Changed vehicle "${vehicle.name}" name (Model: ${vehicle.model} / ID: ${vehicle.id}).`, 'info');
       })
       .catch((err) => {
-        logger.error(`Error occurred when changing vehicle "${vehicle.name}" name (Model: ${vehicle.model} / ID: ${vehicle.id}). (Message: ${err})`);
+        logger('vehicle', `Error occurred when changing vehicle "${vehicle.name}" name (Model: ${vehicle.model} / ID: ${vehicle.id}). (Message: ${err})`, 'error');
       });
   });
 }
@@ -137,10 +137,10 @@ async function remove (vehicleId) {
     vehicle
       .destroy()
       .then(() => {
-        logger.info(`Removed vehicle "${vehicle.name}" (Model: ${vehicle.model} / ID: ${vehicle.id}) from database.`);
+        logger('vehicle', `Removed vehicle "${vehicle.name}" (Model: ${vehicle.model} / ID: ${vehicle.id}) from database.`, 'info');
       })
       .catch((err) => {
-        logger.error(`Error occurred when removing vehicle "${vehicle.name}" (Model: ${vehicle.model} / ID: ${vehicle.id}). (Message: ${err})`);
+        logger('vehicle', `Error occurred when removing vehicle "${vehicle.name}" (Model: ${vehicle.model} / ID: ${vehicle.id}). (Message: ${err})`, 'error');
       });
   });
 }

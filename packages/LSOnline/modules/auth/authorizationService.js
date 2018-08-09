@@ -1,9 +1,9 @@
 "use strict";
 
 const bcrypt = require("bcryptjs");
+const logger = require('../utils/logger');
 const sprintf = require("sprintf-js").sprintf;
 const forumDb = require('../database/forumDatabase');
-const logger = require('../auth/authorizationLogger');
 const accountMeta = require('../account/accountModuleMeta');
 
 const IPB_PASS_HASH_COLUMN = "members_pass_hash";
@@ -29,9 +29,9 @@ async function ipbAuth (login, password) {
 
 function authorize (login, authorizeCondition = function () {
 }) {
-  if (!authorizeCondition) throw new Error(`User with login ${login} authorization failed.`);
+  if (!authorizeCondition) return logger('authorization', `User with login ${login} has been authorized.`, 'error');
 
-  logger.info(`User with login ${login} has been authorized.`);
+  logger('authorization', `User with login ${login} has been authorized.`, 'info');
 }
 
 exports.ipbAuth = ipbAuth;

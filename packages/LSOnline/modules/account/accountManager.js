@@ -1,7 +1,7 @@
 "use strict";
 
+const logger = require('../utils/logger');
 const sprintf = require("sprintf-js").sprintf;
-const logger = require('../account/accountLogger');
 const forumDb = require('../database/forumDatabase');
 const accountModel = require('../../models/Account');
 const accountMeta = require('../account/accountModuleMeta');
@@ -26,7 +26,7 @@ exports.loadAccountData = async function loadAccountData (player, accountName) {
     data.name = accountName;
 
     player.account = hydrateAccount(accountModel.create(), data);
-    logger.info("Account data saved into player entity.");
+    logger('authorization', "Account data saved into player entity.", 'info');
     return player;
   }
   );

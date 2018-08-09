@@ -1,14 +1,14 @@
 "use strict";
 
+const logger = require('../utils/logger');
 const database = require('../database/database');
-const logger = require('../characters/characterLogger');
 
 exports.loadByName = (player, characterName) => {
   database.character.findOne({
     where: {name: characterName}
   }).then(character => {
     player.character = character;
-    logger.info(`character ${character.name} loaded for player with name ${player.name}`);
+    logger('authorization', `Character ${character.name} loaded for player with name ${player.name}!`, 'info');
   });
 };
 
@@ -17,7 +17,7 @@ exports.loadById = async (player, characterId) => {
     return character.dataValues;
   });
 
-  logger.info(`character ${player.character.name} loaded for player with name ${player.name}`);
+  logger('authorization', `Character ${player.character.name} loaded for player with name ${player.name}!`, 'info');
 };
 
 exports.findByAccountId = async (accountId) => {

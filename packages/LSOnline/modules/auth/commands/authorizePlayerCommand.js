@@ -1,6 +1,6 @@
 'use strict';
 
-const logger = require('../../auth/authorizationLogger');
+const logger = require('../../utils/logger');
 const service = require('../../auth/authorizationService');
 const accountManager = require('../../account/accountManager');
 const characterManager = require('../../characters/characterManager');
@@ -12,6 +12,6 @@ exports.execute = async (player, login, password) => {
       player.call('userAuthorized', [JSON.stringify(chars)]);
     });
   }, (err) => {
-    logger.error(err);
+    logger('authorize', `Problem z autoryzacją: ${err}`, 'error');
   });
 };
