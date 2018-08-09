@@ -22,7 +22,7 @@ This repository contains source files of server gamemode.
     - Create your environment file `.env` based on `.env.example` file (look bottom),
     - Setup database - `./node_modules/.bin/sequelize db:create` & `./node_modules/.bin/sequelize db:migrate`,
     - Build client files with command `npm run dev` or `npm run production`.
-4.  Run the server :sparkles:
+4.  You are ready to go. Run server :sparkles:
 
 ## Scripts inside
 
