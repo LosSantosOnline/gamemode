@@ -30,11 +30,6 @@ mp.events.add({
     const args = command.split(/[ ]+/);
     const commandName = args.splice(0, 1)[0];
     let subCommand = '';
-    command = {
-      name: commandName,
-      fullText: args.toString().replace(new RegExp("[,]*,+", 'g'), ' '),
-      args
-    };
 
     let result = rp.commands.get(commandName);
 
@@ -59,16 +54,14 @@ mp.events.add({
     }
 
     if (result.args.length > 0 && args.length < result.args.length) {
-      const tooltip = result.args.map((element, index) => {
-        if (subCommand && index === 0) {
-          return `${subCommand} [${element}]`;
-        } else {
-          return `[${element}]`;
-        }
-      }).toString();
-      return player.call('actionDone', ['Coś poszło nie tak!', `Użycie: /${commandName} ${tooltip.replace(',', ' ')}`]);
+      return player.call('actionDone', ['Coś poszło nie tak!', `Użycie: /${commandName} ${result.tooltip.replace(',', ' ')}`]);
     }
-    result.run(player, command, args);
+
+    result.run(player, {
+      name: subCommand ? `${commandName} ${subCommand}` : commandName,
+      fullText: args.toString().replace(new RegExp("[,]*,+", 'g'), ' '),
+      args
+    }, args);
   },
 
   playerChat: (player, text) => {

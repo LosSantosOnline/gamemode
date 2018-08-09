@@ -17,7 +17,9 @@ class Command {
     this.restriction = options.false || false;
     this.args = options.args || [];
     this.hasSubcommands = options.hasSubcommands || false;
-    this.tooltip = this.args.toString().replace(new RegExp("[,]*,+", 'g'), ' ') || "";
+    this.tooltip = this.args.map(element => {
+      return `[${element}]`;
+    }).toString().replace(new RegExp("[,]*,+", 'g'), ' ') || "";
     this.file = file;
   }
 
