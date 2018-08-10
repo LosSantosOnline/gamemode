@@ -2,6 +2,8 @@
 
 const playerManager = require("../player/playerManager");
 const { validateText } = require("../utils/helpers");
+const Say = require('../commands/chat/say');
+
 mp.events.add({
   playerQuit: (player, exitType, reason) => {
     playerManager.clearBrutallyWoundedTimers(player);
@@ -68,9 +70,7 @@ mp.events.add({
       return player.call('actionDone', ['Nie możesz tego teraz zrobić!', 'Twoja postać jest nieprzytomna!']);
     }
     if (!validateText(text)) return false;
-    if (text[text.length - 1] !== '.' && text[text.length - 1] !== '?' && text[text.length - 1] !== '!') text += '.';
-    text = text.charAt(0).toUpperCase() + text.slice(1);
 
-    mp.players.broadcastInRange(player.position, 25, player.dimension, `${player.name} mówi: ${text}`);
+    rp.commands.get('say').run(player, {fullText: text});
   }
 });
