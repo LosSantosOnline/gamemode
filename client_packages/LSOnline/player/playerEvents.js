@@ -1,7 +1,7 @@
 "use strict";
-
+const Cash = require('/LSOnline/cash/cash');
 mp.events.add({
-  "entityStreamIn": (player) => {
+  entityStreamIn: (player) => {
     if (player.type !== 'player') {
       return false;
     }
@@ -12,21 +12,25 @@ mp.events.add({
     }
   },
 
-  "entityDataChange": (player, key, value) => {
+  entityDataChange: (player, key, value) => {
     switch (key) {
       case "description":
         player.description = value;
         break;
+      case "cash": {
+        Cash.drawMoney(player, 'cash', value);
+        player.cash = value;
+      }
     }
   },
 
-  "playerDeath": (player, reason, killer) => {
+  playerDeath: (player, reason, killer) => {
     mp.game.audio.playSoundFrontend(-1, "Bed", "WastedSounds", true);
     mp.game.graphics.startScreenEffect("DeathFailNeutralIn", 0, true);
     mp.game.gameplay.setFadeOutAfterDeath(false);
   },
 
-  "playerSpawn": () => {
+  playerSpawn: () => {
     mp.game.graphics.stopScreenEffect("DeathFailNeutralIn");
   }
 });

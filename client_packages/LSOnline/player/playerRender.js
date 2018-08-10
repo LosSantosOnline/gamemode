@@ -2,7 +2,7 @@
 
 const player = mp.players.local;
 const misc = require("./LSOnline/util/misc");
-
+player.textDraws = {};
 // Main render for players
 mp.events.add('render', (nametags) => {
   mp.players.forEachInStreamRange(
@@ -42,4 +42,10 @@ mp.events.add('render', (nametags) => {
         );
       }
     });
+
+  Object.keys(player.textDraws).forEach(key => {
+    let text = player.textDraws[key];
+
+    mp.game.graphics.drawText(text.name, text.position, text.options);
+  });
 });
