@@ -1,6 +1,6 @@
-const Command = require('../../structures/Command');
+const ChatCommand = require('./chatCommand');
 
-class Me extends Command {
+class Me extends ChatCommand {
   constructor (...args) {
     super(...args, {
       name: 'me',
@@ -10,7 +10,9 @@ class Me extends Command {
   }
 
   async run (player, command, args) {
-    mp.players.broadcastInRange(player.position, 25, player.dimension, `!{#dca2f4} * ${player.name} ${command.fullText}`);
+    const text = super.run(player, command.fullText, true);
+
+    if (text) mp.players.broadcastInRange(player.position, 25, player.dimension, `!{${rp.config.colors.me}} * ${player.name} ${text}`);
   }
 }
 
