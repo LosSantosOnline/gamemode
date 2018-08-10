@@ -12,10 +12,10 @@ const FileManagerPlugin = require("filemanager-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
-const directoryExist = fs.existsSync("./client_packages/LSOnline/Browsers/dist/");
+const directoryExist = fs.existsSync("./client_packages/LSOnline/browser/dist/");
 const env = process.argv[2] === "--mode=production" ? "production" : "development";
 
-if (directoryExist) rimraf.sync("./client_packages/LSOnline/Browsers/dist");
+if (directoryExist) rimraf.sync("./client_packages/LSOnline/browser/dist");
 
 module.exports = {
   mode: env,
@@ -24,16 +24,16 @@ module.exports = {
     hints: false
   },
   entry: glob
-    .sync("./client_packages/LSOnline/Browsers/src/pages/*/main.js")
+    .sync("./client_packages/LSOnline/browser/src/pages/*/main.js")
     .reduce(
       (x, y) =>
         Object.assign(x, {
-          [y.split("/")[6]]: y
+          [y.split("/")[6]]: path.resolve(__dirname, '..', y)
         }),
       {}
     ),
   output: {
-    path: path.resolve("./client_packages/LSOnline/Browsers/dist/"),
+    path: path.resolve("./client_packages/LSOnline/browser/dist/"),
     filename: "[name]/[name].min.js",
     publicPath: ".."
   },
@@ -159,7 +159,7 @@ module.exports = {
 
 if (env === "development") {
   module.exports.devServer = {
-    contentBase: "./client_packages/LSOnline/Browsers",
+    contentBase: "./client_packages/LSOnline/browser",
     stats: { chunks: false },
     hot: true,
     open: true,
@@ -175,9 +175,9 @@ if (env === "development") {
       onEnd: {
         copy: [
           {
-            source: "./client_packages/LSOnline/Browsers/src/assets/images/*",
+            source: "./client_packages/LSOnline/browser/src/assets/images/*",
             destination:
-              "./client_packages/LSOnline/Browsers/dist/assets/static"
+              "./client_packages/LSOnline/browser/dist/assets/static"
           }
         ]
       }
@@ -191,9 +191,9 @@ if (env === "production") {
     new FileManagerPlugin({
       onEnd: {
         delete: [
-          "./client_packages/LSOnline/Browsers/src/*",
-          "./client_packages/LSOnline/Browsers/src/",
-          "./client_packages/LSOnline/Browsers/dist/index.html"
+          "./client_packages/LSOnline/browser/src/*",
+          "./client_packages/LSOnline/browser/src/",
+          "./client_packages/LSOnline/browser/dist/index.html"
         ]
       }
     })
@@ -201,7 +201,7 @@ if (env === "production") {
 }
 
 glob
-  .sync("./client_packages/LSOnline/Browsers/src/pages/*/*.js")
+  .sync("./client_packages/LSOnline/browser/src/pages/*/*.js")
   .forEach(element => {
     const name = element.split("/")[6];
     module.exports.plugins.push(
@@ -210,7 +210,7 @@ glob
         filename: `${name}/index.html`,
         alwaysWriteToDisk: true,
         chunks: ["vendor", "commons", "styles", name],
-        template: "./client_packages/LSOnline/Browsers/src/pages/template.html",
+        template: "./client_packages/LSOnline/browser/src/pages/template.html",
         meta: {
           viewport: "width=device-width, initial-scale=1"
         }
