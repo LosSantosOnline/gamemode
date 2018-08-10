@@ -1,4 +1,4 @@
-const Command = require('../../structures/Command');
+const Command = require('../../structures/command');
 const { findPlayerInText } = require('../../utils/helpers');
 
 class ChatCommand extends Command {

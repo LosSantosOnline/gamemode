@@ -1,4 +1,4 @@
-const Command = require('../../../structures/Command');
+const Command = require('../../../structures/command');
 const vehicleManager = require('../../../vehicles/vehicleManager');
 
 class Fuel extends Command {

@@ -1,4 +1,4 @@
-const Command = require('../../structures/Command');
+const Command = require('../../structures/command');
 const helpers = require('../../utils/helpers');
 
 class Roll extends Command {

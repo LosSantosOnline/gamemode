@@ -1,4 +1,4 @@
-const Command = require('../../../structures/Command');
+const Command = require('../../../structures/command');
 const playerManager = require('../../../player/playerManager');
 
 class Unbw extends Command {

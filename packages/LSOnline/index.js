@@ -9,7 +9,7 @@ const result = dotenv.config();
 const logger = require('./modules/utils/logger');
 
 // Command collection
-const CommandCollection = require('./modules/structures/CommandCollection');
+const CommandCollection = require('./modules/structures/commandCollection');
 rp.commands = new CommandCollection();
 
 rp.config = require('../../config/server.config.json');

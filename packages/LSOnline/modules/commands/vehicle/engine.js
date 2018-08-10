@@ -1,4 +1,4 @@
-const Command = require('../../structures/Command');
+const Command = require('../../structures/command');
 const playerMisc = require('../../player/playerMisc');
 const vehicleManager = require('../../vehicles/vehicleManager');
 
