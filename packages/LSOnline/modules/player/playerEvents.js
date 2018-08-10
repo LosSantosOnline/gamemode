@@ -1,7 +1,7 @@
 "use strict";
 
 const playerManager = require("../player/playerManager");
-
+const { validateText } = require("../utils/helpers");
 mp.events.add({
   playerQuit: (player, exitType, reason) => {
     playerManager.clearBrutallyWoundedTimers(player);
@@ -54,20 +54,22 @@ mp.events.add({
     }
 
     if (result.args.length > 0 && args.length < result.args.length) {
-      return player.call('actionDone', ['Coś poszło nie tak!', `Użycie: /${commandName} ${result.tooltip.replace(',', ' ')}`]);
+      return player.call('actionDone', ['Coś poszło nie tak!', `Użycie: /${commandName} ${result.tooltip}`]);
     }
-
     result.run(player, {
       name: subCommand ? `${commandName} ${subCommand}` : commandName,
-      fullText: args.toString().replace(new RegExp("[,]*,+", 'g'), ' '),
+      fullText: args.join(" "),
       args
     }, args);
   },
 
   playerChat: (player, text) => {
     if (player.brutallyWounded) {
-      return player.call('actionDone', ['Nie możesz tego teraz użyć!', 'Twoja postać jest nieprzytomna!']);
+      return player.call('actionDone', ['Nie możesz tego teraz zrobić!', 'Twoja postać jest nieprzytomna!']);
     }
+    if (!validateText(text)) return false;
+    if (text[text.length - 1] !== '.' && text[text.length - 1] !== '?' && text[text.length - 1] !== '!') text += '.';
+    text = text.charAt(0).toUpperCase() + text.slice(1);
 
     mp.players.broadcastInRange(player.position, 25, player.dimension, `${player.name} mówi: ${text}`);
   }
