@@ -12,6 +12,8 @@ const logger = require('./modules/utils/logger');
 const CommandCollection = require('./modules/structures/CommandCollection');
 rp.commands = new CommandCollection();
 
+rp.config = require('../../config/server.config.json');
+
 // Load server gamemode async
 (async () => {
   await require('./loaders/databaseLoader')();

@@ -1,0 +1,11 @@
+{
+    "colors": {
+        "me": "#bd9dd4",
+        "meFar": "#8A6AA1",
+        "do": "#9698c9",
+        "say": "#e6e6e6",
+        "sayFar": "#939393",
+        "pm": "#c6cd00",
+        "pmReceiver": "#b8b82a"
+    }
+}
