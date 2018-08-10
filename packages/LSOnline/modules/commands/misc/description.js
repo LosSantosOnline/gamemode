@@ -1,5 +1,5 @@
-const Command = require('../../structures/Command');
-const helpers = require('../../utils/Helpers');
+const Command = require('../../structures/command');
+const helpers = require('../../utils/helpers');
 
 class Description extends Command {
   constructor (...args) {
