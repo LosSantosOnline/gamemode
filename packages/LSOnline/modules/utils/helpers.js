@@ -24,3 +24,34 @@ const searchPlayerByIdOrName = searchPlayer => {
 };
 
 exports.searchPlayerByIdOrName = searchPlayerByIdOrName;
+
+const validateText = (text) => {
+  if (!text) return false;
+  text = text.trim();
+  if (text.length === 0) return false;
+  if (text.match(new RegExp(`[^a-ząćśńółęĄĆŚŃÓŁĘA-Z0-9ds!?$% '".:{}]`, 'g'))) return false;
+  return true;
+};
+
+exports.validateText = validateText;
+
+const findPlayerInText = (fullText) => {
+  if (fullText.search("{") > 0) {
+    const id = fullText.substring(
+      fullText.lastIndexOf("{") + 1,
+      fullText.lastIndexOf("}")
+    );
+
+    if (!id || isNaN(id)) {
+      return false;
+    }
+
+    const target = mp.players.at(id);
+    if (!target) return false;
+
+    return target;
+  }
+  return true;
+};
+
+exports.findPlayerInText = findPlayerInText;
