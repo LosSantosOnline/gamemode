@@ -34,7 +34,7 @@ class Collection extends Map {
       delete require.cache[filepath];
       return piece;
     } catch (error) {
-      logger('command', `Command error: ${error} at ${filepath}!`);
+      logger('command', `Command error: ${error} at ${filepath}!`, 'error');
     }
   }
 

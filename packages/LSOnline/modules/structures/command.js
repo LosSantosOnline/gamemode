@@ -14,7 +14,7 @@ class Command {
     this.name = options.name;
     this.aliases = options.aliases || [];
     this.perms = options.perms || [];
-    this.restriction = options.false || false;
+    this.restriction = options.restriction || false;
     this.args = options.args || [];
     this.hasSubcommands = options.hasSubcommands || false;
     this.tooltip = this.args.map(element => {
