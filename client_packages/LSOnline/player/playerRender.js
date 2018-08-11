@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 
 const player = mp.players.local;
-const misc = require("./LSOnline/util/misc");
-player.textDraws = {};
+const misc = require('./LSOnline/util/misc');
+
 // Main render for players
 mp.events.add('render', (nametags) => {
   mp.players.forEachInStreamRange(

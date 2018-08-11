@@ -3,7 +3,7 @@ const font = 4;
 
 exports = class {
   static drawMoney (player, key, value) {
-    if (isNaN(value)) throw new Error("drawMoney: value need to be int");
+    if (isNaN(value)) throw new Error('drawMoney: value need to be int');
     DrawText.drawText('cashHUD', `$${value}`, 'MONEY_HUD', {
       font,
       color: [133, 187, 101, 185],

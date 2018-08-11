@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 let Natives = {
-  IS_RADAR_HIDDEN: "0x2918f48a30d03841",
-  IS_RADAR_ENABLED: "0xf4d0c6c7b9c7bd4a",
-  SET_TEXT_OUTLINE: "0x39a6925dba332248"
+  IS_RADAR_HIDDEN: '0x2918f48a30d03841',
+  IS_RADAR_ENABLED: '0xf4d0c6c7b9c7bd4a',
+  SET_TEXT_OUTLINE: '0x39a6925dba332248'
 };
 
 const prepareClientView = () => {
@@ -16,7 +16,10 @@ const prepareClientView = () => {
   hideHudElements([1, 3]);
 
   // Update discord status
-  mp.discord.update("LSRP:V", "In-Game");
+  mp.discord.update('LSRP:V', 'In-Game');
+
+  // Initialize textDraws object
+  mp.players.local.textDraws = {};
 };
 
 exports.prepareClientView = prepareClientView;
@@ -38,7 +41,7 @@ const disableControlActions = (array) => {
 exports.disableControlActions = disableControlActions;
 
 function draw3dText (text, drawXY, font, color, scale, alignRight = false) {
-  mp.game.ui.setTextEntry("STRING");
+  mp.game.ui.setTextEntry('STRING');
   mp.game.ui.addTextComponentSubstringPlayerName(text);
   mp.game.ui.setTextFont(font);
   mp.game.ui.setTextScale(scale, scale);

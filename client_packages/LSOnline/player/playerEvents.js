@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 const Cash = require('/LSOnline/cash/cash');
 mp.events.add({
   entityStreamIn: (player) => {
@@ -14,10 +14,10 @@ mp.events.add({
 
   entityDataChange: (player, key, value) => {
     switch (key) {
-      case "description":
+      case 'description':
         player.description = value;
         break;
-      case "cash": {
+      case 'cash': {
         Cash.drawMoney(player, 'cash', value);
         player.cash = value;
       }
@@ -25,12 +25,12 @@ mp.events.add({
   },
 
   playerDeath: (player, reason, killer) => {
-    mp.game.audio.playSoundFrontend(-1, "Bed", "WastedSounds", true);
-    mp.game.graphics.startScreenEffect("DeathFailNeutralIn", 0, true);
+    mp.game.audio.playSoundFrontend(-1, 'Bed', 'WastedSounds', true);
+    mp.game.graphics.startScreenEffect('DeathFailNeutralIn', 0, true);
     mp.game.gameplay.setFadeOutAfterDeath(false);
   },
 
   playerSpawn: () => {
-    mp.game.graphics.stopScreenEffect("DeathFailNeutralIn");
+    mp.game.graphics.stopScreenEffect('DeathFailNeutralIn');
   }
 });
