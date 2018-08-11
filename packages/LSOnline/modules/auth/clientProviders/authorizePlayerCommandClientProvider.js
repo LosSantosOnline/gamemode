@@ -5,6 +5,5 @@ const authorizePlayerCommand = require("../../auth/commands/authorizePlayerComma
 mp.events.add({
   authorizePlayer: async (player, login, password) => {
     await authorizePlayerCommand.execute(player, login, password);
-    player.name = player.character.name;
   }
 });
