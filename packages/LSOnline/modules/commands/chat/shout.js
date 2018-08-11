@@ -5,7 +5,8 @@ class Shout extends Command {
     super(...args, {
       name: 'k',
       aliases: ['krzyk'],
-      args: ['Tekst']
+      args: ['Tekst'],
+      perms: true
     });
   }
 

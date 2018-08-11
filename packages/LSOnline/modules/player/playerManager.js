@@ -3,6 +3,21 @@
 const brutallyWoundedTime = 20000;
 const playerData = require('../player/playerData');
 
+const setBrutallyWounded = (player, reason, killer) => {
+  if (player.brutallyWoundedTimer) {
+    clearBrutallyWoundedTimers(player);
+  }
+
+  player.brutallyWounded = true;
+  player.removeAllWeapons();
+  player.brutallyWoundedTimer = setTimeout(reviveFromBrutallyWounded, brutallyWoundedTime, player);
+
+  player.setVariable('description', playerData.getDeathReason(reason));
+  mp.players.broadcastInRange(player.position, 25, `!{#dca2f4} * ${player.name} traci przytomność.`);
+};
+
+exports.setBrutallyWounded = setBrutallyWounded;
+
 const reviveFromBrutallyWounded = (player, fromMedic = false) => {
   clearBrutallyWoundedTimers(player);
   clearDescription(player);
@@ -12,20 +27,6 @@ const reviveFromBrutallyWounded = (player, fromMedic = false) => {
 };
 
 exports.reviveFromBrutallyWounded = reviveFromBrutallyWounded;
-
-const setBrutallyWounded = (player, reason, killer) => {
-  if (player.brutallyWoundedTimer) {
-    clearBrutallyWoundedTimers(player);
-  }
-
-  player.brutallyWounded = true;
-  player.brutallyWoundedTimer = setTimeout(reviveFromBrutallyWounded, brutallyWoundedTime, player);
-
-  player.setVariable('description', playerData.getDeathReason(reason));
-  mp.players.broadcastInRange(player.position, 25, `!{#dca2f4} * ${player.name} traci przytomność.`);
-};
-
-exports.setBrutallyWounded = setBrutallyWounded;
 
 const clearBrutallyWoundedTimers = (player) => {
   player.brutallyWounded = false;
@@ -52,6 +53,13 @@ const spawnPlayer = (player) => {
 };
 
 exports.spawnPlayer = spawnPlayer;
+
+const setDescription = (player, text) => {
+  player.outputChatBox(`!{#dddddd} Ustawiono nowy opis: ${text}`);
+  player.setVariable('description', text);
+};
+
+exports.setDescription = setDescription;
 
 const clearDescription = (player) => {
   player.setVariable('description', null);

@@ -6,7 +6,8 @@ class Vehicle extends Command {
       name: 'v',
       aliases: ['v', 'vehicle', 'pojazd'],
       hasSubcommands: true,
-      args: []
+      args: [],
+      perms: true
     });
   }
 

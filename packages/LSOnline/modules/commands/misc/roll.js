@@ -5,7 +5,8 @@ class Roll extends Command {
   constructor (...args) {
     super(...args, {
       name: 'roll',
-      aliases: ['kostka']
+      aliases: ['kostka'],
+      perms: true
     });
   }
 

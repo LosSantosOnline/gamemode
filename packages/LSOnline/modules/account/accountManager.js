@@ -6,15 +6,6 @@ const forumDb = require('../database/forumDatabase');
 const accountModel = require('../../models/Account');
 const accountMeta = require('../account/accountModuleMeta');
 
-exports.test = (accountName) => {
-  console.log(sprintf(
-    accountMeta.HASH_SELECT_QUERY_PATTERN,
-    "member_id, member_group_id",
-    accountMeta.IPB_MEMBERS_TABLE,
-    accountName
-  ));
-};
-
 exports.loadAccountData = async function loadAccountData (player, accountName) {
   await forumDb.connection.query(sprintf(
     accountMeta.HASH_SELECT_QUERY_PATTERN,
@@ -25,16 +16,16 @@ exports.loadAccountData = async function loadAccountData (player, accountName) {
     let data = results[0];
     data.name = accountName;
 
+    player.isLogged = true;
     player.account = hydrateAccount(accountModel.create(), data);
-    logger('authorization', "Account data saved into player entity.", 'info');
+    logger('authorization', 'Account data saved into player entity.', 'info');
     return player;
-  }
-  );
+  });
 };
 
-function hydrateAccount (account, data) {
+const hydrateAccount = (account, data) => {
   account.id = data.member_id;
   account.name = data.name;
   account.groupId = data.member_group_id;
   return account;
-}
+};

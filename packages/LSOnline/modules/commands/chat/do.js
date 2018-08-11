@@ -4,7 +4,8 @@ class Me extends Command {
   constructor (...args) {
     super(...args, {
       name: 'do',
-      args: ['Tekst']
+      args: ['Tekst'],
+      perms: true
     });
   }
 

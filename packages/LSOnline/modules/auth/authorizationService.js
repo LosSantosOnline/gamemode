@@ -29,7 +29,9 @@ async function ipbAuth (login, password) {
 
 function authorize (login, authorizeCondition = function () {
 }) {
-  if (!authorizeCondition) return logger('authorization', `User with login ${login} has been authorized.`, 'error');
+  if (!authorizeCondition) {
+    throw new Error(`Wrong credentials for user with login ${login}.`);
+  }
 
   logger('authorization', `User with login ${login} has been authorized.`, 'info');
 }

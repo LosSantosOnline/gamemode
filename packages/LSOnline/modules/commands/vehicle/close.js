@@ -5,7 +5,8 @@ class Close extends Command {
   constructor (...args) {
     super(...args, {
       name: 'v z',
-      aliases: ['v zamknij', 'vehicle z']
+      aliases: ['v zamknij', 'vehicle z'],
+      perms: true
     });
   }
 

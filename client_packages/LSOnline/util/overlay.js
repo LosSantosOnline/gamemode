@@ -1,5 +1,7 @@
 "use strict";
+
 var instance;
+
 /**
  * Class to handle an Overlay browser.
  * It meant to be singleton. (dunno if good solution)
@@ -17,7 +19,7 @@ class Overlay {
     }
     instance = this;
     this.browser = mp.browsers.new(
-      "package://LSOnline/Browsers/dist/overlay/index.html"
+      "package://LSOnline/browser/dist/overlay/index.html"
     );
   }
 

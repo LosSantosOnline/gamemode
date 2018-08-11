@@ -1,25 +1,13 @@
 "use strict";
 
+const moment = require('moment');
 const playerManager = require("../player/playerManager");
+const characterManager = require("../characters/characterManager");
 
 mp.events.add({
   playerQuit: (player, exitType, reason) => {
-    playerManager.clearBrutallyWoundedTimers(player);
-
-    let quitLabel = mp.labels.new(`~HUD_COLOUR_GREYLIGHT~ (( ${player.name} - ${exitType} ))`, new mp.Vector3(player.position.x, player.position.y, player.position.z),
-      {
-        los: true,
-        font: 0,
-        drawDistance: 10,
-        dimension: player.dimension
-      });
-
-    // This need to be rewrited when we gonna create labels manager.
-    setTimeout(() => {
-      if (quitLabel) {
-        quitLabel.destroy();
-      }
-    }, 30000);
+    prepareBeforeQuit(player, exitType);
+    createQuitLabel(player, exitType);
   },
 
   playerDeath: (player, reason, killer) => {
@@ -33,6 +21,10 @@ mp.events.add({
 
     let result = rp.commands.get(commandName);
 
+    if (!player.isLogged) {
+      return player.kick();
+    }
+
     if (!result) {
       return player.call('actionDone', ['Komenda nie istnieje!', 'Podana komenda nie istnieje']);
     }
@@ -45,7 +37,7 @@ mp.events.add({
       }
     }
 
-    if (!player.character.admin && result.perms) {
+    if (!result.perms) {
       return player.call('actionDone', ['Brak uprawnień!', 'Nie posiadasz wystarczających uprawnień do tej komendy!']);
     }
 
@@ -65,6 +57,10 @@ mp.events.add({
   },
 
   playerChat: (player, text) => {
+    if (!player.isLogged) {
+      return player.kick();
+    }
+
     if (player.brutallyWounded) {
       return player.call('actionDone', ['Nie możesz tego teraz użyć!', 'Twoja postać jest nieprzytomna!']);
     }
@@ -72,3 +68,35 @@ mp.events.add({
     mp.players.broadcastInRange(player.position, 25, player.dimension, `${player.name} mówi: ${text}`);
   }
 });
+
+const createQuitLabel = (player, exitType) => {
+  if (!player.quitLabel) {
+    player.quitLabel = mp.labels.new(`~HUD_COLOUR_GREYLIGHT~ (( ${player.name} - ${exitType} ))`, new mp.Vector3(player.position.x, player.position.y, player.position.z),
+      {
+        los: true,
+        font: 0,
+        drawDistance: 10,
+        dimension: player.dimension
+      });
+  }
+
+  // This need to be rewrited when we gonna create labels manager.
+  setTimeout(() => {
+    if (player.quitLabel) {
+      player.quitLabel.destroy();
+    }
+  }, 50000);
+};
+
+const prepareBeforeQuit = (player, exitType = false) => {
+  playerManager.clearBrutallyWoundedTimers(player);
+
+  if (player.vehicle) {
+    const vehicle = { id: player.vehicle.informations.id, seat: player.seat };
+    player.character.saveBeforeQuit(player, vehicle, exitType);
+  } else {
+    player.character.saveBeforeQuit(player, undefined, exitType);
+  }
+};
+
+exports.prepareBeforeQuit = prepareBeforeQuit;

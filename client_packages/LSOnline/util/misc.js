@@ -1,4 +1,5 @@
-"use strict";
+'use strict';
+
 let Natives = {
   IS_RADAR_HIDDEN: "0x2918f48a30d03841",
   IS_RADAR_ENABLED: "0xf4d0c6c7b9c7bd4a",
@@ -37,7 +38,7 @@ const disableControlActions = (array) => {
 
 exports.disableControlActions = disableControlActions;
 
-function draw3dText (text, drawXY, font, color, scale, alignRight = false) {
+const draw3dText = (text, drawXY, font, color, scale, alignRight = false) => {
   mp.game.ui.setTextEntry("STRING");
   mp.game.ui.addTextComponentSubstringPlayerName(text);
   mp.game.ui.setTextFont(font);
@@ -51,11 +52,12 @@ function draw3dText (text, drawXY, font, color, scale, alignRight = false) {
   }
 
   mp.game.ui.drawText(drawXY[0], drawXY[1]);
-}
+};
+
 exports.draw3dText = draw3dText;
 
 // Credits: https://github.com/glitchdetector/fivem-minimap-anchor
-function getMinimapAnchor () {
+const getMinimapAnchor = () => {
   let sfX = 1.0 / 20.0;
   let sfY = 1.0 / 20.0;
   let safeZone = mp.game.graphics.getSafeZoneSize();
@@ -76,7 +78,7 @@ function getMinimapAnchor () {
   minimap.rightX = minimap.leftX + minimap.width;
   minimap.topY = minimap.bottomY - minimap.height;
   return minimap;
-}
+};
 
 exports.getMinimapAnchor = getMinimapAnchor;
 
@@ -98,18 +100,3 @@ const vectorDistance = (vector1, vector2) => {
 };
 
 exports.vectorDistance = vectorDistance;
-
-const drawRaycastForPoliceRadar = (vehicle) => {
-  const position = vehicle.position;
-  const direction = vehicle.getForwardVector();
-  const farAway = new mp.Vector3((direction.x * 40) + position.x, (direction.y * 40) + position.y, (direction.z * 40) + position.z);
-  const targetVehicle = mp.raycasting.testPointToPoint(vehicle.position, farAway, 2);
-
-  if (targetVehicle) {
-    return targetVehicle;
-  }
-
-  return false;
-};
-
-exports.drawRaycastForPoliceRadar = drawRaycastForPoliceRadar;

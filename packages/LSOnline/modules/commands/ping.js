@@ -4,7 +4,8 @@ class Ping extends Command {
   constructor (...args) {
     super(...args, {
       name: 'ping',
-      aliases: ['pong']
+      aliases: ['pong'],
+      perms: true
     });
   }
 

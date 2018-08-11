@@ -28,5 +28,9 @@ mp.events.add({
 
   "playerSpawn": () => {
     mp.game.graphics.stopScreenEffect("DeathFailNeutralIn");
+  },
+
+  "setInvincible": (player, value) => {
+    value ? mp.players.local.setInvincible(true) : mp.players.local.setInvincible(false);
   }
 });

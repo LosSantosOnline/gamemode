@@ -5,7 +5,8 @@ class Me extends Command {
     super(...args, {
       name: 'c',
       aliases: ['szept'],
-      args: ['Tekst']
+      args: ['Tekst'],
+      perms: true
     });
   }
 

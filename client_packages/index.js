@@ -1,20 +1,42 @@
-const Browser = require('./LSOnline/util/browser');
-const Camera = require('./LSOnline/util/camera');
-const Overlay = require('./LSOnline/util/Overlay');
-const Login = require('./LSOnline/login/login');
-const EnvironmentTime = require("./LSOnline/environment/time");
-const PlayerEvents = require("./LSOnline/player/playerEvents");
-const PlayerRender = require("./LSOnline/player/playerRender");
-const Teleport = require('./LSOnline/util/teleport');
-const Notification = require('./LSOnline/notification/notification');
-const Misc = require('./LSOnline/util/misc');
-const Keys = require("./LSOnline/util/keys");
-const Location = require('./LSOnline/game/location');
-const VehicleRender = require('./LSOnline/vehicle/vehicleRender');
-const VehicleEvents = require('./LSOnline/vehicle/vehicleEvents');
+// Chat
+require('./LSOnline/chat/events');
+
+// Authorization
+require('./LSOnline/login/login');
+
+// CEF, etc.
+require('./LSOnline/util/camera');
+require('./LSOnline/util/browser');
+require('./LSOnline/util/overlay');
+require('./LSOnline/notification/notification');
+
+// Environment
+require("./LSOnline/environment/time");
+
+// Keybinds
+require("./LSOnline/keybinds/keyE");
+require("./LSOnline/keybinds/keyZ");
+require("./LSOnline/keybinds/keyY");
+require("./LSOnline/keybinds/keyF2");
+require("./LSOnline/keybinds/keyAltTab");
+require("./LSOnline/keybinds/keyNumpad5");
+require("./LSOnline/keybinds/keyNumpad8");
+
+// Player
+require("./LSOnline/player/playerEvents");
+require("./LSOnline/player/playerRender");
+
+// Vehicles
+require('./LSOnline/vehicle/vehicleRender');
+require('./LSOnline/vehicle/vehicleEvents');
+
+// Customs
+require('./LSOnline/util/teleport');
+
+const misc = require('./LSOnline/util/misc');
 
 mp.events.add({
-  clientLaunched: () => Misc.prepareClientView(),
+  clientLaunched: () => misc.prepareClientView(),
   render: () => mp.game.player.setHealthRechargeMultiplier(0.0)
 });
 

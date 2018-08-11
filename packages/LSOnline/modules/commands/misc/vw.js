@@ -4,7 +4,8 @@ class Vw extends Command {
   constructor (...args) {
     super(...args, {
       name: 'vw',
-      aliases: ['virtualworld']
+      aliases: ['virtualworld'],
+      perms: true
     });
   }
 

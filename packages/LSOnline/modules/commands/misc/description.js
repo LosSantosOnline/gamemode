@@ -1,12 +1,13 @@
 const Command = require('../../structures/Command');
-const helpers = require('../../utils/Helpers');
+const playerManager = require('../../player/playerManager');
 
 class Description extends Command {
   constructor (...args) {
     super(...args, {
       name: 'opis',
       aliases: ['desc'],
-      args: ['Opis postaci - krótki, zwięzły']
+      args: ['Opis postaci - krótki, zwięzły'],
+      perms: true
     });
   }
 
@@ -20,7 +21,7 @@ class Description extends Command {
       ]);
     }
 
-    player.setVariable('description', fullText);
+    playerManager.setDescription(player, fullText);
   }
 }
 

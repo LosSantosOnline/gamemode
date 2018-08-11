@@ -1,8 +1,9 @@
 "use strict";
 
-const camera = require("/LSOnline/util/camera");
-const browser = require("/LSOnline/util/browser");
-const Overlay = require("/LSOnline/util/Overlay");
+const camera = require("./LSOnline/util/camera");
+const globals = require("./LSOnline/util/globals");
+const browser = require("./LSOnline/util/browser");
+const Overlay = require("./LSOnline/util/overlay");
 
 function preparePanel (url) {
   browser.prepareScreen(1000);
@@ -45,12 +46,15 @@ mp.events.add({
     );
   },
   userAuthorized: async characters => {
-    changePanel("package://LSOnline/Browsers/dist/characterSelect/index.html");
-    showCharacter(characters);
+    destroyPanel();
+
+    // Only for test (debug) purposes. New login panel coming soon.
+    mp.events.callRemote("loginPlayer", 1);
+    // changePanel("package://LSOnline/browser/dist/characterSelect/index.html");
+    // showCharacter(characters);
   },
   characterSelected: characterId => {
     destroyPanel();
-    mp.players.local.setInvincible(true);
     mp.events.callRemote("loginPlayer", characterId);
   }
 });
