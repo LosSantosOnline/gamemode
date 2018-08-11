@@ -52,4 +52,3 @@ exports = class DrawText {
     return false;
   }
 };
-// XP#lSw0gbB1N
