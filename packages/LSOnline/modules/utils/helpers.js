@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const upperString = string => string.toLowerCase().replace(/(^| )(\w)/g, s => s.toUpperCase());
 
@@ -10,14 +10,12 @@ exports.randomInt = randomInt;
 
 const searchPlayerByIdOrName = searchPlayer => {
   let thisPlayer = null;
-  let playerId = parseInt(searchPlayer);
-  if (playerId) {
+  if (!isNaN(searchPlayer)) {
+    const playerId = parseInt(searchPlayer);
     thisPlayer = mp.players.at(playerId);
-  } else if (!thisPlayer) {
-    mp.players.forEach((_player) => {
-      if (_player.name.toLowerCase().match(searchPlayer.toLowerCase())) {
-        thisPlayer = _player;
-      }
+  } else {
+    thisPlayer = mp.players.toArray().find(_player => {
+      return _player.name.toLowerCase().match(searchPlayer.toLowerCase());
     });
   };
   return thisPlayer;
@@ -36,10 +34,10 @@ const validateText = (text) => {
 exports.validateText = validateText;
 
 const findPlayerInText = (fullText) => {
-  if (fullText.search("{") > 0) {
+  if (fullText.search('{') > 0) {
     const id = fullText.substring(
-      fullText.lastIndexOf("{") + 1,
-      fullText.lastIndexOf("}")
+      fullText.lastIndexOf('{') + 1,
+      fullText.lastIndexOf('}')
     );
 
     if (!id || isNaN(id)) {

@@ -1,5 +1,6 @@
 const Command = require('../../../structures/command');
 const playerManager = require('../../../player/playerManager');
+const { searchPlayerByIdOrName } = require('../../../utils/helpers');
 
 class Unbw extends Command {
   constructor (...args) {
@@ -12,7 +13,7 @@ class Unbw extends Command {
 
   async run (player, command, args) {
     const playerId = args[0];
-    const foundPlayer = mp.players.at(playerId);
+    const foundPlayer = this.searchPlayerByIdOrName(playerId);
     if (!foundPlayer) {
       return player.call('actionDone', ['Coś poszło nie tak..', 'Taki gracz nie istnieje.']);
     }

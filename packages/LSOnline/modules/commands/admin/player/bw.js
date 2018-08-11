@@ -12,14 +12,14 @@ class Bw extends Command {
 
   async run (player, command, args) {
     const playerId = args[0];
-    const foundPlayer = mp.players.at(playerId);
+    const foundPlayer = this.searchPlayerByIdOrName(playerId);
     if (!foundPlayer) {
       return player.call('actionDone', ['Coś poszło nie tak..', 'Taki gracz nie istnieje.']);
     }
     if (foundPlayer.brutallyWounded) {
       return player.call('actionDone', ['Coś poszło nie tak..', 'Ten gracz posiada już BW.']);
     }
-    playerManager.kill(foundPlayer);
+    playerManager.killPlayer(foundPlayer);
   }
 }
 
