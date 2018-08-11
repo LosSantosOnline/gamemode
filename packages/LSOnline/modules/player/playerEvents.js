@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
-const playerManager = require("../player/playerManager");
-const { validateText } = require("../utils/helpers");
+const playerManager = require('../player/playerManager');
+const { validateText } = require('../utils/helpers');
 const Say = require('../commands/chat/say');
 
 mp.events.add({
@@ -60,7 +60,8 @@ mp.events.add({
     }
     result.run(player, {
       name: subCommand ? `${commandName} ${subCommand}` : commandName,
-      fullText: args.join(" "),
+      fullText: args.join(' '),
+      pureText: args.slice(result.args.length, args.length).join(' '),
       args
     }, args);
   },
