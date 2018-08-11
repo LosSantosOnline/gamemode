@@ -2,7 +2,7 @@ const DrawText = require('/LSOnline/cash/drawText');
 const font = 4;
 
 exports = class {
-  static drawMoney (player, key, value) {
+  static drawMoney (player, value) {
     if (isNaN(value)) throw new Error('drawMoney: value need to be int');
     DrawText.drawText('cashHUD', `$${value}`, 'MONEY_HUD', {
       font,

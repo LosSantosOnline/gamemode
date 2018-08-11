@@ -17,8 +17,8 @@ mp.events.add({
       case 'description':
         player.description = value;
         break;
-      case 'cash': {
-        Cash.drawMoney(player, 'cash', value);
+      case 'money': {
+        Cash.drawMoney(player, value);
         player.cash = value;
       }
     }
