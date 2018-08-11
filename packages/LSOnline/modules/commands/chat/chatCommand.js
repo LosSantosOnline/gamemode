@@ -12,11 +12,9 @@ class ChatCommand extends Command {
   run (player, fullText, append = false) {
     let text = fullText || "";
     text = text.trim();
-    console.log(text);
     if (text.length === 0) return player.call('actionDone', ['Coś poszło nie tak..', 'Akcja nie może być pusta.']);
 
     const target = findPlayerInText(text);
-    console.log("target" + target);
 
     if (!target) return player.call('actionDone', ['Coś poszło nie tak..', 'Podany gracz nie istnieje.']);
     if (typeof target === "object") text = text.replace(`{${target.id}}`, target.name);

@@ -14,7 +14,7 @@ module.exports = class extends ChatCommand {
     mp.players.forEachInRange(player.position, 15, player.dimension, (person) => {
       if (player.distSquared(person.position) > 5 && text) {
         person.outputChatBox(`!{${rp.config.colors.sayFar}}${player.name} mówi: ${text}`);
-      } else {
+      } else if (text) {
         person.outputChatBox(`!{${rp.config.colors.say}}${player.name} mówi: ${text}`);
       }
     });
