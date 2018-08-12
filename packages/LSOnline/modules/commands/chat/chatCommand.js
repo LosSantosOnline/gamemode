@@ -11,7 +11,6 @@ class ChatCommand extends Command {
     });
   }
   run (player, fullText, append = false) {
-    console.log(fullText);
     let text = fullText || '';
     text = text.trim();
     if (text.length === 0) return player.call('actionDone', ['Coś poszło nie tak..', 'Akcja nie może być pusta.']);
