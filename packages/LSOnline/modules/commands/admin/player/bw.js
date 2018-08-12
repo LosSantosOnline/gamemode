@@ -1,11 +1,10 @@
 const Command = require('../../../structures/Command');
-const { kill } = require('../../../player/playerManager');
+const { killPlayer } = require('../../../player/playerManager');
 
 class Bw extends Command {
   constructor (...args) {
     super(...args, {
       name: 'bw',
-      perms: true,
       args: ['ID gracza']
     });
   }
@@ -22,7 +21,7 @@ class Bw extends Command {
       return player.call('actionDone', ['Coś poszło nie tak!', 'Ten gracz posiada już BW.']);
     }
 
-    kill(foundPlayer);
+    killPlayer(foundPlayer);
   }
 }
 

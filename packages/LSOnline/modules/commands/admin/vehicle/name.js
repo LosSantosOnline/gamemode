@@ -6,7 +6,6 @@ class Vehicle extends Command {
     super(...args, {
       name: 'avehicle name',
       aliases: ['aveh name', 'av name'],
-      perms: true,
       args: ['ID pojazdu z gry', 'Nowa nazwa pojazdu']
     });
   }

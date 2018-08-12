@@ -6,8 +6,7 @@ class Engine extends Command {
   constructor (...args) {
     super(...args, {
       name: 'engine',
-      aliases: ['silnik'],
-      perms: true
+      aliases: ['silnik']
     });
   }
 

@@ -5,7 +5,6 @@ class Unbw extends Command {
   constructor (...args) {
     super(...args, {
       name: 'unbw',
-      perms: true,
       args: ['ID gracza']
     });
   }

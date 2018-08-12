@@ -4,7 +4,6 @@ class Teleport extends Command {
   constructor (...args) {
     super(...args, {
       name: 'teleport',
-      perms: true,
       aliases: ['tp']
     });
   }

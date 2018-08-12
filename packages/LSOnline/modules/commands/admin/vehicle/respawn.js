@@ -4,8 +4,7 @@ const { respawnAll } = require('../../../vehicles/vehicleManager');
 class Respawn extends Command {
   constructor (...args) {
     super(...args, {
-      name: 'respawn',
-      perms: true
+      name: 'respawn'
     });
   }
 

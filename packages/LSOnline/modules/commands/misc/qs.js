@@ -4,8 +4,7 @@ class Qs extends Command {
   constructor (...args) {
     super(...args, {
       name: 'qs',
-      aliases: ['qs'],
-      perms: true
+      aliases: ['qs']
     });
   }
 

@@ -7,7 +7,6 @@ class Vehicle extends Command {
     super(...args, {
       name: 'av',
       aliases: ['avehicle', 'av create'],
-      perms: true,
       hasSubcommands: true,
       args: ['Model pojazdu']
     });

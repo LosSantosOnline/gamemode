@@ -6,8 +6,7 @@ class Description extends Command {
     super(...args, {
       name: 'opis',
       aliases: ['desc'],
-      args: ['Opis postaci - krótki, zwięzły'],
-      perms: true
+      args: ['Opis postaci - krótki, zwięzły']
     });
   }
 

@@ -6,7 +6,6 @@ class Unspawn extends Command {
     super(...args, {
       name: 'avehicle unspawn',
       aliases: ['aveh unspawn', 'av unspawn'],
-      perms: true,
       args: ['ID pojazdu z gry']
     });
   }

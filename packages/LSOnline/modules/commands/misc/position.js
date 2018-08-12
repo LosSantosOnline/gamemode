@@ -4,8 +4,7 @@ class Position extends Command {
   constructor (...args) {
     super(...args, {
       name: 'pos',
-      aliases: ['position'],
-      perms: true
+      aliases: ['position']
     });
   }
 

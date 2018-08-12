@@ -34,11 +34,11 @@ mp.events.add({
         subCommand = args.splice(0, 1);
       }
     }
-
-    if (!result.perms) {
+    // TODO: rework to flags
+    /* if (!result.perms) {
       return player.call('actionDone', ['Brak uprawnień!', 'Nie posiadasz wystarczających uprawnień do tej komendy!']);
     }
-
+    */
     if (player.brutallyWounded && result.restriction) {
       return player.call('actionDone', ['Nie możesz tego teraz użyć!', 'Twoja postać jest nieprzytomna lub wyciszona!']);
     }
@@ -49,7 +49,7 @@ mp.events.add({
 
     result.run(player, {
       name: subCommand ? `${commandName} ${subCommand}` : commandName,
-      fullText: args.toString().replace(new RegExp("[,]*,+", 'g'), ' '),
+      fullText: args.toString().replace(new RegExp('[,]*,+', 'g'), ' '),
       args
     }, args);
   },

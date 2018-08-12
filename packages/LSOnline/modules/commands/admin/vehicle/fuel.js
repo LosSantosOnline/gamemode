@@ -6,7 +6,6 @@ class Fuel extends Command {
     super(...args, {
       name: 'avehicle fuel',
       aliases: ['aveh fuel', 'av fuel'],
-      perms: true,
       args: ['ID pojazdu z gry', 'Ilość dodanego paliwa']
     });
   }
