@@ -1,14 +1,14 @@
-"use strict";
+'use strict';
 
 // Author of this resource: rootcause
 var Natives = {
-  IS_RADAR_HIDDEN: "0x7382a6b79bd5f585",
-  IS_RADAR_ENABLED: "0x8056602005161037",
-  SET_TEXT_OUTLINE: "0x918f022e4c3a47c2"
+  IS_RADAR_HIDDEN: '0x7382a6b79bd5f585',
+  IS_RADAR_ENABLED: '0x8056602005161037',
+  SET_TEXT_OUTLINE: '0x918f022e4c3a47c2'
 };
 
 // Misc
-const misc = require("./LSOnline/util/misc");
+const misc = require('./LSOnline/util/misc');
 
 // Settings for speedometer
 const useSpeedo = true;
@@ -39,13 +39,13 @@ setInterval(() => {
 
 mp.events.add(
   {
-    "render": () => {
+    render: () => {
       if (streetName && zoneName) {
         misc.draw3dText(streetName, [minimap.rightX + 0.01, minimap.bottomY - 0.065], 4, [255, 255, 255, 255], 0.55);
         misc.draw3dText(zoneName, [minimap.rightX + 0.01, minimap.bottomY - 0.035], 4, [255, 255, 255, 255], 0.5);
 
         let vehicle = mp.players.local.vehicle;
-        if (useSpeedo && vehicle) misc.draw3dText(`${(vehicle.getSpeed() * (isMetric ? 3.6 : 2.236936)).toFixed(0)} ${(isMetric) ? "KM/H" : "MPH"}`, [minimap.rightX - 0.003, minimap.bottomY - 0.0485], 4, [255, 255, 255, 255], 0.45, true);
+        if (useSpeedo && vehicle) misc.draw3dText(`${(vehicle.getSpeed() * (isMetric ? 3.6 : 2.236936)).toFixed(0)} ${(isMetric) ? 'KM/H' : 'MPH'}`, [minimap.rightX - 0.003, minimap.bottomY - 0.0485], 4, [255, 255, 255, 255], 0.45, true);
       }
     }
   }

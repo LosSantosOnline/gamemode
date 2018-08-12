@@ -1,17 +1,17 @@
-"use strict";
+'use strict';
 
 const characterManager = require('../characters/characterManager');
 
 function showLoginPanel (player) {
   player.call(`loginPanelAppeared`, [
-    'package://LSOnline/Browsers/dist/login/index.html'
+    'package://LSOnline/browser/dist/login/index.html'
   ]);
 }
 
 mp.events.add({
   playerJoin: async (player) => {
-    player.outputChatBox("Witaj na serwerze Los Santos Online!");
-    player.outputChatBox("Poczekaj chwilę, aktualnie pobierane są wszystkie zasoby serwera.");
+    player.outputChatBox('Witaj na serwerze Los Santos Online!');
+    player.outputChatBox('Poczekaj chwilę, aktualnie pobierane są wszystkie zasoby serwera.');
   },
 
   playerReady: async (player) => {
@@ -23,8 +23,8 @@ mp.events.add({
 
     player.call(`actionDone`, [
       `Witaj na serwerze!`,
-      "Zalogowałeś się po raz pierwszy na naszym serwerze. Wciśnij przycisk <b>Home</b>, " +
-            "aby wyświetlić dashboard konta wraz z panelem pomocy."
+      'Zalogowałeś się po raz pierwszy na naszym serwerze. Wciśnij przycisk <b>Home</b>, ' +
+      'aby wyświetlić dashboard konta wraz z panelem pomocy.'
     ]);
   }
 });

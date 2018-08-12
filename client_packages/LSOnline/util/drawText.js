@@ -1,6 +1,7 @@
-const player = mp.players.local;
 let timer = false;
-const POS = {
+const player = mp.players.local;
+
+const positions = {
   MONEY_HUD: [0.95, 0.005],
   MONEY_HUD_DIFF: [0.95, 0.04]
 };
@@ -22,7 +23,7 @@ exports = class DrawText {
    */
   static drawText (key, text, position = [0, 0], options = {}, timeout = false) {
     this.destroyText(key);
-    position = POS[position] || position;
+    position = positions[position] || position;
     player.textDraws[key] = {
       name: text,
       position,
