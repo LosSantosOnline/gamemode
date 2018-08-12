@@ -1,6 +1,6 @@
 'use strict';
 
-const globals = require("./LSOnline/util/globals");
+const globals = require('./LSOnline/util/globals');
 
 mp.events.add({
   clearChat: () => {
