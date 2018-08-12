@@ -68,6 +68,19 @@ const clearDescription = (player) => {
 
 exports.clearDescription = clearDescription;
 
+const prepareBeforeQuit = (player, exitType = false) => {
+  clearBrutallyWoundedTimers(player);
+
+  if (player.vehicle) {
+    const vehicle = { id: player.vehicle.informations.id, seat: player.seat };
+    player.character.saveBeforeQuit(player, vehicle, exitType);
+  } else {
+    player.character.saveBeforeQuit(player, undefined, exitType);
+  }
+};
+
+exports.prepareBeforeQuit = prepareBeforeQuit;
+
 const createQuitLabel = (player, exitType) => {
   if (!player.quitLabel) {
     player.quitLabel = mp.labels.new(`~HUD_COLOUR_GREYLIGHT~ (( ${player.name} - ${exitType} ))`, new mp.Vector3(player.position.x, player.position.y, player.position.z),
@@ -88,16 +101,3 @@ const createQuitLabel = (player, exitType) => {
 };
 
 exports.createQuitLabel = createQuitLabel;
-
-const prepareBeforeQuit = (player, exitType = false) => {
-  clearBrutallyWoundedTimers(player);
-
-  if (player.vehicle) {
-    const vehicle = { id: player.vehicle.informations.id, seat: player.seat };
-    player.character.saveBeforeQuit(player, vehicle, exitType);
-  } else {
-    player.character.saveBeforeQuit(player, undefined, exitType);
-  }
-};
-
-exports.prepareBeforeQuit = prepareBeforeQuit;

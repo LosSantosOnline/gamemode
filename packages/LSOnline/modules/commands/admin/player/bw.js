@@ -1,5 +1,5 @@
 const Command = require('../../../structures/Command');
-const { killPlayer } = require('../../../player/playerManager');
+const { killPlayer } = require('../../../player/playerService');
 
 class Bw extends Command {
   constructor (...args) {

@@ -13,10 +13,10 @@ mp.events.add({
     showLoginPanel(player);
     setTimeout(() => {
       if (!player.isLogged) {
-        player.kick('Byłeś zbyt długo w lobby!');
+        // player.kick(`Byłeś zbyt długo w lobby!`); // Kick == disconnect so for now we just commenting this because this ruins our playerQuit handler - we dont have enough data.
         logger('authorization', `Player ${player.name} (SC: ${player.socialClub} / IP: ${player.ip}) has been in login lobby too long.`, 'info');
       }
-    }, 60000);
+    }, 1000);
   },
 
   loginPlayer: async (player, characterId) => {

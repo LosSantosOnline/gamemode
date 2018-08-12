@@ -1,6 +1,6 @@
 'use strict';
 
-const { setBrutallyWounded, prepareBeforeQuit, createQuitLabel } = require('../player/playerManager');
+const { setBrutallyWounded, prepareBeforeQuit, createQuitLabel } = require('../player/playerService');
 
 mp.events.add({
   playerQuit: (player, exitType, reason) => {

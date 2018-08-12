@@ -1,5 +1,5 @@
 const Command = require('../../../structures/Command');
-const { reviveFromBrutallyWounded } = require('../../../player/playerManager');
+const { reviveFromBrutallyWounded } = require('../../../player/playerService');
 
 class Unbw extends Command {
   constructor (...args) {

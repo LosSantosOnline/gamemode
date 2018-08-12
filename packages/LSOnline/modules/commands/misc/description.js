@@ -1,5 +1,5 @@
 const Command = require('../../structures/Command');
-const { setDescription } = require('../../player/playerManager');
+const { setDescription } = require('../../player/playerService');
 
 class Description extends Command {
   constructor (...args) {
