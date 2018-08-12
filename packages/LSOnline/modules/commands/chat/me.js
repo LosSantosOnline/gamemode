@@ -12,7 +12,13 @@ class Me extends ChatCommand {
   async run (player, command, args) {
     const text = super.run(player, command.fullText, true);
 
-    if (text) mp.players.broadcastInRange(player.position, 25, player.dimension, `!{${rp.config.colors.me}} * ${player.name} ${text}`);
+    mp.players.forEachInRange(player.position, 15, player.dimension, (person) => {
+      if (player.distSquared(person.position) > 6 && text) {
+        person.outputChatBox(`!{${rp.config.colors.me.far}} * ${player.name} ${text}`);
+      } else if (text) {
+        person.outputChatBox(`!{${rp.config.colors.me.close}} * ${player.name} ${text}`);
+      }
+    });
   }
 }
 

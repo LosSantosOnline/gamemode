@@ -1,10 +1,15 @@
 {
     "colors": {
-        "me": "#bd9dd4",
-        "meFar": "#8A6AA1",
+        "me": {
+            "close": "#bd9dd4",
+            "far": "#8A6AA1"
+        },
         "do": "#9698c9",
-        "say": "#e6e6e6",
-        "sayFar": "#939393",
+        "say": {
+            "close": "#fafafa",
+            "medium": "#e1e1e1",
+            "far": "#c8c8c8"
+        },
         "pm": "#c6cd00",
         "pmReceiver": "#b8b82a"
     }

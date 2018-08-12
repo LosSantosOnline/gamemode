@@ -30,7 +30,7 @@ mp.events.add({
 
   playerCommand: (player, command) => {
     const args = command.split(/[ ]+/);
-    const commandName = args.splice(0, 1)[0];
+    const commandName = args.splice(0, 1)[0].toLowerCase();
     let subCommand = '';
 
     let result = rp.commands.get(commandName);
@@ -40,7 +40,7 @@ mp.events.add({
     }
 
     if (result.hasSubcommands) {
-      subCommand = rp.commands.get(commandName + ' ' + args[0]);
+      subCommand = rp.commands.get(commandName + ' ' + args[0].toLowerCase());
       if (subCommand) {
         result = subCommand;
         subCommand = args.splice(0, 1);
@@ -70,7 +70,7 @@ mp.events.add({
     if (player.brutallyWounded) {
       return player.call('actionDone', ['Nie możesz tego teraz zrobić!', 'Twoja postać jest nieprzytomna!']);
     }
-    if (!validateText(text)) return false;
+    if (!validateText(text)) return player.call('actionDone', ['Coś poszło nie tak..', 'Użyłeś niedozwolonych znaków na czacie.']);
 
     rp.commands.get('say').run(player, {fullText: text});
   }

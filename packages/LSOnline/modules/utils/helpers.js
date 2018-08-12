@@ -34,7 +34,7 @@ const validateText = (text) => {
 exports.validateText = validateText;
 
 const findPlayerInText = (fullText) => {
-  if (fullText.search('{') > 0) {
+  if (fullText.search('{') >= 0) {
     const id = fullText.substring(
       fullText.lastIndexOf('{') + 1,
       fullText.lastIndexOf('}')
