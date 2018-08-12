@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const brutallyWoundedTime = 20000;
 const playerData = require('../player/playerData');
@@ -62,6 +62,7 @@ const setDescription = (player, text) => {
 exports.setDescription = setDescription;
 
 const clearDescription = (player) => {
+  player.outputChatBox(`!{#dddddd} Opis postaci został pomyślnie usunięty.`);
   player.setVariable('description', null);
 };
 
