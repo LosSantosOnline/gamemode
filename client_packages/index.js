@@ -32,6 +32,7 @@ require('./LSOnline/vehicle/vehicleEvents');
 
 // Customs
 require('./LSOnline/util/teleport');
+require('./LSOnline/game/location');
 
 const misc = require('./LSOnline/util/misc');
 

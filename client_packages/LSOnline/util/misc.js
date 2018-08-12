@@ -1,9 +1,7 @@
 'use strict';
 
-let Natives = {
-  IS_RADAR_HIDDEN: "0x2918f48a30d03841",
-  IS_RADAR_ENABLED: "0xf4d0c6c7b9c7bd4a",
-  SET_TEXT_OUTLINE: "0x39a6925dba332248"
+const natives = {
+  SET_TEXT_OUTLINE: "0x2513dfb0fb8400fe"
 };
 
 const prepareClientView = () => {
@@ -44,7 +42,7 @@ const draw3dText = (text, drawXY, font, color, scale, alignRight = false) => {
   mp.game.ui.setTextFont(font);
   mp.game.ui.setTextScale(scale, scale);
   mp.game.ui.setTextColour(color[0], color[1], color[2], color[3]);
-  mp.game.invoke(Natives.SET_TEXT_OUTLINE);
+  mp.game.invoke(natives.SET_TEXT_OUTLINE);
 
   if (alignRight) {
     mp.game.ui.setTextRightJustify(true);
