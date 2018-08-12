@@ -1,5 +1,6 @@
 const Command = require('../../structures/Command');
-const vehicleManager = require('../../vehicles/vehicleManager');
+const { toggleVehicleLock } = require('../../vehicles/vehicleManager');
+const { getClosestVehicleForPlayer } = require('../../vehicles/vehicleMisc');
 
 class Close extends Command {
   constructor (...args) {
@@ -11,12 +12,12 @@ class Close extends Command {
   }
 
   async run (player, command, args) {
-    const vehicle = vehicleManager.getClosestVehicleForPlayer(player, 2);
+    const vehicle = getClosestVehicleForPlayer(player, 2);
 
     vehicle
-      ? vehicleManager.toggleVehicleLock(vehicle, player)
+      ? toggleVehicleLock(vehicle, player)
       : player.call('actionDone', [
-        'Wystąpił błąd',
+        'Coś poszło nie tak!',
         'Nie znaleziono żadnego pojazdu w pobliżu twojej postaci!'
       ]);
   }

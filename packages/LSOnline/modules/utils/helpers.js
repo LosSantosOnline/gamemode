@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const upperString = string => string.toLowerCase().replace(/(^| )(\w)/g, s => s.toUpperCase());
 

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const logger = require('../utils/logger');
 const database = require('../database/database');
@@ -8,7 +8,7 @@ exports.loadAndSpawnCharacter = async (player, characterId) => {
     return character.dataValues;
   });
 
-  mp.events.call("spawnCharacter", player, character);
+  mp.events.call('spawnCharacter', player, character);
   logger('authorization', `Loaded and spawned character ${player.character.info.name} (ID: ${player.character.info.id} / Player: ${player.name} / SC: ${player.socialClub} / IP: ${player.ip})!`, 'info');
 };
 

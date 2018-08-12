@@ -1,5 +1,5 @@
 const Command = require('../../../structures/Command');
-const vehicleManager = require('../../../vehicles/vehicleManager');
+const { refuel } = require('../../../vehicles/vehicleManager');
 
 class Fuel extends Command {
   constructor (...args) {
@@ -17,14 +17,14 @@ class Fuel extends Command {
 
     if (vehicle) {
       vehicle.informations.fuel = parseFloat(vehicle.informations.fuel) + parseFloat(fuel);
-      vehicleManager.refuel(vehicle.informations.id, fuel);
+      refuel(vehicle.informations.id, fuel);
 
       player.call('actionDone', [
         'Komendy administracyjne',
         'Stan paliwa pojazdu ' + vehicle.informations.name + ' (ID: ' + vehicle.informations.id + ') został pomyślnie zaktualizowany!'
       ]);
     } else {
-      return player.call('actionDone', ['Coś poszło nie tak..', `Użycie: /${command.name} ${this.tooltip}`]);
+      return player.call('actionDone', ['Coś poszło nie tak!', `Użycie: /${command.name} ${this.tooltip}`]);
     }
   }
 }

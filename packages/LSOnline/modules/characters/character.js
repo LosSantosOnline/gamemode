@@ -1,5 +1,5 @@
 const moment = require('moment');
-const characterManager = require("../characters/characterManager");
+const { saveCharacterBeforeQuit, clearLastVehicleInfo } = require('../characters/characterManager');
 
 class Character {
   constructor (data) {
@@ -8,8 +8,8 @@ class Character {
 
   async saveBeforeQuit (player, lastVehicle = false, exitType) {
     lastVehicle
-      ? await characterManager.saveCharacterBeforeQuit(this.info.id, player.dimension, player.position, lastVehicle, this.info.lastLogin, exitType)
-      : await characterManager.saveCharacterBeforeQuit(this.info.id, player.dimension, player.position, undefined, this.info.lastLogin, exitType);
+      ? await saveCharacterBeforeQuit(this.info.id, player.dimension, player.position, lastVehicle, this.info.lastLogin, exitType)
+      : await saveCharacterBeforeQuit(this.info.id, player.dimension, player.position, undefined, this.info.lastLogin, exitType);
   }
 
   updateLastLoginDate () {
@@ -18,7 +18,7 @@ class Character {
 
   async clearLastVehicleInfo () {
     this.info.lastVehicle = null;
-    await characterManager.clearLastVehicleInfo(this.info.id);
+    await clearLastVehicleInfo(this.info.id);
   }
 };
 

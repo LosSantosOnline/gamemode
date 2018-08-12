@@ -1,8 +1,6 @@
-"use strict";
+'use strict';
 
-const moment = require('moment');
-const playerManager = require("../player/playerManager");
-const characterManager = require("../characters/characterManager");
+const { setBrutallyWounded, clearBrutallyWoundedTimers } = require('../player/playerManager');
 
 mp.events.add({
   playerQuit: (player, exitType, reason) => {
@@ -11,7 +9,7 @@ mp.events.add({
   },
 
   playerDeath: (player, reason, killer) => {
-    playerManager.setBrutallyWounded(player, reason, killer);
+    setBrutallyWounded(player, reason, killer);
   },
 
   playerCommand: (player, command) => {
@@ -89,7 +87,7 @@ const createQuitLabel = (player, exitType) => {
 };
 
 const prepareBeforeQuit = (player, exitType = false) => {
-  playerManager.clearBrutallyWoundedTimers(player);
+  clearBrutallyWoundedTimers(player);
 
   if (player.vehicle) {
     const vehicle = { id: player.vehicle.informations.id, seat: player.seat };

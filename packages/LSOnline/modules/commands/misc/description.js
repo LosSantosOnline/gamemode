@@ -1,5 +1,5 @@
 const Command = require('../../structures/Command');
-const playerManager = require('../../player/playerManager');
+const { setDescription } = require('../../player/playerManager');
 
 class Description extends Command {
   constructor (...args) {
@@ -16,12 +16,12 @@ class Description extends Command {
 
     if (fullText.length >= 80) {
       return player.call('actionDone', [
-        'Wystąpił błąd',
+        'Coś poszło nie tak!',
         'Maksymalna liczba znaków opisu wynosi 80! Skoryguj opis i spróbuj ponownie.'
       ]);
     }
 
-    playerManager.setDescription(player, fullText);
+    setDescription(player, fullText);
   }
 }
 

@@ -1,5 +1,5 @@
 const Command = require('../../../structures/Command');
-const vehicleManager = require('../../../vehicles/vehicleManager');
+const { unspawn } = require('../../../vehicles/vehicleManager');
 
 class Unspawn extends Command {
   constructor (...args) {
@@ -16,14 +16,14 @@ class Unspawn extends Command {
     const vehicle = mp.vehicles.at(vehicleId);
 
     if (vehicle) {
-      vehicleManager.unspawn(vehicle);
+      unspawn(vehicle);
 
       player.call('actionDone', [
         'Komendy administracyjne',
         'Pojazd ' + vehicle.informations.name + ' (ID: ' + vehicle.informations.id + ') został pomyślnie <strong>odspawnowany</strong>!'
       ]);
     } else {
-      return player.call('actionDone', ['Coś poszło nie tak..', `Użycie: /${command.name} ${this.tooltip}`]);
+      return player.call('actionDone', ['Coś poszło nie tak!', `Użycie: /${command.name} ${this.tooltip}`]);
     }
   }
 }

@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
 const logger = require('../utils/logger');
-const sprintf = require("sprintf-js").sprintf;
+const sprintf = require('sprintf-js').sprintf;
 const forumDb = require('../database/forumDatabase');
 const accountModel = require('../../models/Account');
 const accountMeta = require('../account/accountModuleMeta');
@@ -9,7 +9,7 @@ const accountMeta = require('../account/accountModuleMeta');
 exports.loadAccountData = async function loadAccountData (player, accountName) {
   await forumDb.connection.query(sprintf(
     accountMeta.HASH_SELECT_QUERY_PATTERN,
-    "member_id, member_group_id",
+    'member_id, member_group_id',
     accountMeta.IPB_MEMBERS_TABLE,
     accountName
   )).spread((results, metadata) => {

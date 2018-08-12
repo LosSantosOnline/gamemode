@@ -4,8 +4,8 @@ const randomSpawns = [
   new mp.Vector3(-449.67, -340.83, 34.50)
 ];
 
-const vehicleManager = require('../vehicles/vehicleManager');
 const Character = require('../characters/character');
+const { getVehicleById } = require('../vehicles/vehicleMisc');
 
 mp.events.add({
   spawnCharacter: (player, character) => {
@@ -15,12 +15,7 @@ mp.events.add({
     player.name = character.name;
     player.data.money = character.money;
 
-    // spawn -> give all variables to ped and set position
-    // clothes and such
-
     spawnOnPosition(player, character);
-
-    // todo: spawn w budynku/spawn bez budynku
   }
 });
 
@@ -46,7 +41,7 @@ const spawnOnPosition = (player, character) => {
 const putPlayerIntoVehicle = (player, character) => {
   const vehicle = JSON.parse(character.lastVehicle);
 
-  let foundVehicle = vehicleManager.getVehicleById(vehicle.id);
+  let foundVehicle = getVehicleById(vehicle.id);
   if (foundVehicle) {
     if (player.distSquared(player.position) <= 100) {
       if (vehicle.seat === -1) {

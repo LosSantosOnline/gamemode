@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const vehicleHashes = {
   apc: 0x2189D250,

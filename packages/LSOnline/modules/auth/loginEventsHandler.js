@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
 const logger = require('../utils/logger');
-const characterManager = require('../characters/characterManager');
+const { loadAndSpawnCharacter } = require('../characters/characterManager');
 
 mp.events.add({
   playerJoin: async player => {
@@ -20,7 +20,7 @@ mp.events.add({
   },
 
   loginPlayer: async (player, characterId) => {
-    await characterManager.loadAndSpawnCharacter(player, characterId);
+    await loadAndSpawnCharacter(player, characterId);
     proceedToGame(player);
   }
 });
