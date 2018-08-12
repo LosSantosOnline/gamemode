@@ -2,7 +2,8 @@
     "colors": {
         "me": {
             "close": "#bd9dd4",
-            "far": "#8A6AA1"
+            "medium": "#aa8dbe",
+            "far": "#977da9"
         },
         "do": "#9698c9",
         "say": {
