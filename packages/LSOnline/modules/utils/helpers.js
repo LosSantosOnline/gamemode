@@ -27,7 +27,7 @@ const validateText = (text) => {
   if (!text) return false;
   text = text.trim();
   if (text.length === 0) return false;
-  if (text.match(new RegExp(`[^a-ząćśńółęĄĆŚŃÓŁĘA-Z0-9ds!?$% '".:{}]`, 'g'))) return false;
+  if (text.match(new RegExp(`[^a-ząćśńółęĄĆŚŃÓŁĘA-Z0-9ds!?$% '".:{}]/`, 'g'))) return false;
   return true;
 };
 

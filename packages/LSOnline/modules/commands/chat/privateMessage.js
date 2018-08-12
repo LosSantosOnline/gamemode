@@ -11,9 +11,8 @@ module.exports = class extends ChatCommand {
 
   async run (player, command, args) {
     let [receiver] = args;
-    const text = super.run(player, command.args.splice(1, this.args.length).join(' '), true);
-    console.log(text);
-    console.log(command);
+    const text = super.run(player, command.args.splice(1, this.args.length).join(' '), false, false, false);
+
     receiver = this.searchPlayerByIdOrName(receiver);
     if (!receiver) return player.call('actionDone', ['Coś poszło nie tak..', 'Taki gracz nie istnieje.']);
     player.outputChatBox(`!{${rp.config.colors.pm}}(( >> ${receiver.name} [${receiver.id}]: ${text} ))`);

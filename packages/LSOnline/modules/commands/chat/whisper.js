@@ -12,7 +12,7 @@ class Me extends ChatCommand {
   async run (player, command, args) {
     const text = super.run(player, command.fullText, true);
 
-    if (text) mp.players.broadcastInRange(player.position, 25, player.dimension, `!{${rp.config.colors.whisper}} ${player.name} szepcze: ${text}`);
+    if (text) mp.players.broadcastInRange(player.position, 4, player.dimension, `!{${rp.config.colors.whisper}} ${player.name} szepcze: ${text}`);
   }
 }
 

@@ -10,7 +10,7 @@ class Me extends ChatCommand {
   }
 
   async run (player, command, args) {
-    const text = super.run(player, command.fullText, true);
+    const text = super.run(player, command.fullText, true, false);
 
     mp.players.forEachInRange(player.position, 15, player.dimension, (person) => {
       if (player.distSquared(person.position) > 10 && text) {
