@@ -1,6 +1,6 @@
 'use strict';
 
-const { setBrutallyWounded, clearBrutallyWoundedTimers } = require('../player/playerManager');
+const { setBrutallyWounded, prepareBeforeQuit, createQuitLabel } = require('../player/playerManager');
 
 mp.events.add({
   playerQuit: (player, exitType, reason) => {
@@ -66,35 +66,3 @@ mp.events.add({
     mp.players.broadcastInRange(player.position, 25, player.dimension, `${player.name} mówi: ${text}`);
   }
 });
-
-const createQuitLabel = (player, exitType) => {
-  if (!player.quitLabel) {
-    player.quitLabel = mp.labels.new(`~HUD_COLOUR_GREYLIGHT~ (( ${player.name} - ${exitType} ))`, new mp.Vector3(player.position.x, player.position.y, player.position.z),
-      {
-        los: true,
-        font: 0,
-        drawDistance: 10,
-        dimension: player.dimension
-      });
-  }
-
-  // This need to be rewrited when we gonna create labels manager.
-  setTimeout(() => {
-    if (player.quitLabel) {
-      player.quitLabel.destroy();
-    }
-  }, 50000);
-};
-
-const prepareBeforeQuit = (player, exitType = false) => {
-  clearBrutallyWoundedTimers(player);
-
-  if (player.vehicle) {
-    const vehicle = { id: player.vehicle.informations.id, seat: player.seat };
-    player.character.saveBeforeQuit(player, vehicle, exitType);
-  } else {
-    player.character.saveBeforeQuit(player, undefined, exitType);
-  }
-};
-
-exports.prepareBeforeQuit = prepareBeforeQuit;

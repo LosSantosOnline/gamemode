@@ -1,5 +1,6 @@
 'use strict';
 
+const updateInterval = 100; // milliseconds, lower value = more accurate, at the cost of performance
 const globals = require('./LSOnline/util/globals');
 const { toggleChat } = require('./LSOnline/chat/events');
 
@@ -17,7 +18,7 @@ setInterval(() => {
       setGameAltTabbed(true);
     }
   }
-}, 100);
+}, updateInterval);
 
 // Set alt-tab status ingame
 const setGameAltTabbed = (value) => {

@@ -1,7 +1,7 @@
 'use strict';
 
 const brutallyWoundedTime = 20000;
-const playerData = require('../player/playerData');
+const { getDeathReason } = require('../player/playerData');
 
 const setBrutallyWounded = (player, reason, killer) => {
   if (player.brutallyWoundedTimer) {
@@ -12,7 +12,7 @@ const setBrutallyWounded = (player, reason, killer) => {
   player.removeAllWeapons();
   player.brutallyWoundedTimer = setTimeout(reviveFromBrutallyWounded, brutallyWoundedTime, player);
 
-  player.setVariable('description', playerData.getDeathReason(reason));
+  player.setVariable('description', getDeathReason(reason));
   mp.players.broadcastInRange(player.position, 25, `!{#dca2f4} * ${player.name} traci przytomność.`);
 };
 
@@ -67,3 +67,37 @@ const clearDescription = (player) => {
 };
 
 exports.clearDescription = clearDescription;
+
+const createQuitLabel = (player, exitType) => {
+  if (!player.quitLabel) {
+    player.quitLabel = mp.labels.new(`~HUD_COLOUR_GREYLIGHT~ (( ${player.name} - ${exitType} ))`, new mp.Vector3(player.position.x, player.position.y, player.position.z),
+      {
+        los: true,
+        font: 0,
+        drawDistance: 10,
+        dimension: player.dimension
+      });
+  }
+
+  // This need to be rewrited when we gonna create labels manager.
+  setTimeout(() => {
+    if (player.quitLabel) {
+      player.quitLabel.destroy();
+    }
+  }, 40000);
+};
+
+exports.createQuitLabel = createQuitLabel;
+
+const prepareBeforeQuit = (player, exitType = false) => {
+  clearBrutallyWoundedTimers(player);
+
+  if (player.vehicle) {
+    const vehicle = { id: player.vehicle.informations.id, seat: player.seat };
+    player.character.saveBeforeQuit(player, vehicle, exitType);
+  } else {
+    player.character.saveBeforeQuit(player, undefined, exitType);
+  }
+};
+
+exports.prepareBeforeQuit = prepareBeforeQuit;
