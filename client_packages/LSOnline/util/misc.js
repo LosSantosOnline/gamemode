@@ -1,7 +1,7 @@
 'use strict';
 
 const natives = {
-  SET_TEXT_OUTLINE: "0x2513dfb0fb8400fe"
+  SET_TEXT_OUTLINE: '0x2513dfb0fb8400fe'
 };
 
 const prepareClientView = () => {
@@ -15,7 +15,7 @@ const prepareClientView = () => {
   hideHudElements([1, 3]);
 
   // Update discord status
-  mp.discord.update("LSRP:V", "In-Game");
+  mp.discord.update('LSRP:V', 'In-Game');
 };
 
 exports.prepareClientView = prepareClientView;
@@ -37,7 +37,7 @@ const disableControlActions = (array) => {
 exports.disableControlActions = disableControlActions;
 
 const draw3dText = (text, drawXY, font, color, scale, alignRight = false) => {
-  mp.game.ui.setTextEntry("STRING");
+  mp.game.ui.setTextEntry('STRING');
   mp.game.ui.addTextComponentSubstringPlayerName(text);
   mp.game.ui.setTextFont(font);
   mp.game.ui.setTextScale(scale, scale);

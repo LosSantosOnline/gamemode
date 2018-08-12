@@ -1,6 +1,6 @@
 'use strict';
 
-const globals = require("./LSOnline/util/globals");
+const globals = require('./LSOnline/util/globals');
 
 mp.keys.bind(0x71, false, () => {
   mp.gui.cursor.visible

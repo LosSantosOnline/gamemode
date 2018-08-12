@@ -1,7 +1,7 @@
 'use strict';
 
-const globals = require("./LSOnline/util/globals");
-const chatEvents = require("./LSOnline/chat/events");
+const globals = require('./LSOnline/util/globals');
+const { toggleChat } = require('./LSOnline/chat/events');
 
 mp.events.add('render', () => {
   if (globals.altTabbed) {
@@ -24,10 +24,10 @@ const setGameAltTabbed = (value) => {
   globals.altTabbed = value;
 
   if (value) {
-    chatEvents.toggleChat(false);
+    toggleChat(false);
     mp.game.graphics.transitionToBlurred(1000);
   } else {
-    chatEvents.toggleChat(true);
+    toggleChat(true);
     mp.game.graphics.transitionFromBlurred(800);
   }
 };
