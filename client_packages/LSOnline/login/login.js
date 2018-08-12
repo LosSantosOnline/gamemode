@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 
-const camera = require("/LSOnline/util/camera");
-const browser = require("/LSOnline/util/browser");
-const Overlay = require("/LSOnline/util/Overlay");
+const camera = require('./LSOnline/util/camera');
+const browser = require('./LSOnline/util/browser');
+const Overlay = require('./LSOnline/util/Overlay');
 
 function preparePanel (url) {
   browser.prepareScreen(1000);
@@ -34,23 +34,23 @@ mp.events.add({
     preparePanel(url);
   },
   loginButtonClicked: (login, password) => {
-    mp.events.callRemote("authorizePlayer", login, password);
+    mp.events.callRemote('authorizePlayer', login, password);
   },
   remindAccount: () => {
     Overlay.notify(
-      "Nie posiadasz konta?",
-      "Wejdź na lsonline.pl i załóż je już teraz",
-      "info",
+      'Nie posiadasz konta?',
+      'Wejdź na lsonline.pl i załóż je już teraz',
+      'info',
       5000
     );
   },
   userAuthorized: async characters => {
-    changePanel("package://LSOnline/Browsers/dist/characterSelect/index.html");
+    changePanel('package://LSOnline/browser/dist/characterSelect/index.html');
     showCharacter(characters);
   },
   characterSelected: characterId => {
     destroyPanel();
     mp.players.local.setInvincible(true);
-    mp.events.callRemote("loginPlayer", characterId);
+    mp.events.callRemote('loginPlayer', characterId);
   }
 });

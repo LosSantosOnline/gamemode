@@ -47,7 +47,7 @@ mp.events.add({
       }
     }
 
-    if (!player.character.admin && result.perms) {
+    if (!result.perms) {
       return player.call('actionDone', ['Brak uprawnień!', 'Nie posiadasz wystarczających uprawnień do tej komendy!']);
     }
 

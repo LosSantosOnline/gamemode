@@ -1,4 +1,4 @@
-const DrawText = require('/LSOnline/cash/drawText');
+const DrawText = require('./LSOnline/util/drawText');
 const font = 4;
 
 exports = class {
