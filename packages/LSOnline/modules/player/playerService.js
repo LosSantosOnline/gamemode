@@ -30,8 +30,8 @@ exports.reviveFromBrutallyWounded = reviveFromBrutallyWounded;
 
 const clearBrutallyWoundedTimers = (player) => {
   player.brutallyWounded = false;
-  player.brutallyWoundedTimer = null;
   clearTimeout(player.brutallyWoundedTimer);
+  player.brutallyWoundedTimer = null;
 };
 
 exports.clearBrutallyWoundedTimers = clearBrutallyWoundedTimers;
