@@ -1,5 +1,7 @@
 'use strict';
 
+const { validateText } = require('../utils/helpers');
+const Say = require('../commands/chat/say');
 const { setBrutallyWounded, prepareBeforeQuit, createQuitLabel } = require('../player/playerService');
 
 mp.events.add({
@@ -14,7 +16,7 @@ mp.events.add({
 
   playerCommand: (player, command) => {
     const args = command.split(/[ ]+/);
-    const commandName = args.splice(0, 1)[0];
+    const commandName = args.splice(0, 1)[0].toLowerCase();
     let subCommand = '';
 
     let result = rp.commands.get(commandName);
@@ -28,12 +30,13 @@ mp.events.add({
     }
 
     if (result.hasSubcommands) {
-      subCommand = rp.commands.get(commandName + ' ' + args[0]);
+      subCommand = rp.commands.get(commandName + ' ' + args[0].toLowerCase());
       if (subCommand) {
         result = subCommand;
         subCommand = args.splice(0, 1);
       }
     }
+
     // TODO: rework to flags
     /* if (!result.perms) {
       return player.call('actionDone', ['Brak uprawnień!', 'Nie posiadasz wystarczających uprawnień do tej komendy!']);
@@ -44,12 +47,12 @@ mp.events.add({
     }
 
     if (result.args.length > 0 && args.length < result.args.length) {
-      return player.call('actionDone', ['Coś poszło nie tak!', `Użycie: /${commandName} ${result.tooltip.replace(',', ' ')}`]);
+      return player.call('actionDone', ['Coś poszło nie tak!', `Użycie: /${commandName} ${result.tooltip}`]);
     }
-
     result.run(player, {
       name: subCommand ? `${commandName} ${subCommand}` : commandName,
-      fullText: args.toString().replace(new RegExp('[,]*,+', 'g'), ' '),
+      fullText: args.join(' '),
+      pureText: args.slice(result.args.length, args.length).join(' '),
       args
     }, args);
   },
@@ -60,9 +63,10 @@ mp.events.add({
     }
 
     if (player.brutallyWounded) {
-      return player.call('actionDone', ['Nie możesz tego teraz użyć!', 'Twoja postać jest nieprzytomna!']);
+      return player.call('actionDone', ['Nie możesz tego teraz zrobić!', 'Twoja postać jest nieprzytomna!']);
     }
+    if (!validateText(text)) return player.call('actionDone', ['Coś poszło nie tak..', 'Użyłeś niedozwolonych znaków na czacie.']);
 
-    mp.players.broadcastInRange(player.position, 25, player.dimension, `${player.name} mówi: ${text}`);
+    rp.commands.get('say').run(player, {fullText: text});
   }
 });

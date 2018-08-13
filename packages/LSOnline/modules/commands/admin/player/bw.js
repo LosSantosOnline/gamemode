@@ -1,4 +1,4 @@
-const Command = require('../../../structures/Command');
+const Command = require('../../../structures/command');
 const { killPlayer } = require('../../../player/playerService');
 
 class Bw extends Command {
@@ -11,8 +11,7 @@ class Bw extends Command {
 
   async run (player, command, args) {
     const playerId = args[0];
-    const foundPlayer = mp.players.at(playerId);
-
+    const foundPlayer = this.searchPlayerByIdOrName(playerId);
     if (!foundPlayer) {
       return player.call('actionDone', ['Coś poszło nie tak!', 'Taki gracz nie istnieje.']);
     }
@@ -20,7 +19,6 @@ class Bw extends Command {
     if (foundPlayer.brutallyWounded) {
       return player.call('actionDone', ['Coś poszło nie tak!', 'Ten gracz posiada już BW.']);
     }
-
     killPlayer(foundPlayer);
   }
 }

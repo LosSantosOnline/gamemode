@@ -1,4 +1,4 @@
-const Command = require('../../structures/Command');
+const Command = require('../../structures/command');
 const { isVehicleDriver } = require('../../player/playerMisc');
 const { setDescription } = require('../../vehicles/vehicleManager');
 

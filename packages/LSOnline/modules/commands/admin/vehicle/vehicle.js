@@ -1,4 +1,4 @@
-const Command = require('../../../structures/Command');
+const Command = require('../../../structures/command');
 const { create } = require('../../../vehicles/vehicleManager');
 const { checkIfVehicleModelExists } = require('../../../vehicles/vehicleMisc');
 

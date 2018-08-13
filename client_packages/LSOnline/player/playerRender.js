@@ -42,4 +42,10 @@ mp.events.add('render', (nametags) => {
         );
       }
     });
+
+  Object.keys(player.textDraws).forEach(key => {
+    let text = player.textDraws[key];
+
+    mp.game.graphics.drawText(text.name, text.position, text.options);
+  });
 });

@@ -1,4 +1,4 @@
-const Command = require('../../structures/Command');
+const Command = require('../../structures/command');
 
 class Teleport extends Command {
   constructor (...args) {

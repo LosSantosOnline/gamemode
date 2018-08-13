@@ -5,6 +5,7 @@ const globals = require('./LSOnline/util/globals');
 const browser = require('./LSOnline/util/browser');
 const Overlay = require('./LSOnline/util/overlay');
 
+
 function preparePanel (url) {
   browser.prepareScreen(1000);
   camera.createCamera(3223, 5349, 14, 0, 0, 218, 20);

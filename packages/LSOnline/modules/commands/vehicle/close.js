@@ -1,4 +1,4 @@
-const Command = require('../../structures/Command');
+const Command = require('../../structures/command');
 const { toggleVehicleLock } = require('../../vehicles/vehicleManager');
 const { getClosestVehicleForPlayer } = require('../../vehicles/vehicleMisc');
 

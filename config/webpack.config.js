@@ -28,7 +28,7 @@ module.exports = {
     .reduce(
       (x, y) =>
         Object.assign(x, {
-          [y.split("/")[6]]: y
+          [y.split("/")[6]]: path.resolve(__dirname, '..', y)
         }),
       {}
     ),

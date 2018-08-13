@@ -1,4 +1,4 @@
-const Command = require('../../../structures/Command');
+const Command = require('../../../structures/command');
 const { respawnAll } = require('../../../vehicles/vehicleManager');
 
 class Respawn extends Command {

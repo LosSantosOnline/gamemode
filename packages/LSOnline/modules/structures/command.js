@@ -1,3 +1,5 @@
+const { searchPlayerByIdOrName } = require('../utils/helpers');
+
 class Command {
   /**
      *Creates an instance of Command.
@@ -14,18 +16,22 @@ class Command {
     this.name = options.name;
     this.aliases = options.aliases || [];
     this.perms = options.perms || [];
-    this.restriction = options.false || false;
+    this.restriction = options.restriction || false;
     this.args = options.args || [];
     this.hasSubcommands = options.hasSubcommands || false;
     this.tooltip = this.args.map(element => {
       return `[${element}]`;
-    }).toString().replace(new RegExp("[,]*,+", 'g'), ' ') || "";
+    }).toString().replace(new RegExp('[,]*,+', 'g'), ' ') || '';
     this.file = file;
   }
 
   async run () {
     throw new Error("Run method wasn't provided!");
   };
+
+  searchPlayerByIdOrName (player) {
+    return searchPlayerByIdOrName(player);
+  }
 }
 
 module.exports = Command;

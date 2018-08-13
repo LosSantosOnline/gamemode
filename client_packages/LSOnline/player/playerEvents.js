@@ -1,5 +1,7 @@
 'use strict';
 
+const Cash = require('/LSOnline/cash/cash');
+
 mp.events.add({
   entityStreamIn: player => {
     if (player.type !== 'player') {
@@ -17,6 +19,10 @@ mp.events.add({
       case 'description':
         player.description = value;
         break;
+      case 'money': {
+        Cash.drawMoney(player, value);
+        player.cash = value;
+      }
     }
   },
 

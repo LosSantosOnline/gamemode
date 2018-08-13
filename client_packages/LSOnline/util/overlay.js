@@ -32,7 +32,7 @@ class Overlay {
    * @param {3500} [timeout=3500]
    * @memberof Overlay
    */
-  notify (title, content, type = "info", timeout = 3500) {
+  notify (title, content, type = 'info', timeout = 3500) {
     mp.game.audio.playSoundFrontend(
       -1,
       'CHALLENGE_UNLOCKED',

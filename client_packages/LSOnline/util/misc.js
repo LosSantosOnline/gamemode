@@ -16,6 +16,10 @@ const prepareClientView = () => {
 
   // Update discord status
   mp.discord.update('LSRP:V', 'In-Game');
+
+  // Initialize textDraws object
+  mp.players.local.textDraws = {};
+
 };
 
 exports.prepareClientView = prepareClientView;

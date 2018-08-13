@@ -1,4 +1,4 @@
-const Command = require('../../structures/Command');
+const Command = require('../../structures/command');
 const helpers = require('../../utils/helpers');
 
 class Roll extends Command {
@@ -10,7 +10,7 @@ class Roll extends Command {
   }
 
   async run (player, command, args) {
-    mp.players.broadcastInRange(player.position, 25, player.dimension, `!{#dca2f4} * ${player.name} rzuca kostką i wyrzuca oczko ${helpers.randomInt(1, 6)}.`);
+    mp.players.broadcastInRange(player.position, 25, player.dimension, `!{#dca2f4} ** ${player.name} rzuca kostką i wyrzuca oczko ${helpers.randomInt(1, 6)}.`);
   }
 }
 
