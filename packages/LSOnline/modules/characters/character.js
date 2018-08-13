@@ -13,7 +13,7 @@ class Character {
   }
 
   updateLastLoginDate () {
-    this.info.lastLogin = moment().add(1, 'hours').format('DD-MM-YYYY HH:mm:ss');
+    this.info.lastLogin = moment().format('YYYY-MM-DD HH:mm:ss');
   }
 
   async clearLastVehicleInfo () {

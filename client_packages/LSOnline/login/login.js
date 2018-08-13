@@ -32,7 +32,7 @@ function destroyPanel () {
 
 mp.events.add({
   loginPanelAppeared: url => {
-     //preparePanel(url);
+     // preparePanel(url);
 
     // Only for test (debug) purposes. New login panel coming soon.
     mp.events.callRemote('authorizePlayer', 'Mati', 'XP#lSw0gbB1N');

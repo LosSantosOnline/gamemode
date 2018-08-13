@@ -68,7 +68,7 @@ const clearDescription = (player) => {
 
 exports.clearDescription = clearDescription;
 
-const prepareBeforeQuit = (player, exitType = false) => {
+const prepareBeforeQuit = (player, exitType) => {
   clearBrutallyWoundedTimers(player);
 
   if (player.vehicle) {
