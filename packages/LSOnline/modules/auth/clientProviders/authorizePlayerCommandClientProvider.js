@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-const authorizePlayerCommand = require("../../auth/commands/authorizePlayerCommand");
+const authorizePlayerCommand = require('../../auth/commands/authorizePlayerCommand');
 
 mp.events.add({
   authorizePlayer: async (player, login, password) => {

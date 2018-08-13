@@ -1,14 +1,13 @@
 'use strict';
 
 // Author of this resource: rootcause
-var Natives = {
-  IS_RADAR_HIDDEN: '0x7382a6b79bd5f585',
-  IS_RADAR_ENABLED: '0x8056602005161037',
-  SET_TEXT_OUTLINE: '0x918f022e4c3a47c2'
+const natives = {
+  IS_RADAR_HIDDEN: "0x7382a6b79bd5f585",
+  IS_RADAR_ENABLED: "0x8056602005161037"
 };
 
 // Misc
-const misc = require('./LSOnline/util/misc');
+const { getMinimapAnchor, draw3dText } = require("./LSOnline/util/misc");
 
 // Settings for speedometer
 const useSpeedo = true;
@@ -21,12 +20,12 @@ let isMetric = false;
 let minimap = {};
 
 setInterval(() => {
-  if (mp.game.invoke(Natives.IS_RADAR_ENABLED) && !mp.game.invoke(Natives.IS_RADAR_HIDDEN)) {
+  if (mp.game.invoke(natives.IS_RADAR_ENABLED) && !mp.game.invoke(natives.IS_RADAR_HIDDEN)) {
     const position = mp.players.local.position;
     let getStreet = mp.game.pathfind.getStreetNameAtCoord(position.x, position.y, position.z, 0, 0);
 
     isMetric = mp.game.gameplay.getProfileSetting(227) === 1;
-    minimap = misc.getMinimapAnchor();
+    minimap = getMinimapAnchor();
 
     zoneName = mp.game.ui.getLabelText(mp.game.zone.getNameOfZone(position.x, position.y, position.z));
     streetName = mp.game.ui.getStreetNameFromHashKey(getStreet.streetName);
@@ -41,11 +40,11 @@ mp.events.add(
   {
     render: () => {
       if (streetName && zoneName) {
-        misc.draw3dText(streetName, [minimap.rightX + 0.01, minimap.bottomY - 0.065], 4, [255, 255, 255, 255], 0.55);
-        misc.draw3dText(zoneName, [minimap.rightX + 0.01, minimap.bottomY - 0.035], 4, [255, 255, 255, 255], 0.5);
+        draw3dText(streetName, [minimap.rightX + 0.01, minimap.bottomY - 0.065], 4, [255, 255, 255, 255], 0.55);
+        draw3dText(zoneName, [minimap.rightX + 0.01, minimap.bottomY - 0.035], 4, [255, 255, 255, 255], 0.5);
 
         let vehicle = mp.players.local.vehicle;
-        if (useSpeedo && vehicle) misc.draw3dText(`${(vehicle.getSpeed() * (isMetric ? 3.6 : 2.236936)).toFixed(0)} ${(isMetric) ? 'KM/H' : 'MPH'}`, [minimap.rightX - 0.003, minimap.bottomY - 0.0485], 4, [255, 255, 255, 255], 0.45, true);
+        if (useSpeedo && vehicle) draw3dText(`${(vehicle.getSpeed() * (isMetric ? 3.6 : 2.236936)).toFixed(0)} ${(isMetric) ? "KM/H" : "MPH"}`, [minimap.rightX - 0.003, minimap.bottomY - 0.0485], 4, [255, 255, 255, 255], 0.45, true);
       }
     }
   }

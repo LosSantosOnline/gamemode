@@ -1,14 +1,14 @@
-"use strict";
+'use strict';
 
 mp.events.add({
-  "playerEnterVehicle": (vehicle, seat) => {
+  playerEnterVehicle: (vehicle, seat) => {
     const engineStatus = vehicle.engine ? true : false;
 
     vehicle.setEngineOn(engineStatus, false, true);
     vehicle.setUndriveable(engineStatus);
   },
 
-  "entityStreamIn": (vehicle) => {
+  entityStreamIn: vehicle => {
     if (vehicle.type !== 'vehicle') {
       return false;
     }
@@ -19,24 +19,24 @@ mp.events.add({
     }
   },
 
-  "entityDataChange": (vehicle, key, value) => {
+  entityDataChange: (vehicle, key, value) => {
     switch (key) {
-      case "description":
+      case 'description':
         vehicle.description = value;
         break;
 
-      case "policeRadar":
+      case 'policeRadar':
         vehicle.policeRadar = value;
         break;
     }
   },
 
-  "setDoorsLockedInSpecialVehicle": (vehicle) => {
+  setDoorsLockedInSpecialVehicle: vehicle => {
     vehicle.setDoorsLocked(4);
     vehicle.setDoorsShut(true);
   },
 
-  "lowerVehicleRoof": (vehicle) => {
+  lowerVehicleRoof: vehicle => {
     let getVehicleRoofStatus = vehicle.getConvertibleRoofState();
 
     if (getVehicleRoofStatus === 0) {
@@ -44,7 +44,7 @@ mp.events.add({
     }
   },
 
-  "raiseVehicleRoof": (vehicle) => {
+  raiseVehicleRoof: vehicle => {
     let getVehicleRoofStatus = vehicle.getConvertibleRoofState();
 
     if (getVehicleRoofStatus === 2) {

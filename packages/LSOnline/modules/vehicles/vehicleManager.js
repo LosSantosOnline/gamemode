@@ -1,9 +1,10 @@
-"use strict";
+'use strict';
 
 const logger = require('../utils/logger');
 const helpers = require('../utils/helpers');
 const database = require('../database/database');
 const vehicleData = require('../vehicles/vehicleData');
+const { checkIfVehicleModelIsPolice } = require('../vehicles/vehicleMisc');
 
 async function create (player, model) {
   const primaryColor = [helpers.randomInt(0, 255), helpers.randomInt(0, 255), helpers.randomInt(0, 255)];
@@ -147,36 +148,6 @@ async function remove (vehicleId) {
 
 exports.remove = remove;
 
-function getClosestVehicleForPlayer (player, range) {
-  let foundVehicle = null;
-
-  mp.vehicles.forEachInRange(player.position, range, player.dimension,
-    (vehicle) => {
-      foundVehicle = vehicle;
-    }
-  );
-
-  return foundVehicle;
-}
-
-exports.getClosestVehicleForPlayer = getClosestVehicleForPlayer;
-
-function getVehicleById (vehicleId) {
-  let foundVehicle = null;
-
-  mp.vehicles.forEach(
-    (vehicle) => {
-      if (vehicle.informations.id === vehicleId) {
-        foundVehicle = vehicle;
-      }
-    }
-  );
-
-  return foundVehicle;
-}
-
-exports.getVehicleById = getVehicleById;
-
 function toggleVehicleEngine (vehicle) {
   vehicle.engine = !vehicle.engine;
 }
@@ -193,7 +164,7 @@ function toggleVehicleLock (vehicle, player) {
     vehicle.locked = true;
 
     if (isVehiclePoliceModel) {
-      player.call("setDoorsLockedInSpecialVehicle", [vehicle]);
+      player.call('setDoorsLockedInSpecialVehicle', [vehicle]);
     }
   }
 
@@ -217,44 +188,14 @@ function togglePoliceRadar (vehicle, player) {
 
 exports.togglePoliceRadar = togglePoliceRadar;
 
-const getCarData = (model) => {
-  for (let i = 0; i < vehicleData.carsData.length; i++) {
-    if (model !== vehicleData.carsData[i].model) continue;
-    return vehicleData.carsData[i];
-  }
-
-  return false;
+const setDescription = (vehicle, text) => {
+  vehicle.setVariable('description', text);
 };
 
-exports.getCarData = getCarData;
+exports.setDescription = setDescription;
 
-const checkIfVehicleModelExists = (model) => {
-  if (model in vehicleData.vehicleHashes) {
-    return true;
-  }
-
-  return false;
+const clearDescription = (vehicle) => {
+  vehicle.setVariable('description', null);
 };
 
-exports.checkIfVehicleModelExists = checkIfVehicleModelExists;
-
-// Temporary cuz getting vehicleClass on client-side or using native not working.
-const checkIfVehicleModelIsPolice = (model) => {
-  if (model in vehicleData.policeVehicleHashes) {
-    return true;
-  }
-
-  return false;
-};
-
-exports.checkIfVehicleModelIsPolice = checkIfVehicleModelIsPolice;
-
-const checkIfVehicleIsConvertible = (model) => {
-  if (model in vehicleData.vehiclesThatHaveRoofHashes) {
-    return true;
-  }
-
-  return false;
-};
-
-exports.checkIfVehicleIsConvertible = checkIfVehicleIsConvertible;
+exports.clearDescription = clearDescription;

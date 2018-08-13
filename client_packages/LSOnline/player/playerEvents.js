@@ -1,7 +1,9 @@
 'use strict';
+
 const Cash = require('/LSOnline/cash/cash');
+
 mp.events.add({
-  entityStreamIn: (player) => {
+  entityStreamIn: player => {
     if (player.type !== 'player') {
       return false;
     }
@@ -32,5 +34,9 @@ mp.events.add({
 
   playerSpawn: () => {
     mp.game.graphics.stopScreenEffect('DeathFailNeutralIn');
+  },
+
+  setInvincible: (player, value) => {
+    value ? mp.players.local.setInvincible(true) : mp.players.local.setInvincible(false);
   }
 });

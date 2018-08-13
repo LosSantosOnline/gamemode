@@ -1,4 +1,5 @@
 'use strict';
+
 const fs = require('fs-nextra');
 const path = require('path');
 const dir = path.join(__dirname, '..');

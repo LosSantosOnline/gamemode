@@ -1,35 +1,43 @@
-"use strict";
+'use strict';
 
-const playerMisc = require('../player/playerMisc');
-const vehicleManager = require("../vehicles/vehicleManager");
+const { isVehicleDriver } = require('../player/playerMisc');
+const { toggleVehicleLock } = require('../vehicles/vehicleManager');
+const { getClosestVehicleForPlayer, checkIfVehicleIsConvertible } = require('../vehicles/vehicleMisc');
 
-mp.events.add(
-  {
-    "numpad5Key": (player) => {
-      if (playerMisc.isVehicleDriver(player)) {
-        const isVehicleConvertible = vehicleManager.checkIfVehicleIsConvertible(player.vehicle.informations.model);
+mp.events.add({
+  keyNumpad: player => {
+    if (isVehicleDriver(player)) {
+      const isVehicleConvertible = checkIfVehicleIsConvertible(player.vehicle.informations.model);
 
-        if (isVehicleConvertible) {
-          player.call("lowerVehicleRoof", [player.vehicle]);
-        }
-      }
-    },
-
-    "numpad8Key": (player) => {
-      if (playerMisc.isVehicleDriver(player)) {
-        const isVehicleConvertible = vehicleManager.checkIfVehicleIsConvertible(player.vehicle.informations.model);
-
-        if (isVehicleConvertible) {
-          player.call("raiseVehicleRoof", [player.vehicle]);
-        }
-      }
-    },
-
-    "zKey": (player) => {
-      let vehicle = vehicleManager.getClosestVehicleForPlayer(player, 2);
-
-      if (vehicle) {
-        vehicleManager.toggleVehicleLock(vehicle, player);
+      if (isVehicleConvertible) {
+        player.call('lowerVehicleRoof', [player.vehicle]);
       }
     }
-  });
+  },
+
+  keyNumpad8: player => {
+    if (isVehicleDriver(player)) {
+      const isVehicleConvertible = checkIfVehicleIsConvertible(player.vehicle.informations.model);
+
+      if (isVehicleConvertible) {
+        player.call('raiseVehicleRoof', [player.vehicle]);
+      }
+    }
+  },
+
+  keyZ: player => {
+    let vehicle = getClosestVehicleForPlayer(player, 2);
+
+    if (vehicle) {
+      toggleVehicleLock(vehicle, player);
+    }
+  },
+
+  keyY: player => {
+    if (isVehicleDriver(player)) {
+      let engineCommand = rp.commands.get('engine');
+
+      engineCommand.run(player);
+    }
+  }
+});

@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
 const player = mp.players.local;
-const misc = require("./LSOnline/util/misc");
+const misc = require('./LSOnline/util/misc');
 
 // Main render for vehicles
 mp.events.add('render', () => {

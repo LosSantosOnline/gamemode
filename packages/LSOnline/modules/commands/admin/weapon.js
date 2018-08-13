@@ -3,8 +3,7 @@ const Command = require('../../structures/command');
 class Weapon extends Command {
   constructor (...args) {
     super(...args, {
-      name: 'bron',
-      perms: true
+      name: 'bron'
     });
   }
 

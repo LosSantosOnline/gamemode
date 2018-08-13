@@ -4,8 +4,7 @@ class Global extends Command {
   constructor (...args) {
     super(...args, {
       name: 'glob',
-      aliases: ['gooc'],
-      perms: true
+      aliases: ['gooc']
     });
   }
 

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const vehicleHashes = {
   apc: 0x2189D250,
@@ -457,7 +457,21 @@ const vehicleHashes = {
   buccaneer2: 0xC397F748,
   tornado5: 0x94DA98EF,
   banshee2: 0x25C5AF13,
-  vagner: 0x7397224C
+  vagner: 0x7397224C,
+  stafford: 0x1324E960,
+  scramjet: 0xD9F0503D,
+  strikeforce: 0x64DE07A1,
+  terbyte: 0x897AFC65,
+  pbus2: 0x149BD32A,
+  oppressor2: 0x7B54A9D3,
+  pounder2: 0x6290F15B,
+  speedo4: 0xD17099D,
+  freecrawler: 0xFCC2F483,
+  mule4: 0x73F4110E,
+  menacer: 0x79DD18AE,
+  blimp3: 0xEDA4ED97,
+  swinger: 0x1DD4C0FF,
+  patriot2: 0xE6E967F8
 };
 
 exports.vehicleHashes = vehicleHashes;

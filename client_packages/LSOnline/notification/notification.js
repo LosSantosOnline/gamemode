@@ -1,4 +1,4 @@
-const Overlay = require('/LSOnline/util/Overlay');
+const Overlay = require('./LSOnline/util/overlay');
 
 mp.events.add({
   actionDone: (title, content, timeout = 3500) => {

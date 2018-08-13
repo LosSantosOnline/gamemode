@@ -1,8 +1,10 @@
 'use strict';
 
 const camera = require('./LSOnline/util/camera');
+const globals = require('./LSOnline/util/globals');
 const browser = require('./LSOnline/util/browser');
-const Overlay = require('./LSOnline/util/Overlay');
+const Overlay = require('./LSOnline/util/overlay');
+
 
 function preparePanel (url) {
   browser.prepareScreen(1000);
@@ -31,7 +33,10 @@ function destroyPanel () {
 
 mp.events.add({
   loginPanelAppeared: url => {
-    preparePanel(url);
+     // preparePanel(url);
+
+    // Only for test (debug) purposes. New login panel coming soon.
+    mp.events.callRemote('authorizePlayer', 'Mati', 'XP#lSw0gbB1N');
   },
   loginButtonClicked: (login, password) => {
     mp.events.callRemote('authorizePlayer', login, password);
@@ -45,12 +50,15 @@ mp.events.add({
     );
   },
   userAuthorized: async characters => {
-    changePanel('package://LSOnline/browser/dist/characterSelect/index.html');
-    showCharacter(characters);
+    destroyPanel();
+
+    // Only for test (debug) purposes. New login panel coming soon.
+    mp.events.callRemote('loginPlayer', 1);
+    // changePanel("package://LSOnline/browser/dist/characterSelect/index.html");
+    // showCharacter(characters);
   },
   characterSelected: characterId => {
     destroyPanel();
-    mp.players.local.setInvincible(true);
     mp.events.callRemote('loginPlayer', characterId);
   }
 });

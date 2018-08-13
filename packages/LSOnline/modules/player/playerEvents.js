@@ -1,31 +1,17 @@
 'use strict';
 
-const playerManager = require('../player/playerManager');
 const { validateText } = require('../utils/helpers');
 const Say = require('../commands/chat/say');
+const { setBrutallyWounded, prepareBeforeQuit, createQuitLabel } = require('../player/playerService');
 
 mp.events.add({
   playerQuit: (player, exitType, reason) => {
-    playerManager.clearBrutallyWoundedTimers(player);
-
-    let quitLabel = mp.labels.new(`~HUD_COLOUR_GREYLIGHT~ (( ${player.name} - ${exitType} ))`, new mp.Vector3(player.position.x, player.position.y, player.position.z),
-      {
-        los: true,
-        font: 0,
-        drawDistance: 10,
-        dimension: player.dimension
-      });
-
-    // This need to be rewrited when we gonna create labels manager.
-    setTimeout(() => {
-      if (quitLabel) {
-        quitLabel.destroy();
-      }
-    }, 30000);
+    prepareBeforeQuit(player, exitType);
+    createQuitLabel(player, exitType);
   },
 
   playerDeath: (player, reason, killer) => {
-    playerManager.setBrutallyWounded(player, reason, killer);
+    setBrutallyWounded(player, reason, killer);
   },
 
   playerCommand: (player, command) => {
@@ -34,6 +20,10 @@ mp.events.add({
     let subCommand = '';
 
     let result = rp.commands.get(commandName);
+
+    if (!player.isLogged) {
+      return player.kick();
+    }
 
     if (!result) {
       return player.call('actionDone', ['Komenda nie istnieje!', 'Podana komenda nie istnieje']);
@@ -47,10 +37,11 @@ mp.events.add({
       }
     }
 
-    if (!result.perms) {
+    // TODO: rework to flags
+    /* if (!result.perms) {
       return player.call('actionDone', ['Brak uprawnień!', 'Nie posiadasz wystarczających uprawnień do tej komendy!']);
     }
-
+    */
     if (player.brutallyWounded && result.restriction) {
       return player.call('actionDone', ['Nie możesz tego teraz użyć!', 'Twoja postać jest nieprzytomna lub wyciszona!']);
     }
@@ -67,6 +58,10 @@ mp.events.add({
   },
 
   playerChat: (player, text) => {
+    if (!player.isLogged) {
+      return player.kick();
+    }
+
     if (player.brutallyWounded) {
       return player.call('actionDone', ['Nie możesz tego teraz zrobić!', 'Twoja postać jest nieprzytomna!']);
     }
