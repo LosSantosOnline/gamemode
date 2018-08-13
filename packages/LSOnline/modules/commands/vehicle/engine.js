@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command');
-const playerMisc = require('../../player/playerMisc');
-const vehicleManager = require('../../vehicles/vehicleManager');
+const { isVehicleDriver } = require('../../player/playerMisc');
+const { toggleVehicleEngine } = require('../../vehicles/vehicleManager');
 
 class Engine extends Command {
   constructor (...args) {
@@ -11,11 +11,11 @@ class Engine extends Command {
   }
 
   async run (player, command, args) {
-    if (playerMisc.isVehicleDriver(player)) {
+    if (isVehicleDriver(player)) {
       const actionType = player.vehicle.engine ? 'gasi' : 'odpala';
 
       mp.players.broadcastInRange(player.position, 25, `!{#dca2f4} * ${player.name} ${actionType} silnik pojazdu ${player.vehicle.informations.name}.`);
-      setTimeout(() => vehicleManager.toggleVehicleEngine(player.vehicle), player.vehicle.engine ? 0 : 1500);
+      setTimeout(() => toggleVehicleEngine(player.vehicle), player.vehicle.engine ? 0 : 1500);
     } else {
       player.call('actionDone', [
         'Wystąpił błąd',

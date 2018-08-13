@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": "",
-    "database": "lso",
-    "host": "localhost",
+    "username": "homestead",
+    "password": "secret",
+    "database": "game",
+    "host": "192.168.10.10",
     "dialect": "mysql"
   },
   "test": {

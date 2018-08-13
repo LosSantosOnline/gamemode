@@ -1,5 +1,6 @@
 const Command = require('../../structures/Command');
-const playerMisc = require('../../player/playerMisc');
+const { isVehicleDriver } = require('../../player/playerMisc');
+const { setDescription } = require('../../vehicles/vehicleManager');
 
 class VehicleDescription extends Command {
   constructor (...args) {
@@ -13,18 +14,18 @@ class VehicleDescription extends Command {
   async run (player, command, args) {
     const fullText = command.fullText;
 
-    if (playerMisc.isVehicleDriver(player)) {
+    if (isVehicleDriver(player)) {
       if (fullText.length >= 80) {
         return player.call('actionDone', [
-          'Wystąpił błąd',
+          'Coś poszło nie tak!',
           'Maksymalna liczba znaków opisu pojazdu wynosi 80! Skoryguj opis i spróbuj ponownie.'
         ]);
       }
 
-      player.vehicle.setVariable('description', fullText);
+      setDescription(player.vehicle, fullText);
     } else {
       player.call('actionDone', [
-        'Wystąpił błąd',
+        'Coś poszło nie tak!',
         'Musisz być w pojeździe jako kierowca, aby móc ustawić opis pojazdu!'
       ]);
     }

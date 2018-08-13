@@ -1,12 +1,11 @@
 const Command = require('../../../structures/Command');
-const vehicleManager = require('../../../vehicles/vehicleManager');
+const { updateName } = require('../../../vehicles/vehicleManager');
 
 class Vehicle extends Command {
   constructor (...args) {
     super(...args, {
       name: 'avehicle name',
       aliases: ['aveh name', 'av name'],
-      perms: true,
       args: ['ID pojazdu z gry', 'Nowa nazwa pojazdu']
     });
   }
@@ -17,14 +16,14 @@ class Vehicle extends Command {
     const vehicle = mp.vehicles.at(vehicleId);
     if (vehicle) {
       vehicle.informations.name = name;
-      vehicleManager.updateName(vehicle.informations.id, name);
+      updateName(vehicle.informations.id, name);
 
       player.call('actionDone', [
         'Komendy administracyjne',
         'Nazwa pojazdu (ID: ' + vehicle.informations.id + ') została zaktualizowana. Nowa nazwa: ' + vehicle.informations.name + '.'
       ]);
     } else {
-      return player.call('actionDone', ['Coś poszło nie tak..', `Użycie: /${command.name} ${this.tooltip}`]);
+      return player.call('actionDone', ['Coś poszło nie tak!', `Użycie: /${command.name} ${this.tooltip}`]);
     }
   }
 }

@@ -1,16 +1,15 @@
 const Command = require('../../../structures/Command');
-const vehicleManager = require('../../../vehicles/vehicleManager');
+const { respawnAll } = require('../../../vehicles/vehicleManager');
 
 class Respawn extends Command {
   constructor (...args) {
     super(...args, {
-      name: 'respawn',
-      perms: true
+      name: 'respawn'
     });
   }
 
   async run (player, command, args) {
-    await vehicleManager.respawnAll();
+    await respawnAll();
     mp.players.broadcast(`(( Respawn pojazdów! Wszystkie powróciły na swoje miejsca parkingowe. ))`);
   }
 }

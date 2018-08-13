@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const isVehicleDriver = (player) => {
   if (!player.vehicle || player.seat !== -1) {
