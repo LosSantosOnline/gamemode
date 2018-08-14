@@ -102,3 +102,11 @@ const vectorDistance = (vector1, vector2) => {
 };
 
 exports.vectorDistance = vectorDistance;
+
+const sendHelpMessage = value => {
+  mp.game.ui.setTextComponentFormat('STRING');
+  mp.game.ui.addTextComponentSubstringPlayerName(value);
+  mp.game.ui.displayHelpTextFromStringLabel(0, false, true, -1);
+};
+
+exports.sendHelpMessage = sendHelpMessage;

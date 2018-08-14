@@ -9,9 +9,11 @@ module.exports = class extends ChatCommand {
     });
   }
 
-  async run (player, command, args) {
+  run (player, command, args) {
     const text = super.run(player, command.fullText, false, false);
 
-    if (text) mp.players.broadcastInRange(player.position, 6, player.dimension, `!{${rp.config.colors.ooc}}(( ${player.name} [${player.id}]: ${text} ))`);
+    if (text) {
+      mp.players.broadcastInRange(player.position, 6, player.dimension, `!{${rp.config.colors.ooc}}(( ${player.name} (${player.id}): ${text} ))`);
+    }
   }
 };

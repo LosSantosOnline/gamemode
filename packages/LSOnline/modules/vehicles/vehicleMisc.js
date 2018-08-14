@@ -2,36 +2,6 @@
 
 const vehicleData = require('../vehicles/vehicleData');
 
-function getClosestVehicleForPlayer (player, range) {
-  let foundVehicle = null;
-
-  mp.vehicles.forEachInRange(player.position, range, player.dimension,
-    (vehicle) => {
-      foundVehicle = vehicle;
-    }
-  );
-
-  return foundVehicle;
-}
-
-exports.getClosestVehicleForPlayer = getClosestVehicleForPlayer;
-
-function getVehicleById (vehicleId) {
-  let foundVehicle = null;
-
-  mp.vehicles.forEach(
-    (vehicle) => {
-      if (vehicle.informations.id === vehicleId) {
-        foundVehicle = vehicle;
-      }
-    }
-  );
-
-  return foundVehicle;
-}
-
-exports.getVehicleById = getVehicleById;
-
 const checkIfVehicleModelExists = (model) => {
   if (model in vehicleData.vehicleHashes) {
     return true;

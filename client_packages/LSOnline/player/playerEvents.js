@@ -1,6 +1,7 @@
 'use strict';
 
 const Cash = require('/LSOnline/cash/cash');
+const { sendHelpMessage } = require('./LSOnline/util/misc');
 
 mp.events.add({
   entityStreamIn: player => {
@@ -38,5 +39,9 @@ mp.events.add({
 
   setInvincible: (player, value) => {
     value ? mp.players.local.setInvincible(true) : mp.players.local.setInvincible(false);
+  },
+
+  showHelpMessage: (value) => {
+    sendHelpMessage(value);
   }
 });

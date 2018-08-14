@@ -8,12 +8,12 @@ const setBrutallyWounded = (player, reason, killer) => {
     clearBrutallyWoundedTimers(player);
   }
 
-  player.brutallyWounded = true;
   player.removeAllWeapons();
+  player.brutallyWounded = true;
   player.brutallyWoundedTimer = setTimeout(reviveFromBrutallyWounded, brutallyWoundedTime, player);
 
-  player.setVariable('description', getDeathReason(reason));
-  mp.players.broadcastInRange(player.position, 25, `!{#dca2f4} * ${player.name} traci przytomność.`);
+  setDescription(player, getDeathReason(reason));
+  rp.commands.get('me').run(player, {fullText: `traci przytomność.`});
 };
 
 exports.setBrutallyWounded = setBrutallyWounded;
@@ -101,3 +101,9 @@ const createQuitLabel = (player, exitType) => {
 };
 
 exports.createQuitLabel = createQuitLabel;
+
+const pushHelpMessage = (player, message) => {
+  player.call('showHelpMessage', [message]);
+};
+
+exports.pushHelpMessage = pushHelpMessage;

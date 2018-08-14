@@ -25,7 +25,7 @@ class Command {
     this.file = file;
   }
 
-  async run () {
+  run () {
     throw new Error("Run method wasn't provided!");
   };
 

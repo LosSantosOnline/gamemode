@@ -15,6 +15,7 @@ class Vehicle extends Command {
   async run (player, command, args) {
     const modelName = args[0];
     const isVehicleModelExist = checkIfVehicleModelExists(modelName);
+
     isVehicleModelExist
       ? create(player, modelName)
       : player.call('actionDone', ['Coś poszło nie tak!', `Użycie: /${command.name} ${this.tooltip}`]);
