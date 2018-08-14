@@ -4,6 +4,8 @@ mp.events.add({
   playerEnterVehicle: (vehicle, seat) => {
     const engineStatus = vehicle.engine ? true : false;
 
+    vehicle.setEnginePowerMultiplier(80);
+
     vehicle.setEngineOn(engineStatus, false, true);
     vehicle.setUndriveable(engineStatus);
   },

@@ -1,5 +1,3 @@
-'use strict';
-
 const Say = require('../commands/chat/say');
 const { validateText } = require('../utils/helpers');
 const { setBrutallyWounded, prepareBeforeQuit, createQuitLabel } = require('../player/playerService');
@@ -72,5 +70,13 @@ mp.events.add({
     }
 
     rp.commands.get('say').run(player, {fullText: text});
+  },
+
+  toggleCrouch: player => {
+    if (player.data.isCrouching === undefined) {
+      player.data.isCrouching = true;
+    } else {
+      player.data.isCrouching = !player.data.isCrouching;
+    }
   }
 });

@@ -1,6 +1,6 @@
 'use strict';
 
-const { checkIfVehicleModelIsPolice } = require('../vehicles/vehicleMisc');
+const { checkIfVehicleModelIsBike, checkIfVehicleModelIsPolice } = require('../vehicles/vehicleMisc');
 
 function getClosestVehicleForPlayer (player, range) {
   let foundVehicle = null;
@@ -44,10 +44,14 @@ const clearDescription = (vehicle) => {
 exports.clearDescription = clearDescription;
 
 const toggleVehicleEngine = (vehicle, player) => {
-  const actionType = vehicle.engine ? 'gasi' : 'odpala';
-  vehicle.engine ? vehicle.engine = false : vehicle.engine = true;
+  const isBike = checkIfVehicleModelIsBike(vehicle.informations.model);
 
-  rp.commands.get('me').run(player, {fullText: `${actionType} silnik pojazdu ${vehicle.informations.name}.`});
+  if (!isBike) {
+    const actionType = vehicle.engine ? 'gasi' : 'odpala';
+    vehicle.engine ? vehicle.engine = false : vehicle.engine = true;
+
+    rp.commands.get('me').run(player, {fullText: `${actionType} silnik pojazdu ${vehicle.informations.name}.`});
+  }
 };
 
 exports.toggleVehicleEngine = toggleVehicleEngine;

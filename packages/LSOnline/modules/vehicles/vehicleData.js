@@ -505,6 +505,18 @@ const vehiclesThatHaveRoofHashes = {
 
 exports.vehiclesThatHaveRoofHashes = vehiclesThatHaveRoofHashes;
 
+const bikesHashes = {
+  fixter: 0xCE23D3BF,
+  cruiser: 0x1ABA13B5,
+  bmx: 0x43779C54,
+  scorcher: 0xF4E1AA15,
+  tribike: 0x4339CD69,
+  tribike2: 0xB67597EC,
+  tribike3: 0xE823FB48
+};
+
+exports.bikesHashes = bikesHashes;
+
 const carsData = [
   {model: "f620", tankCapacity: 85, fuelType: 1, fuelRatio: 13.7},
   {model: "cyclone", tankCapacity: 40, fuelType: 4, fuelRatio: 3},

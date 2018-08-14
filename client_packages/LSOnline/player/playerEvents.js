@@ -1,6 +1,6 @@
 'use strict';
 
-const Cash = require('/LSOnline/cash/cash');
+const Cash = require('./LSOnline/cash/cash');
 const { sendHelpMessage } = require('./LSOnline/util/misc');
 
 mp.events.add({
@@ -16,14 +16,19 @@ mp.events.add({
   },
 
   entityDataChange: (player, key, value) => {
+    if (player.type !== 'player') {
+      return false;
+    }
+
     switch (key) {
       case 'description':
         player.description = value;
         break;
-      case 'money': {
+
+      case 'money':
         Cash.drawMoney(player, value);
         player.cash = value;
-      }
+        break;
     }
   },
 

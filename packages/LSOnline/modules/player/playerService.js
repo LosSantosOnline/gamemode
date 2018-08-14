@@ -107,3 +107,16 @@ const pushHelpMessage = (player, message) => {
 };
 
 exports.pushHelpMessage = pushHelpMessage;
+
+const stopPlayingAnimation = player => {
+  if (player.isPlayingAnimation) {
+    if (!player.brutallyWounded) {
+      player.stopAnimation();
+      player.isPlayingAnimation = false;
+
+      pushHelpMessage(player, `Przerwano działanie animacji.`);
+    }
+  }
+};
+
+exports.stopPlayingAnimation = stopPlayingAnimation;

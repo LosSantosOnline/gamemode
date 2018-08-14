@@ -32,3 +32,13 @@ const checkIfVehicleIsConvertible = (model) => {
 };
 
 exports.checkIfVehicleIsConvertible = checkIfVehicleIsConvertible;
+
+const checkIfVehicleModelIsBike = (model) => {
+  if (model in vehicleData.bikesHashes) {
+    return true;
+  }
+
+  return false;
+};
+
+exports.checkIfVehicleModelIsBike = checkIfVehicleModelIsBike;
