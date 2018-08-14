@@ -16,7 +16,7 @@ class Fuel extends Command {
 
     if (vehicle) {
       vehicle.informations.fuel = parseFloat(vehicle.informations.fuel) + parseFloat(fuel);
-      refuel(vehicle.informations.id, fuel);
+      await refuel(vehicle.informations.id, fuel);
 
       player.call('actionDone', [
         'Komendy administracyjne',

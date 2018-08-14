@@ -19,8 +19,8 @@ const keyZ = require('./LSOnline/keybinds/keyZ');
 const keyY = require('./LSOnline/keybinds/keyY');
 const keyF2 = require('./LSOnline/keybinds/keyF2');
 const keyAltTab = require('./LSOnline/keybinds/keyAltTab');
-const keyNumpad5 = require('./LSOnline/keybinds/keyNumpad5');
-const keyNumpad8 = require('./LSOnline/keybinds/keyNumpad8');
+const keyLeftCtrl = require('./LSOnline/keybinds/keyLeftCtrl');
+const keyLeftShift = require('./LSOnline/keybinds/keyLeftShift');
 
 // Player
 const playerEvents = require('./LSOnline/player/playerEvents');

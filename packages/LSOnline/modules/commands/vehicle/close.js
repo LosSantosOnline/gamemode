@@ -10,7 +10,7 @@ class Close extends Command {
     });
   }
 
-  async run (player, command, args) {
+  run (player, command, args) {
     const vehicle = getClosestVehicleForPlayer(player, 2);
     vehicle
       ? toggleVehicleLock(vehicle, player)

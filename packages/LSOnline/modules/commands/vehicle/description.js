@@ -11,7 +11,7 @@ class VehicleDescription extends Command {
     });
   }
 
-  async run (player, command, args) {
+  run (player, command, args) {
     const fullText = command.fullText;
 
     if (isVehicleDriver(player)) {

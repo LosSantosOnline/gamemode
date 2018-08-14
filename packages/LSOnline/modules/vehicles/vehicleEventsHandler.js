@@ -1,11 +1,24 @@
 'use strict';
 
 const { isVehicleDriver } = require('../player/playerMisc');
+const { pushHelpMessage } = require('../player/playerService');
 const { checkIfVehicleIsConvertible } = require('../vehicles/vehicleMisc');
 const { getClosestVehicleForPlayer, toggleVehicleLock } = require('../vehicles/vehicleService');
 
 mp.events.add({
-  keyNumpad: player => {
+  playerEnterVehicle: (player, vehicle, seat) => {
+    const isVehicleConvertible = checkIfVehicleIsConvertible(player.vehicle.informations.model);
+
+    if (seat === -1) {
+      pushHelpMessage(player, `Wsiadłeś do pojazdu, aby odpalić silnik naciśnij ~h~~b~Y~w~.`);
+
+      if (isVehicleConvertible) {
+        pushHelpMessage(player, `Naciśnij ~INPUT_DUCK~ aby otworzyć dach w pojeździe lub ~INPUT_SPRINT~ aby go zamknąć.`);
+      }
+    }
+  },
+
+  keyLeftCtrl: player => {
     if (isVehicleDriver(player)) {
       const isVehicleConvertible = checkIfVehicleIsConvertible(player.vehicle.informations.model);
 
@@ -15,7 +28,7 @@ mp.events.add({
     }
   },
 
-  keyNumpad8: player => {
+  keyLeftShift: player => {
     if (isVehicleDriver(player)) {
       const isVehicleConvertible = checkIfVehicleIsConvertible(player.vehicle.informations.model);
 

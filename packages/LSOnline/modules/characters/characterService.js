@@ -6,7 +6,7 @@ const randomSpawns = [
   new mp.Vector3(-449.67, -340.83, 34.50)
 ];
 
-const { getVehicleById } = require('../vehicles/vehicleMisc');
+const { getVehicleById } = require('../vehicles/vehicleService');
 
 const spawnCharacterOnPosition = (player, character) => {
   let randomSpawn = randomSpawns[Math.floor(Math.random() * randomSpawns.length)];

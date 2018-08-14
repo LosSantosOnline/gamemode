@@ -17,7 +17,7 @@ class Vehicle extends Command {
     const isVehicleModelExist = checkIfVehicleModelExists(modelName);
 
     isVehicleModelExist
-      ? create(player, modelName)
+      ? await create(player, modelName)
       : player.call('actionDone', ['Coś poszło nie tak!', `Użycie: /${command.name} ${this.tooltip}`]);
   }
 }

@@ -9,7 +9,7 @@ class Unbw extends Command {
     });
   }
 
-  async run (player, command, args) {
+  run (player, command, args) {
     const playerId = args[0];
     const foundPlayer = this.searchPlayerByIdOrName(playerId);
 

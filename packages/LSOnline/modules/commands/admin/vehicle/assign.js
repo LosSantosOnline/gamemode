@@ -11,7 +11,7 @@ class Assign extends Command {
     });
   }
 
-  async run (player, command, args) {
+  run (player, command, args) {
     const [ vehicleId, ownerType, ownerId ] = args;
     const vehicle = mp.vehicles.at(vehicleId);
 
@@ -33,12 +33,12 @@ class Assign extends Command {
     }
   }
 
-  assignToPlayer (player, ownerId, vehicle) {
+  async assignToPlayer (player, ownerId, vehicle) {
     let owner = mp.players.at(ownerId);
 
     if (owner) {
       owner = { id: owner.character.info.id, name: owner.character.info.name };
-      assign(vehicle.informations.id, 1, owner);
+      await assign(vehicle.informations.id, 1, owner);
 
       player.call('actionDone', [
         'Komendy administracyjne',
