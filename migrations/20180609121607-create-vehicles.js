@@ -1,49 +1,59 @@
 'use strict';
-
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Characters', {
+    return queryInterface.createTable('Vehicles', {
       id: {
-        primaryKey: true,
-        autoIncrement: true,
         allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
         type: Sequelize.INTEGER
       },
       name: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      model: {
         type: Sequelize.STRING
       },
-      owner: {
-        allowNull: false,
+      fuel: {
+        type: Sequelize.FLOAT,
+        defaultValue: '10.0'
+      },
+      fuelType: {
         type: Sequelize.INTEGER
       },
-      age: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+      fuelRatio: {
+        type: Sequelize.FLOAT
       },
-      sex: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+      tankCapacity: {
+        type: Sequelize.FLOAT,
+        defaultValue: '20.0'
       },
-      money: {
+      owner: {
+        type: Sequelize.INTEGER
+      },
+      primaryColor: {
+        type: Sequelize.STRING
+      },
+      secondaryColor: {
+        type: Sequelize.STRING
+      },
+      plate: {
+        type: Sequelize.STRING(8),
+        defaultValue: null
+      },
+      plateType: {
         type: Sequelize.INTEGER,
+        defaultValue: 0
+      },
+      dirtLevel: {
+        type: Sequelize.FLOAT,
         defaultValue: 0
       },
       position: {
         type: Sequelize.TEXT
       },
       dimension: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0
-      },
-      lastLogin: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      lastVehicle: {
-        type: Sequelize.TEXT
-      },
-      lastExitType: {
-        allowNull: true,
         type: Sequelize.STRING
       },
       createdAt: {
@@ -56,5 +66,5 @@ module.exports = {
       }
     });
   },
-  down: (queryInterface, Sequelize) => queryInterface.dropTable('Characters')
+  down: (queryInterface, Sequelize) => queryInterface.dropTable('Vehicles')
 };

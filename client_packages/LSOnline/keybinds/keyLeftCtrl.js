@@ -1,9 +1,8 @@
 // Animations
 const crouchingClipSetSwitchTime = 0.25;
 const crouchingMovementClipSet = 'move_ped_crouched';
-const crouchingStrafeClipSet = 'move_ped_crouched_strafing';
-
 const { loadClipSet } = require('./LSOnline/util/misc');
+const crouchingStrafeClipSet = 'move_ped_crouched_strafing';
 
 // load clip sets
 loadClipSet(crouchingMovementClipSet);
@@ -15,7 +14,6 @@ mp.events.add({
       return false;
     }
 
-    // apply clip sets if streamed player is crouching
     if (typeof entity.getVariable('isCrouching') !== 'undefined') {
       entity.setMovementClipset(crouchingMovementClipSet, crouchingClipSetSwitchTime);
       entity.setStrafeClipset(crouchingStrafeClipSet);
@@ -27,7 +25,6 @@ mp.events.add({
       return false;
     }
 
-    // apply/reset clip sets when isCrouched changes for a streamed player
     if (value) {
       entity.setMovementClipset(crouchingMovementClipSet, crouchingClipSetSwitchTime);
       entity.setStrafeClipset(crouchingStrafeClipSet);
@@ -39,6 +36,4 @@ mp.events.add({
 });
 
 // CTRL key to toggle crouching
-mp.keys.bind(0x11, false, () => {
-  mp.events.callRemote('toggleCrouch');
-});
+mp.keys.bind(0x11, false, () => mp.events.callRemote('toggleCrouch'));

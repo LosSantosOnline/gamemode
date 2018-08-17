@@ -3,7 +3,5 @@
 const { stopPlayingAnimation } = require('../player/playerService');
 
 mp.events.add({
-  shiftButtonKey: player => {
-    stopPlayingAnimation(player);
-  }
+  shiftButtonKey: player => stopPlayingAnimation(player)
 });

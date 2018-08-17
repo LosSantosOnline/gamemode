@@ -38,15 +38,7 @@ mp.events.add({
     mp.game.gameplay.setFadeOutAfterDeath(false);
   },
 
-  playerSpawn: () => {
-    mp.game.graphics.stopScreenEffect('DeathFailNeutralIn');
-  },
-
-  setInvincible: (player, value) => {
-    value ? mp.players.local.setInvincible(true) : mp.players.local.setInvincible(false);
-  },
-
-  showHelpMessage: (value) => {
-    sendHelpMessage(value);
-  }
+  playerSpawn: () => mp.game.graphics.stopScreenEffect('DeathFailNeutralIn'),
+  setInvincible: (player, value) => value ? mp.players.local.setInvincible(true) : mp.players.local.setInvincible(false),
+  showHelpMessage: (value) => sendHelpMessage(value)
 });

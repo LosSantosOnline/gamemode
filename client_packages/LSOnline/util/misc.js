@@ -19,7 +19,6 @@ const prepareClientView = () => {
 
   // Initialize textDraws object
   mp.players.local.textDraws = {};
-
 };
 
 exports.prepareClientView = prepareClientView;

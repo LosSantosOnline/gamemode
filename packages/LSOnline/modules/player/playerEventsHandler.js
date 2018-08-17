@@ -8,9 +8,7 @@ mp.events.add({
     createQuitLabel(player, exitType);
   },
 
-  playerDeath: (player, reason, killer) => {
-    setBrutallyWounded(player, reason, killer);
-  },
+  playerDeath: (player, reason, killer) => setBrutallyWounded(player, reason, killer),
 
   playerCommand: (player, command) => {
     const args = command.split(/[ ]+/);
