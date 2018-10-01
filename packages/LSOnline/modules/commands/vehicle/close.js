@@ -6,6 +6,7 @@ class Close extends Command {
   constructor (...args) {
     super(...args, {
       name: 'v z',
+      subcommandOf: 'v',
       aliases: ['v zamknij', 'vehicle z']
     });
   }

@@ -4,8 +4,9 @@ const { updateName } = require('../../../vehicles/vehicleManager');
 class Vehicle extends Command {
   constructor (...args) {
     super(...args, {
-      name: 'avehicle name',
-      aliases: ['aveh name', 'av name'],
+      name: 'av name',
+      aliases: ['aveh name', 'avehicle name'],
+      subcommandOf: 'av',
       args: ['ID pojazdu z gry', 'Nowa nazwa pojazdu']
     });
   }

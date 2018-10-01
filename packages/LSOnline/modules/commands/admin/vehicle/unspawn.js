@@ -4,8 +4,9 @@ const { unspawn } = require('../../../vehicles/vehicleManager');
 class Unspawn extends Command {
   constructor (...args) {
     super(...args, {
-      name: 'avehicle unspawn',
-      aliases: ['aveh unspawn', 'av unspawn'],
+      name: 'av unspawn',
+      aliases: ['aveh unspawn', 'avehicle unspawn'],
+      subcommandOf: 'av',
       args: ['ID pojazdu z gry']
     });
   }
