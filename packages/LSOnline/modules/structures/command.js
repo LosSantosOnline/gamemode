@@ -9,7 +9,6 @@ class Command {
      * @param {array} [options.perms=[]] - Perms
      * @param {boolean} [options.restriction="false"] - Should be command not avaible when muted? -> example: bw
      * @param {array} [options.args=[]] - Required arguments for command to work
-     * @param {boolean} [options.subcommandOf="false"] - Parent command
      * @param {boolean} [options.hasSubcommands - Does command have subcommans? Example: /veh, /veh name
      * @memberof Command
      */
@@ -20,8 +19,9 @@ class Command {
     this.restriction = options.restriction || false;
     this.args = options.args || [];
     this.hasSubcommands = options.hasSubcommands || false;
-    this.subcommandOf = options.subcommandOf || false;
-    this.tooltip = this.formatTooltip();
+    this.tooltip = this.args.map(element => {
+      return `[${element}]`;
+    }).toString().replace(new RegExp('[,]*,+', 'g'), ' ') || '';
     this.file = file;
   }
 
@@ -31,27 +31,6 @@ class Command {
 
   searchPlayerByIdOrName (player) {
     return searchPlayerByIdOrName(player);
-  }
-
-  formatTooltip () {
-    let subcommands = [];
-
-    if (this.hasSubcommands) {
-      rp.commands.forEach((c) => {
-        if (c.subcommandOf === this.name) {
-          subcommands.push(c.name);
-        }
-      });
-      subcommands = subcommands.map(element => {
-        return `/${element}`;
-      });
-    }
-    let tooltip = this.args.map(element => {
-      return `[${element}]`;
-    }).join(' ') || '';
-    subcommands.length > 0 && tooltip.length > 0 ? tooltip += ` lub ` : tooltip += '';
-    subcommands.length > 0 ? tooltip += subcommands.join(' | ') : tooltip += '';
-    return tooltip;
   }
 }
 
