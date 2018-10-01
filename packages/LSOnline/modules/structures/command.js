@@ -9,7 +9,6 @@ class Command {
      * @param {array} [options.perms=[]] - Perms
      * @param {boolean} [options.restriction="false"] - Should be command not avaible when muted? -> example: bw
      * @param {array} [options.args=[]] - Required arguments for command to work
-     * @param {boolean} [options.subcommandOf="false"] - Parent command
      * @param {boolean} [options.hasSubcommands - Does command have subcommans? Example: /veh, /veh name
      * @memberof Command
      */
@@ -22,6 +21,7 @@ class Command {
     this.hasSubcommands = options.hasSubcommands || false;
     this.subcommandOf = options.subcommandOf || false;
     this.tooltip = this.formatTooltip();
+
   }
 
   async run () {
@@ -31,6 +31,7 @@ class Command {
   searchPlayerByIdOrName (player) {
     return searchPlayerByIdOrName(player);
   }
+
   formatTooltip () {
     let subcommands = [];
     if (this.hasSubcommands) {
@@ -48,6 +49,7 @@ class Command {
     }).join(' ') || '';
     subcommands.length > 0 && tooltip.length > 0 ? tooltip += ` lub ` : tooltip += '';
     subcommands.length > 0 ? tooltip += subcommands.join(' | ') : tooltip += '';
+    
     return tooltip;
   }
 }
