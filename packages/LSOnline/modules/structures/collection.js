@@ -30,7 +30,7 @@ class Collection extends Map {
         name: path.parse(filepath).name
       };
       const piece = new (require(filepath))(parsedFile.name);
-      this.set(piece);
+      if (piece.name) this.set(piece);
       delete require.cache[filepath];
       return piece;
     } catch (error) {
@@ -50,7 +50,7 @@ class Collection extends Map {
   async walkFiles () {
     return fs.scan(this.dir, { filter: (stats, filepath) => stats.isFile() && path.extname(filepath) === '.js' })
       .then(files => Promise.all([...files.keys()].map(file => {
-        this.max = files.length;
+        this.max = files.size;
         this.load(path.relative(this.dir, file));
       })))
       .catch(error => {
