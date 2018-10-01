@@ -7,7 +7,6 @@ class VehicleDescription extends Command {
     super(...args, {
       name: 'v opis',
       aliases: ['v desc'],
-      subcommandOf: 'v',
       args: ['Opis pojazdu - krótki, zwięzły']
     });
   }
