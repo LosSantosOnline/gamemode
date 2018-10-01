@@ -4,8 +4,7 @@ const { validateText } = require('../../utils/helpers');
 
 class ChatCommand extends Command {
   constructor (...args) {
-    let [file, options] = args;
-    if (options === undefined) { options = {}; }
+    const [file, options] = args;
     super(file, {
       ...options,
       restriction: options.restriction ? true : false
