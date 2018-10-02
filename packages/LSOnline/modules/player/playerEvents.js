@@ -1,7 +1,6 @@
 'use strict';
 
 const { validateText } = require('../utils/helpers');
-const Say = require('../commands/chat/say');
 const { setBrutallyWounded, prepareBeforeQuit, createQuitLabel } = require('../player/playerService');
 
 mp.events.add({
@@ -28,15 +27,13 @@ mp.events.add({
     if (!result) {
       return player.call('actionDone', ['Komenda nie istnieje!', 'Podana komenda nie istnieje']);
     }
-
     if (result.hasSubcommands) {
-      subCommand = rp.commands.get(commandName + ' ' + args[0].toLowerCase());
+      if (args.length > 0) subCommand = rp.commands.get(commandName + ' ' + args[0].toLowerCase());
       if (subCommand) {
         result = subCommand;
         subCommand = args.splice(0, 1);
       }
     }
-
     // TODO: rework to flags
     /* if (!result.perms) {
       return player.call('actionDone', ['Brak uprawnień!', 'Nie posiadasz wystarczających uprawnień do tej komendy!']);
@@ -47,8 +44,9 @@ mp.events.add({
     }
 
     if (result.args.length > 0 && args.length < result.args.length) {
-      return player.call('actionDone', ['Coś poszło nie tak!', `Użycie: /${commandName} ${result.tooltip}`]);
+      return player.call('actionDone', ['Coś poszło nie tak!', `Użycie: /${commandName} ${subCommand} ${result.tooltip}`]);
     }
+
     result.run(player, {
       name: subCommand ? `${commandName} ${subCommand}` : commandName,
       fullText: args.join(' '),
