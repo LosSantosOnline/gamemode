@@ -4,7 +4,8 @@ const { findPlayerInText } = require('../../utils/helpers');
 
 class ChatCommand extends Command {
   constructor (...args) {
-    const [file, options] = args;
+    let [file, options] = args;
+    if (options === undefined) options = {};
     super(file, {
       ...options,
       restriction: options.restriction ? true : false

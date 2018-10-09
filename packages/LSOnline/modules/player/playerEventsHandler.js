@@ -1,4 +1,4 @@
-const Say = require('../commands/chat/say');
+'use strict';
 const { validateText } = require('../utils/helpers');
 const { setBrutallyWounded, prepareBeforeQuit, createQuitLabel } = require('../player/playerService');
 
@@ -24,9 +24,10 @@ mp.events.add({
     if (!result) {
       return player.call('actionDone', ['Komenda nie istnieje!', 'Podana komenda nie istnieje']);
     }
-
+    
     if (result.hasSubcommands) {
-      subCommand = rp.commands.get(commandName + ' ' + args[0].toLowerCase());
+      if (args.length > 0) subCommand = rp.commands.get(commandName + ' ' + args[0].toLowerCase());
+      
       if (subCommand) {
         result = subCommand;
         subCommand = args.splice(0, 1);
@@ -43,7 +44,7 @@ mp.events.add({
     }
 
     if (result.args.length > 0 && args.length < result.args.length) {
-      return player.call('actionDone', ['Coś poszło nie tak!', `Użycie: /${commandName} ${result.tooltip}`]);
+      return player.call('actionDone', ['Coś poszło nie tak!', `Użycie: /${commandName} ${subCommand} ${result.tooltip}`]);
     }
 
     result.run(player, {

@@ -19,10 +19,9 @@ class Command {
     this.restriction = options.restriction || false;
     this.args = options.args || [];
     this.hasSubcommands = options.hasSubcommands || false;
-    this.tooltip = this.args.map(element => {
-      return `[${element}]`;
-    }).toString().replace(new RegExp('[,]*,+', 'g'), ' ') || '';
-    this.file = file;
+    this.subcommandOf = options.subcommandOf || false;
+    this.tooltip = this.formatTooltip();
+
   }
 
   run () {
@@ -31,6 +30,27 @@ class Command {
 
   searchPlayerByIdOrName (player) {
     return searchPlayerByIdOrName(player);
+  }
+
+  formatTooltip () {
+    let subcommands = [];
+    if (this.hasSubcommands) {
+      rp.commands.forEach((c) => {
+        if (c.subcommandOf === this.name) {
+          subcommands.push(c.name);
+        }
+      });
+      subcommands = subcommands.map(element => {
+        return `/${element}`;
+      });
+    }
+    let tooltip = this.args.map(element => {
+      return `[${element}]`;
+    }).join(' ') || '';
+    subcommands.length > 0 && tooltip.length > 0 ? tooltip += ` lub ` : tooltip += '';
+    subcommands.length > 0 ? tooltip += subcommands.join(' | ') : tooltip += '';
+    
+    return tooltip;
   }
 }
 
