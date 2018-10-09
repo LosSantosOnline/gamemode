@@ -3,7 +3,7 @@
 const fs = require('fs-nextra');
 const path = require('path');
 const dir = path.join(__dirname, '..');
-const pattern = new RegExp('event', 'i');
+const pattern = new RegExp('event|keys', 'i');
 const logger = require('../modules/utils/logger');
 
 module.exports = async () => {
@@ -14,7 +14,7 @@ module.exports = async () => {
         return files.size;
       })));
 
-    logger('server', `Loaded ${size} event handlers!`, 'info');
+    logger('server', `Loaded ${size} events (including keys) handlers!`, 'info');
   } catch (err) {
     logger('server', `Error while loading event handlers (Error: ${err.message} / ${err.stack})!`, 'error');
   }

@@ -8,7 +8,7 @@ class Position extends Command {
     });
   }
 
-  async run (player, command, args) {
+  run (player, command, args) {
     player.outputChatBox(`!{#dddddd} Pozycja: X: ${player.position.x}, Y: ${player.position.y}, Z: ${player.position.z}`);
   }
 }

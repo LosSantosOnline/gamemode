@@ -3,21 +3,12 @@
 const globals = require('./LSOnline/util/globals');
 
 mp.events.add({
-  clearChat: () => {
-    clearGameChat();
-  },
-  toggleChat: value => {
-    toggleChat(value);
-  },
-  disableChat: value => {
-    disableChat(value);
-  }
+  clearChat: () => clearGameChat(),
+  toggleChat: value => toggleChat(value),
+  disableChat: value => disableChat(value)
 });
 
-const clearGameChat = () => {
-  mp.gui.execute('$("#chat_messages").html("")');
-};
-
+const clearGameChat = () => mp.gui.execute('$("#chat_messages").html("")');
 exports.clearGameChat = clearGameChat;
 
 const toggleChat = value => {

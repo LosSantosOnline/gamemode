@@ -10,14 +10,11 @@ class Description extends Command {
     });
   }
 
-  async run (player, command, args) {
+  run (player, command, args) {
     const fullText = command.fullText;
 
     if (fullText.length >= 80) {
-      return player.call('actionDone', [
-        'Coś poszło nie tak!',
-        'Maksymalna liczba znaków opisu wynosi 80! Skoryguj opis i spróbuj ponownie.'
-      ]);
+      return player.call('actionDone', ['Coś poszło nie tak!', 'Maksymalna liczba znaków opisu wynosi 80! Skoryguj opis i spróbuj ponownie.']);
     }
 
     setDescription(player, fullText);

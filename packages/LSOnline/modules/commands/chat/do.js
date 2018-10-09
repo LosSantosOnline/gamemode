@@ -8,10 +8,12 @@ class Do extends ChatCommand {
     });
   }
 
-  async run (player, command, args) {
+  run (player, command, args) {
     const text = super.run(player, command.fullText, true);
 
-    if (text) mp.players.broadcastInRange(player.position, 15, player.dimension, `!{${rp.config.colors.do}} * ${text} (( ${player.name} ))`);
+    if (text) {
+      mp.players.broadcastInRange(player.position, 15, player.dimension, `!{${rp.config.colors.do}} * ${text} (( ${player.name} ))`);
+    }
   }
 }
 

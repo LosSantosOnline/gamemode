@@ -8,7 +8,7 @@ class Global extends Command {
     });
   }
 
-  async run (player, command, args) {
+  run (player, command, args) {
     mp.players.broadcast(`(( ${player.name}: ${command.fullText} ))`);
   }
 }

@@ -1,11 +1,11 @@
 'use strict';
 
 const { isVehicleDriver } = require('../player/playerMisc');
-const { toggleVehicleLock } = require('../vehicles/vehicleManager');
-const { getClosestVehicleForPlayer, checkIfVehicleIsConvertible } = require('../vehicles/vehicleMisc');
+const { checkIfVehicleIsConvertible } = require('../vehicles/vehicleMisc');
+const { getClosestVehicleForPlayer, toggleVehicleLock } = require('../vehicles/vehicleService');
 
 mp.events.add({
-  keyNumpad: player => {
+  keyArrowDown: player => {
     if (isVehicleDriver(player)) {
       const isVehicleConvertible = checkIfVehicleIsConvertible(player.vehicle.informations.model);
 
@@ -15,7 +15,7 @@ mp.events.add({
     }
   },
 
-  keyNumpad8: player => {
+  keyArrowUp: player => {
     if (isVehicleDriver(player)) {
       const isVehicleConvertible = checkIfVehicleIsConvertible(player.vehicle.informations.model);
 
@@ -35,9 +35,7 @@ mp.events.add({
 
   keyY: player => {
     if (isVehicleDriver(player)) {
-      let engineCommand = rp.commands.get('engine');
-
-      engineCommand.run(player);
+      rp.commands.get('engine').run(player);
     }
   }
 });

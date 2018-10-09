@@ -8,7 +8,7 @@ class Vw extends Command {
     });
   }
 
-  async run (player, command, args) {
+  run (player, command, args) {
     player.outputChatBox(`!{#dddddd} Aktualny VW: ${player.dimension}`);
   }
 }

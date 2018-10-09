@@ -1,6 +1,7 @@
 'use strict';
 
-const Cash = require('/LSOnline/cash/cash');
+const Cash = require('./LSOnline/cash/cash');
+const { sendHelpMessage } = require('./LSOnline/util/misc');
 
 mp.events.add({
   entityStreamIn: player => {
@@ -15,14 +16,19 @@ mp.events.add({
   },
 
   entityDataChange: (player, key, value) => {
+    if (player.type !== 'player') {
+      return false;
+    }
+
     switch (key) {
       case 'description':
         player.description = value;
         break;
-      case 'money': {
+
+      case 'money':
         Cash.drawMoney(player, value);
         player.cash = value;
-      }
+        break;
     }
   },
 
@@ -32,11 +38,7 @@ mp.events.add({
     mp.game.gameplay.setFadeOutAfterDeath(false);
   },
 
-  playerSpawn: () => {
-    mp.game.graphics.stopScreenEffect('DeathFailNeutralIn');
-  },
-
-  setInvincible: (player, value) => {
-    value ? mp.players.local.setInvincible(true) : mp.players.local.setInvincible(false);
-  }
+  playerSpawn: () => mp.game.graphics.stopScreenEffect('DeathFailNeutralIn'),
+  setInvincible: (player, value) => value ? mp.players.local.setInvincible(true) : mp.players.local.setInvincible(false),
+  showHelpMessage: (value) => sendHelpMessage(value)
 });

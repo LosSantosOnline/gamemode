@@ -4,9 +4,13 @@
 global.rp = {};
 
 // Libs
+const moment = require('moment');
 const dotenv = require('dotenv');
 const result = dotenv.config();
 const logger = require('./modules/utils/logger');
+
+// Config for moment
+moment.locale('pl');
 
 // Command collection
 const CommandCollection = require('./modules/structures/commandCollection');

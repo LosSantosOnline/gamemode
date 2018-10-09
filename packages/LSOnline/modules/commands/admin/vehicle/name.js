@@ -16,7 +16,7 @@ class Vehicle extends Command {
     const vehicle = mp.vehicles.at(vehicleId);
     if (vehicle) {
       vehicle.informations.name = name;
-      updateName(vehicle.informations.id, name);
+      await updateName(vehicle.informations.id, name);
 
       player.call('actionDone', [
         'Komendy administracyjne',

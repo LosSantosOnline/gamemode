@@ -15,7 +15,7 @@ class Unspawn extends Command {
     const vehicle = mp.vehicles.at(vehicleId);
 
     if (vehicle) {
-      unspawn(vehicle);
+      await unspawn(vehicle);
 
       player.call('actionDone', [
         'Komendy administracyjne',

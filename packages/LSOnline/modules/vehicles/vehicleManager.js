@@ -4,7 +4,6 @@ const logger = require('../utils/logger');
 const helpers = require('../utils/helpers');
 const database = require('../database/database');
 const vehicleData = require('../vehicles/vehicleData');
-const { checkIfVehicleModelIsPolice } = require('../vehicles/vehicleMisc');
 
 async function create (player, model) {
   const primaryColor = [helpers.randomInt(0, 255), helpers.randomInt(0, 255), helpers.randomInt(0, 255)];
@@ -17,7 +16,6 @@ async function create (player, model) {
       fuelType: vehicleData.fuelTypes[0].type,
       fuelRatio: 1,
       tankCapacity: 40.0,
-      owner: 1,
       primaryColor: JSON.stringify(primaryColor),
       secondaryColor: JSON.stringify(secondaryColor),
       dimension: player.dimension,
@@ -133,6 +131,23 @@ async function updateName (vehicleId, name) {
 
 exports.updateName = updateName;
 
+async function assign (vehicleId, ownerType, owner) {
+  if (ownerType == 1) {
+    database.vehicle.findById(vehicleId).then(vehicle => {
+      vehicle
+        .update({owner: owner.id, ownerType: 1})
+        .then((vehicle) => {
+          logger('vehicle', `Assigned vehicle "${vehicle.name}" (ID: ${vehicle.id}) to player ${owner.name} (ID: ${owner.id}).`, 'info');
+        })
+        .catch((err) => {
+          logger('vehicle', `Error occurred when assigning vehicle "${vehicle.name}" (ID: ${vehicle.id}) to player ${owner.name} (ID: ${owner.id}). (Message: ${err})`, 'error');
+        });
+    });
+  }
+}
+
+exports.assign = assign;
+
 async function remove (vehicleId) {
   database.vehicle.findById(vehicleId).then(vehicle => {
     vehicle
@@ -147,55 +162,3 @@ async function remove (vehicleId) {
 }
 
 exports.remove = remove;
-
-function toggleVehicleEngine (vehicle) {
-  vehicle.engine = !vehicle.engine;
-}
-
-exports.toggleVehicleEngine = toggleVehicleEngine;
-
-function toggleVehicleLock (vehicle, player) {
-  const actionType = vehicle.locked ? 'otwiera' : 'zamyka';
-
-  if (vehicle.locked) {
-    vehicle.locked = false;
-  } else {
-    const isVehiclePoliceModel = checkIfVehicleModelIsPolice(vehicle.informations.model);
-    vehicle.locked = true;
-
-    if (isVehiclePoliceModel) {
-      player.call('setDoorsLockedInSpecialVehicle', [vehicle]);
-    }
-  }
-
-  mp.players.broadcastInRange(player.position, 20, player.dimension, `!{#dca2f4} * ${player.name} ${actionType} drzwi pojazdu ${vehicle.informations.name}.`);
-}
-
-exports.toggleVehicleLock = toggleVehicleLock;
-
-function togglePoliceRadar (vehicle, player) {
-  const actionType = vehicle.data.policeRadar ? 'wyłącza' : 'włącza';
-  const isVehiclePoliceModel = checkIfVehicleModelIsPolice(vehicle.informations.model);
-
-  if (isVehiclePoliceModel) {
-    vehicle.data.policeRadar
-      ? vehicle.data.policeRadar = false
-      : vehicle.data.policeRadar = true;
-
-    mp.players.broadcastInRange(player.position, 20, player.dimension, `!{#dca2f4} * ${player.name} ${actionType} radar w pojeździe ${vehicle.informations.name}.`);
-  }
-}
-
-exports.togglePoliceRadar = togglePoliceRadar;
-
-const setDescription = (vehicle, text) => {
-  vehicle.setVariable('description', text);
-};
-
-exports.setDescription = setDescription;
-
-const clearDescription = (vehicle) => {
-  vehicle.setVariable('description', null);
-};
-
-exports.clearDescription = clearDescription;
