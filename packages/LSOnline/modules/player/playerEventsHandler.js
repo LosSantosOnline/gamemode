@@ -1,5 +1,4 @@
 'use strict';
-
 const { validateText } = require('../utils/helpers');
 const { setBrutallyWounded, prepareBeforeQuit, createQuitLabel } = require('../player/playerService');
 
@@ -25,13 +24,16 @@ mp.events.add({
     if (!result) {
       return player.call('actionDone', ['Komenda nie istnieje!', 'Podana komenda nie istnieje']);
     }
+    
     if (result.hasSubcommands) {
       if (args.length > 0) subCommand = rp.commands.get(commandName + ' ' + args[0].toLowerCase());
+      
       if (subCommand) {
         result = subCommand;
         subCommand = args.splice(0, 1);
       }
     }
+
     // TODO: rework to flags
     /* if (!result.perms) {
       return player.call('actionDone', ['Brak uprawnień!', 'Nie posiadasz wystarczających uprawnień do tej komendy!']);
