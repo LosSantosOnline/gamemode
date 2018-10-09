@@ -1,5 +1,5 @@
-const fs = require('fs-nextra');
 const path = require('path');
+const fs = require('fs-nextra');
 const logger = require('../utils/logger');
 
 class Collection extends Map {
@@ -11,25 +11,29 @@ class Collection extends Map {
 
   set (piece) {
     const exists = this.get(piece.name);
-    if (exists) this.delete(piece.name);
+    if (exists) {
+      this.delete(piece.name);
+    }
+
     super.set(piece.name, piece);
     return piece;
   }
 
   delete (piece) {
     const exists = this.get(piece);
-    if (!exists) return false;
+    if (!exists) {
+      return false;
+    }
+
     return super.delete(piece);
   }
 
   load (file) {
     const filepath = path.join(this.dir, file);
     try {
-      const parsedFile = {
-        path: file,
-        name: path.parse(filepath).name
-      };
+      const parsedFile = { path: file, name: path.parse(filepath).name };
       const piece = new (require(filepath))(parsedFile.name);
+
       this.set(piece);
       delete require.cache[filepath];
       return piece;
@@ -41,6 +45,7 @@ class Collection extends Map {
   async loadFiles () {
     this.clear();
     await this.walkFiles();
+
     return {
       size: this.size,
       max: this.max

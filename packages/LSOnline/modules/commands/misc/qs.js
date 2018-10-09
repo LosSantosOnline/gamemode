@@ -8,7 +8,7 @@ class Qs extends Command {
     });
   }
 
-  async run (player, command, args) {
+  run (player, command, args) {
     player.kick('/qs');
   }
 }

@@ -8,7 +8,7 @@ class Teleport extends Command {
     });
   }
 
-  async run (player, command, args) {
+  run (player, command, args) {
     const [x, y, z] = args;
     player.position = new mp.Vector3(parseFloat(x), parseFloat(y), parseFloat(z));
   }

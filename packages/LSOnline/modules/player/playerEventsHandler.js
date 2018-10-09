@@ -9,9 +9,7 @@ mp.events.add({
     createQuitLabel(player, exitType);
   },
 
-  playerDeath: (player, reason, killer) => {
-    setBrutallyWounded(player, reason, killer);
-  },
+  playerDeath: (player, reason, killer) => setBrutallyWounded(player, reason, killer),
 
   playerCommand: (player, command) => {
     const args = command.split(/[ ]+/);
@@ -63,8 +61,19 @@ mp.events.add({
     if (player.brutallyWounded) {
       return player.call('actionDone', ['Nie możesz tego teraz zrobić!', 'Twoja postać jest nieprzytomna!']);
     }
-    if (!validateText(text)) return player.call('actionDone', ['Coś poszło nie tak..', 'Użyłeś niedozwolonych znaków na czacie.']);
+
+    if (!validateText(text)) {
+      return player.call('actionDone', ['Coś poszło nie tak..', 'Użyłeś niedozwolonych znaków na czacie.']);
+    }
 
     rp.commands.get('say').run(player, {fullText: text});
+  },
+
+  toggleCrouch: player => {
+    if (player.data.isCrouching === undefined) {
+      player.data.isCrouching = true;
+    } else {
+      player.data.isCrouching = !player.data.isCrouching;
+    }
   }
 });

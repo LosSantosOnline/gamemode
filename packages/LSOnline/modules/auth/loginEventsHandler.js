@@ -4,9 +4,7 @@ const logger = require('../utils/logger');
 const { loadAndSpawnCharacter } = require('../characters/characterManager');
 
 mp.events.add({
-  playerJoin: async player => {
-    logger('join', `Player ${player.name} (SC: ${player.socialClub} / IP: ${player.ip}) joined to the server.`, 'info');
-  },
+  playerJoin: async player => logger('join', `Player ${player.name} (SC: ${player.socialClub} / IP: ${player.ip}) joined to the server.`, 'info'),
 
   playerReady: async player => {
     prepareBeforeJoin(player);
@@ -25,11 +23,7 @@ mp.events.add({
   }
 });
 
-const showLoginPanel = player => {
-  player.call(`loginPanelAppeared`, [
-    'package://LSOnline/browser/dist/login/index.html'
-  ]);
-};
+const showLoginPanel = player => player.call(`loginPanelAppeared`, ['package://LSOnline/browser/dist/login/index.html']);
 
 const prepareBeforeJoin = player => {
   player.dimension = 2137;

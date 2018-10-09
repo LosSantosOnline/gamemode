@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-    let Vehicle = sequelize.define('Vehicle', {
+  let Vehicle = sequelize.define('Vehicle', {
     name: DataTypes.STRING,
     model: DataTypes.STRING,
     fuel: DataTypes.FLOAT,
@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     fuelRatio: DataTypes.FLOAT,
     tankCapacity: DataTypes.FLOAT,
     owner: DataTypes.INTEGER,
+    ownerType: DataTypes.INTEGER,
     primaryColor: DataTypes.STRING,
     secondaryColor: DataTypes.STRING,
     plate: DataTypes.STRING,

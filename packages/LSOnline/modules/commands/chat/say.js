@@ -9,8 +9,9 @@ module.exports = class extends ChatCommand {
     });
   }
 
-  async run (player, command, args) {
+  run (player, command, args) {
     const text = super.run(player, command.fullText, true);
+
     mp.players.forEachInRange(player.position, 15, player.dimension, (person) => {
       if (player.distSquared(person.position) > 10 && text) {
         person.outputChatBox(`!{${rp.config.colors.say.far}}${player.name} mówi: ${text}`);

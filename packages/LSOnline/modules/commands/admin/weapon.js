@@ -7,7 +7,7 @@ class Weapon extends Command {
     });
   }
 
-  async run (player, command, args) {
+  run (player, command, args) {
     let [weapon, ammo] = args;
     const weaponHash = mp.joaat(weapon);
     if (!weapon) weapon = 'weapon_compactrifle';

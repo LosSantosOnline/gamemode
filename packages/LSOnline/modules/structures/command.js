@@ -24,7 +24,7 @@ class Command {
 
   }
 
-  async run () {
+  run () {
     throw new Error("Run method wasn't provided!");
   };
 

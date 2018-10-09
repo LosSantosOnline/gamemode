@@ -14,10 +14,8 @@ const searchPlayerByIdOrName = searchPlayer => {
     const playerId = parseInt(searchPlayer);
     thisPlayer = mp.players.at(playerId);
   } else {
-    thisPlayer = mp.players.toArray().find(_player => {
-      return _player.name.toLowerCase().match(searchPlayer.toLowerCase());
-    });
-  };
+    thisPlayer = mp.players.toArray().find(_player => _player.name.toLowerCase().match(searchPlayer.toLowerCase()));
+  }
   return thisPlayer;
 };
 

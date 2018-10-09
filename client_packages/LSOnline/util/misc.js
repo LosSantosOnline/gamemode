@@ -19,7 +19,6 @@ const prepareClientView = () => {
 
   // Initialize textDraws object
   mp.players.local.textDraws = {};
-
 };
 
 exports.prepareClientView = prepareClientView;
@@ -102,3 +101,18 @@ const vectorDistance = (vector1, vector2) => {
 };
 
 exports.vectorDistance = vectorDistance;
+
+const sendHelpMessage = value => {
+  mp.game.ui.setTextComponentFormat('STRING');
+  mp.game.ui.addTextComponentSubstringPlayerName(value);
+  mp.game.ui.displayHelpTextFromStringLabel(0, false, true, -1);
+};
+
+exports.sendHelpMessage = sendHelpMessage;
+
+const loadClipSet = (clipSetName) => {
+  mp.game.streaming.requestClipSet(clipSetName);
+  while (!mp.game.streaming.hasClipSetLoaded(clipSetName)) mp.game.wait(0);
+};
+
+exports.loadClipSet = loadClipSet;
